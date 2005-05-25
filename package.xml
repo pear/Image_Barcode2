@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Image_Barcode</name>
+  <summary>Barcode generation</summary>
+  <description>With PEAR::Image_Barcode class you can create a barcode
+  representation of a given string.
+
+  This class uses GD function because of this the generated graphic can be any of
+  GD supported supported image types.</description>
+  <maintainers>
+    <maintainer>
+      <user>msmarcal</user>
+      <name>Marcelo Subtil Marcal</name>
+      <email>msmarcal@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+
+  <release>
+    <version>1.0.2</version>
+    <date>2005-05-24</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>
+		- Added UPC-A barcode rendering (thanks to Jeffrey K. Brown)
+	</notes>
+    <filelist>
+      <file role="php" baseinstalldir="Image"  name="Barcode.php"/>
+      <file role="php" baseinstalldir="Image"  name="Barcode/int25.php"/>
+      <file role="php" baseinstalldir="Image"  name="Barcode/ean13.php"/>
+      <file role="php" baseinstalldir="Image"  name="Barcode/Code39.php"/>
+      <file role="php" baseinstalldir="Image"  name="Barcode/upca.php" />
+      <file role="test" baseinstalldir="Image" name="test-image-barcode.php"/>
+      <file role="test" baseinstalldir="Image" name="barcode_img.php"/>
+      <file role="doc" baseinstalldir="Image"  name="ChangeLog"/>
+      <file role="doc" baseinstalldir="Image"  name="Readme.txt"/>
+    </filelist>
+  </release>
+
+  <deps>
+      <dep type="pkg" rel="has" optional="yes">PHP_Compat</dep>
+	  <dep type="ext" rel="has">gd</dep>
+  </deps>
+  
+</package>
