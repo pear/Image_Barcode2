@@ -31,10 +31,10 @@
       <file role="php" baseinstalldir="Image"  name="Barcode/ean13.php"/>
       <file role="php" baseinstalldir="Image"  name="Barcode/Code39.php"/>
       <file role="php" baseinstalldir="Image"  name="Barcode/upca.php" />
-      <file role="test" baseinstalldir="Image" name="test-image-barcode.php"/>
-      <file role="test" baseinstalldir="Image" name="barcode_img.php"/>
-      <file role="doc" baseinstalldir="Image"  name="ChangeLog"/>
-      <file role="doc" baseinstalldir="Image"  name="Readme.txt"/>
+      <file role="test" baseinstalldir="Image" name="docs/examples/test-image-barcode.php"/>
+      <file role="test" baseinstalldir="Image" name="docs/examples/barcode_img.php"/>
+      <file role="doc" baseinstalldir="Image"  name="docs/ChangeLog"/>
+      <file role="doc" baseinstalldir="Image"  name="docs/Readme.txt"/>
     </filelist>
   </release>
 
