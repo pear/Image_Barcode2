@@ -1,34 +1,45 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
-//
-// +----------------------------------------------------------------------+
-// | PHP version 4.0                                                      |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2001 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 3.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/3_0.txt.                                  |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Author: Marcelo Subtil Marcal <msmarcal@php.net>                     |
-// +----------------------------------------------------------------------+
-//
-// $Id$
-//
+
+/**
+ * Image_Barcode_int25 class
+ *
+ * Renders Interleaved 2 of 5 barcodes
+ *
+ * PHP versions 4
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   Image
+ * @package    Image_Barcode
+ * @author     Marcelo Subtil Marcal <msmarcal@php.net>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Image_Barcode
+ */
 
 require_once "PEAR.php";
 require_once "Image/Barcode.php";
 
-/**
- * Class to create a Interleaved 2 of 5 barcode
- *
- * @author Marcelo Subtil Marcal <msmarcal@php.net>
- */
 
+/**
+ * Image_Barcode_int25 class
+ *
+ * Package which provides a method to create Interleaved 2 of 5 barcode using GD library.
+ *
+ * @category   Image
+ * @package    Image_Barcode
+ * @author     Marcelo Subtil Marcal <msmarcal@php.net>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Image_Barcode
+ */
 class Image_Barcode_int25 extends Image_Barcode
 {
     /**
@@ -74,6 +85,20 @@ class Image_Barcode_int25 extends Image_Barcode
            '8' => '10010',
            '9' => '01010'
         );
+
+    /**
+     * Draws a Interleaved 2 of 5 image barcode
+     *
+     * @param  string $text     A text that should be in the image barcode
+     * @param  string $imgtype  The image type that will be generated
+     *
+     * @return image            The corresponding Interleaved 2 of 5 image barcode
+     *
+     * @access public
+     *
+     * @author Marcelo Subtil Marcal <msmarcal@php.net>
+     * @since  Image_Barcode 0.3
+     */
 
     function draw($text, $imgtype = 'png')
     {

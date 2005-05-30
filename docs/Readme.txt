@@ -41,7 +41,7 @@ Where:
 -----------------
 
 You can get the latest code at the PEAR site:
-    http://pear.php.net/package-info.php?package=Image_Barcode
+    http://pear.php.net/package/Image_Barcode/
 
 
 = Contributing =
@@ -66,7 +66,7 @@ EAN13 barcode module type
 Code39 barcode module type
     written by Ryan Briones <ryanbriones@webxdesign.org>
 
-UPC-A barcode module type
+UPC-A and Code128 barcode modules
     written by Jeffrey K. Brown <jkb@darkfantastic.net>
 
 
@@ -85,4 +85,4 @@ Written by Marcelo Subtil Marcal <msmarcal@php.net>
 = Reporting Bugs =
 ------------------
 
-Report bugs to Marcelo Subtil Marcal <msmarcal@php.net>
+Report bugs at: http://pear.php.net/bugs/report.php?package=Image_Barcode

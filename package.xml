@@ -18,29 +18,48 @@
   </maintainers>
 
   <release>
-    <version>1.0.2</version>
-    <date>2005-05-24</date>
+    <version>1.0.3</version>
+    <date>2005-05-30</date>
     <license>PHP License</license>
     <state>stable</state>
     <notes>
-		- Added UPC-A barcode rendering (thanks to Jeffrey K. Brown)
-	</notes>
+        - Added Code128 barcode rendering (thanks to Jeffrey K. Brown)
+    </notes>
     <filelist>
-      <file role="php" baseinstalldir="Image"  name="Barcode.php"/>
-      <file role="php" baseinstalldir="Image"  name="Barcode/int25.php"/>
-      <file role="php" baseinstalldir="Image"  name="Barcode/ean13.php"/>
-      <file role="php" baseinstalldir="Image"  name="Barcode/Code39.php"/>
-      <file role="php" baseinstalldir="Image"  name="Barcode/upca.php" />
-      <file role="test" baseinstalldir="Image" name="docs/examples/test-image-barcode.php"/>
-      <file role="test" baseinstalldir="Image" name="docs/examples/barcode_img.php"/>
-      <file role="doc" baseinstalldir="Image"  name="docs/ChangeLog"/>
-      <file role="doc" baseinstalldir="Image"  name="docs/Readme.txt"/>
+      <dir name="/" baseinstalldir="Image">
+        <file role="php">Barcode.php</file>
+        <dir name="Barcode" role="php">
+          <file>int25.php</file>
+          <file>ean13.php</file>
+          <file>Code39.php</file>
+          <file>upca.php</file>
+          <file>code128.php</file>
+        </dir>
+        <dir name="docs" role="doc">
+          <file>ChangeLog</file>
+          <file>Readme.txt</file>
+          <dir name="examples" role="doc">
+            <file role="php">test-image-barcode.php</file>
+            <file role="php">barcode_img.php</file>
+          </dir>
+        </dir>
+      </dir>
     </filelist>
   </release>
 
+  <changelog>
+    <release>
+      <version>1.0.2</version>
+      <date>2005-05-24</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>- Added UPC-A barcode rendering (thanks to Jeffrey K. Brown)</notes>
+    </release>
+  </changelog>
+
   <deps>
       <dep type="pkg" rel="has" optional="yes">PHP_Compat</dep>
-	  <dep type="ext" rel="has">gd</dep>
+      <dep type="ext" rel="has">gd</dep>
   </deps>
-  
+
 </package>

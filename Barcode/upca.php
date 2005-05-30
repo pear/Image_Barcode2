@@ -1,40 +1,53 @@
 <?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
-//
-// +----------------------------------------------------------------------+
-// | PHP version 4.0                                                      |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2001 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 3.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/3_0.txt.                                  |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Author: Didier FOURNOUT <didier.fournout@nyc.fr>                     |
-// +----------------------------------------------------------------------+
-//
-// $Id$
-//
-// +----------------------------------------------------------+ 
-//   Jeffrey K. Brown  5/22/2005
-//   Slightly Modified ean13.php to get upca.php
-//   I needed a way to print UPC-A bar codes on a
-//   PHP page.  The Image_Barcode class seemed like
-//   the best way to do it, so I modified ean13 to
-//   print in the UPC-A format.  Checked the bar code
-//   tables against some documentation below (no errors)
-//   and validated the changes with my trusty cue-cat.
-//
-//   http://www.indiana.edu/~atmat/units/barcodes/bar_t4.htm
-// +----------------------------------------------------------+
+
+/**
+ * Image_Barcode_upca class
+ *
+ * Renders UPC-A barcodes
+ *
+ * PHP versions 4
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   Image
+ * @package    Image_Barcode
+ * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author     Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Image_Barcode
+ */
 
 require_once "PEAR.php";
 require_once "Image/Barcode.php";
 
+/**
+ * Image_Barcode_upca class
+ *
+ * Package which provides a method to create UPC-A barcode using GD library.
+ *
+ * Slightly Modified ean13.php to get upca.php I needed a way to print
+ * UPC-A bar codes on a PHP page.  The Image_Barcode class seemed like
+ * the best way to do it, so I modified ean13 to print in the UPC-A format.
+ * Checked the bar code tables against some documentation below (no errors)
+ * and validated the changes with my trusty cue-cat.
+ * http://www.indiana.edu/~atmat/units/barcodes/bar_t4.htm
+ *
+ * @category   Image
+ * @package    Image_Barcode
+ * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author     Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Image_Barcode
+ */
 class Image_Barcode_upca extends Image_Barcode
 {
     /**
@@ -138,10 +151,21 @@ class Image_Barcode_upca extends Image_Barcode
 
 
 
-
-//==========================================================================================
-
-function draw($text, $imgtype = 'png')  {
+    /**
+     * Draws a UPC-A image barcode
+     *
+     * @param   string $text     A text that should be in the image barcode
+     * @param   string $imgtype  The image type that will be generated
+     *
+     * @return  image            The corresponding Interleaved 2 of 5 image barcode
+     *
+     * @access  public
+     *
+     * @author  Jeffrey K. Brown <jkb@darkfantastic.net>
+     * @author  Didier Fournout <didier.fournout@nyc.fr>
+     *
+     */
+    function draw($text, $imgtype = 'png')  {
 
         if ( (is_numeric($text)==false) || (strlen($text)!=12) )  {
             $barcodewidth= (12 * 7 * $this->_barwidth) + 3 + 5 + 3 + 2 * (imagefontwidth($this->_font)+1);
@@ -170,7 +194,7 @@ function draw($text, $imgtype = 'png')  {
         // Fill image with white color
         imagefill($img, 0, 0, $white);
 
-        if ($error==1) {
+        if ($error == 1) {
             $imgerror = ImageCreate($barcodewidth, $barcodelongheight+imagefontheight($this->_font)+1);
             $red = ImageColorAllocate($imgerror, 255, 0, 0);
             $black = ImageColorAllocate($imgerror, 0,0,0);
@@ -190,8 +214,6 @@ function draw($text, $imgtype = 'png')  {
         $xpos= imagefontwidth($this->_font) + 1;
 
 
-//===========================================================================================
-
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
@@ -206,8 +228,6 @@ function draw($text, $imgtype = 'png')  {
         $set_array = $this->_number_set_left_coding[$key];
 
 
-//=========================================================================================
-
 
         foreach ($this->_number_set['0'][$set_array[0]] as $bar) {
             if ($bar) {
@@ -217,7 +237,6 @@ function draw($text, $imgtype = 'png')  {
         }
 
 
-//=========================================================================================
 
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
@@ -234,7 +253,6 @@ function draw($text, $imgtype = 'png')  {
             }
         }
 
-//=========================================================================================
 
         // Draws the center pattern (space-bar-space-bar-space)
         // space
@@ -250,7 +268,6 @@ function draw($text, $imgtype = 'png')  {
         // space
         $xpos += $this->_barwidth;
 
-//====================================================================================
 
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
@@ -265,7 +282,6 @@ function draw($text, $imgtype = 'png')  {
         }
 
 
-//======================================================================================
 
         $value = substr($text,11,1);
         foreach ($this->_number_set[$value]['C'] as $bar) {
@@ -276,7 +292,6 @@ function draw($text, $imgtype = 'png')  {
         }
 
 
-// ===================================================================================
 
         // Draws the right guard pattern (bar-space-bar)
         // bar
@@ -288,13 +303,11 @@ function draw($text, $imgtype = 'png')  {
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
         $xpos += $this->_barwidth;
 
-// ====================================================================================
 
         // Print Check Digit
         imagestring($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
 
 
-// ======================================================================================
 
         // Send image to browser
         switch($imgtype) {
