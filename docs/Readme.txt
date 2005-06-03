@@ -69,6 +69,9 @@ Code39 barcode module type
 UPC-A and Code128 barcode modules
     written by Jeffrey K. Brown <jkb@darkfantastic.net>
 
+PostNet barcode module type
+    written by Josef "Jeff" Sipek <jeffpc@optonline.net>
+
 
 = Thanks to =
 -------------

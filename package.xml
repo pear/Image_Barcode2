@@ -18,12 +18,12 @@
   </maintainers>
 
   <release>
-    <version>1.0.3</version>
-    <date>2005-05-30</date>
+    <version>1.0.4</version>
+    <date>2005-06-03</date>
     <license>PHP License</license>
     <state>stable</state>
     <notes>
-        - Added Code128 barcode rendering (thanks to Jeffrey K. Brown)
+        - Added PostNet barcode rendering (thanks to Josef "Jeff" Sipek)
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="Image">
@@ -34,6 +34,7 @@
           <file>Code39.php</file>
           <file>upca.php</file>
           <file>code128.php</file>
+          <file>postnet.php</file>
         </dir>
         <dir name="docs" role="doc">
           <file>ChangeLog</file>
@@ -48,6 +49,16 @@
   </release>
 
   <changelog>
+  <release>
+    <version>1.0.3</version>
+    <date>2005-05-30</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>
+        - Added Code128 barcode rendering (thanks to Jeffrey K. Brown)
+    </notes>
+    </release>
+
     <release>
       <version>1.0.2</version>
       <date>2005-05-24</date>

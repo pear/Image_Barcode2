@@ -48,36 +48,43 @@ Test number: <b><?php echo($num) ?></b>
 
 <div class="test">
 <h2>Interleave 2 of 5 (png):</h2>
-<img src="barcode_img.php?num=<?php echo $num ?>&type=int25&imgtype=png"
- alt="PNG: <?php echo($num)?>" title="PNG: <?php echo($num)?>">
+<img src="barcode_img.php?num=<?php echo($num) ?>&type=int25&imgtype=png"
+ alt="PNG: <?php echo($num) ?>" title="PNG: <?php echo($num) ?>">
 </div>
 
 <div class="test">
 <h2>Ean13 (png):</h2>
 <img
- src="barcode_img.php?num=<?php echo $num ?>&type=ean13&imgtype=png"
- alt="PNG: <?php echo($num)?>" title="PNG: <?php echo($num)?>">
+ src="barcode_img.php?num=<?php echo($num) ?>&type=ean13&imgtype=png"
+ alt="PNG: <?php echo($num) ?>" title="PNG: <?php echo($num) ?>">
 </div>
 
 <div class="test">
 <h2>Code39 (png):</h2>
 <img
- src="barcode_img.php?num=<?php echo $num ?>&type=Code39&imgtype=png"
- alt="PNG: <?php echo($num)?>" title="PNG: <?php echo($num)?>">
+ src="barcode_img.php?num=<?php echo($num) ?>&type=Code39&imgtype=png"
+ alt="PNG: <?php echo($num) ?>" title="PNG: <?php echo($num) ?>">
 </div>
 
 <div class="test">
 <h2>UPC-A (png):</h2>
 <img
- src="barcode_img.php?num=<?php echo $num ?>&type=upca&imgtype=png"
- alt="PNG: <?php echo($num)?>" title="PNG: <?php echo($num)?>">
+ src="barcode_img.php?num=<?php echo($num) ?>&type=upca&imgtype=png"
+ alt="PNG: <?php echo($num) ?>" title="PNG: <?php echo($num) ?>">
 </div>
 
 <div class="test">
 <h2>Code128 (png):</h2>
 <img
- src="barcode_img.php?num=<?php echo $num ?>&type=code128&imgtype=png"
- alt="PNG: <?php echo($num)?>" title="PNG: <?php echo($num)?>">
+ src="barcode_img.php?num=<?php echo($num) ?>&type=code128&imgtype=png"
+ alt="PNG: <?php echo($num) ?>" title="PNG: <?php echo($num) ?>">
+</div>
+
+<div class="test">
+<h2>PostNet (png):</h2>
+<img
+ src="barcode_img.php?num=<?php echo($num) ?>&type=postnet&imgtype=png"
+ alt="PNG: <?php echo($num) ?>" title="PNG: <?php echo($num) ?>">
 </div>
 
 </body>
