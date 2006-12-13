@@ -23,8 +23,7 @@
  * @link       http://pear.php.net/package/Image_Barcode
  */
 
-require_once "PEAR.php";
-require_once "Image/Barcode.php";
+require_once 'Image/Barcode.php';
 
 /**
  * Image_Barcode_ean13 class
@@ -151,12 +150,11 @@ class Image_Barcode_ean13 extends Image_Barcode
      * @access public
      *
      * @author     Didier Fournout <didier.fournout@nyc.fr>
+     * @todo       Check if $text is number and len=13
      *
      */
     function draw($text, $imgtype = 'png')
     {
-        //TODO: Check if $text is number and len=13
-
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
             + 3 // left
@@ -165,10 +163,13 @@ class Image_Barcode_ean13 extends Image_Barcode
             + imagefontwidth($this->_font)+1
             ;
 
-        $barcodelongheight = (int) (imagefontheight($this->_font)/2)+$this->_barcodeheight;
+        $barcodelongheight = (int) (imagefontheight($this->_font)/2) + $this->_barcodeheight;
 
         // Create the image
-        $img = ImageCreate($barcodewidth, $barcodelongheight+ imagefontheight($this->_font)+1);
+        $img = ImageCreate(
+                    $barcodewidth,
+                    $barcodelongheight + imagefontheight($this->_font) + 1
+                );
 
         // Alocate the black and white colors
         $black = ImageColorAllocate($img, 0, 0, 0);
@@ -275,3 +276,4 @@ class Image_Barcode_ean13 extends Image_Barcode
     } // function create
 
 } // class
+?>

@@ -195,3 +195,4 @@ class Image_Barcode_int25 extends Image_Barcode
     } // function create
 
 } // class
+?>

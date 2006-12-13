@@ -24,8 +24,7 @@
  * @link       http://pear.php.net/package/Image_Barcode
  */
 
-require_once "PEAR.php";
-require_once "Image/Barcode.php";
+require_once 'Image/Barcode.php';
 
 /**
  * Image_Barcode_upca class
@@ -328,7 +327,7 @@ class Image_Barcode_upca extends Image_Barcode
             case 'jpg':
                 header("Content-type: image/jpg");
                 if ($error==1) {
-                    imageijpeg($imgerror);
+                    imagejpeg($imgerror);
                     imagedestroy($imgerror);
                 }
                 else {
@@ -356,3 +355,4 @@ class Image_Barcode_upca extends Image_Barcode
     } // function create
 
 } // class
+?>

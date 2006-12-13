@@ -36,8 +36,7 @@
   *  density:        22 bars/inch    = 8.66 bars/cm
   */
 
-require_once "PEAR.php";
-require_once "Image/Barcode.php";
+require_once 'Image/Barcode.php';
 
 
 /**
@@ -115,10 +114,11 @@ class Image_Barcode_postnet extends Image_Barcode
 
     function draw($text, $imgtype = 'png')
     {
-
         $text = trim($text);
 
-        if (!preg_match("/[0-9]/",$text)) return;
+        if (!preg_match('/[0-9]/', $text)) {
+            return;
+        }
 
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * 2 * 5 * $this->_barwidth + $this->_barwidth*3;
@@ -183,3 +183,4 @@ class Image_Barcode_postnet extends Image_Barcode
     } // function create
 
 } // class
+?>

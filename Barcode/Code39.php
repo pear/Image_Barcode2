@@ -25,12 +25,11 @@
  */
 
 
-require_once "PEAR.php";
 require_once "Image/Barcode.php";
 
 
-if ( !function_exists('str_split') ) {
-    require_once "PHP/Compat.php";
+if (!function_exists('str_split')) {
+    require_once 'PHP/Compat.php';
     PHP_Compat::loadFunction('str_split');
 }
 
@@ -48,7 +47,8 @@ if ( !function_exists('str_split') ) {
  * @link       http://pear.php.net/package/Image_Barcode
  * @since      Image_Barcode 0.5
  */
-class Image_Barcode_Code39 extends Image_Barcode {
+class Image_Barcode_Code39 extends Image_Barcode
+{
     /**
      * Barcode type
      * @var string
@@ -137,8 +137,8 @@ class Image_Barcode_Code39 extends Image_Barcode {
      * @author Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    function Image_Barcode_Code39( $text = '', $wThin = 0, $wThick = 0 ) {
-
+    function Image_Barcode_Code39( $text = '', $wThin = 0, $wThick = 0 )
+    {
         // Check $text for invalid characters
         if ( $this->checkInvalid( $text ) ) {
             return false;
@@ -161,13 +161,14 @@ class Image_Barcode_Code39 extends Image_Barcode {
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
     *
     */
-    function plot( $noText = false, $bHeight = 0 ) {
+    function plot( $noText = false, $bHeight = 0 )
+    {
        // add start and stop * characters
-       $final_text = "*" . $this->text . "*";
+       $final_text = '*' . $this->text . '*';
 
-             if ( $bHeight > 0 ) {
-                 $this->_barcodeheight = $bHeight;
-             }
+        if ( $bHeight > 0 ) {
+            $this->_barcodeheight = $bHeight;
+        }
 
        $barcode = '';
        foreach ( str_split( $final_text ) as $character ) {
@@ -192,34 +193,37 @@ class Image_Barcode_Code39 extends Image_Barcode {
        $xpos = 0;
 
        // draw barcode bars to image
-             if ( $noText ) {
-                 foreach ( str_split( $barcode ) as $character_code ) {
-                         if ( $character_code == 0 ) {
-                                 imageline( $img, $xpos, 0, $xpos, $this->_barcodeheight, $white );
-                         } else {
-                                 imageline( $img, $xpos, 0, $xpos, $this->_barcodeheight, $black );
-                         }
-
-                         $xpos++;
-                    }
+        if ( $noText ) {
+            foreach (str_split($barcode) as $character_code ) {
+                if ($character_code == 0 ) {
+                        imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $white);
                 } else {
-                     foreach ( str_split( $barcode ) as $character_code ) {
-                             if ( $character_code == 0 ) {
-                                     imageline( $img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $white );
-                             } else {
-                                     imageline( $img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $black );
-                             }
-
-                             $xpos++;
-                        }
-
-                        // draw text under barcode
-                        imagestring( $img, "gdFontSmall", 
-                                ( $barcode_len - $font_width * strlen( $this->text ) )/2,
-                                $this->_barcodeheight - $font_height,
-                                $this->text,
-                                $black );
+                        imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $black);
                 }
+
+                $xpos++;
+            }
+        } else {
+            foreach (str_split($barcode) as $character_code ) {
+                if ($character_code == 0) {
+                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $white);
+                } else {
+                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $black);
+                }
+
+                $xpos++;
+            }
+
+            // draw text under barcode
+            imagestring(
+                $img,
+                'gdFontSmall',
+                ( $barcode_len - $font_width * strlen( $this->text ) )/2,
+                $this->_barcodeheight - $font_height,
+                $this->text,
+                $black
+            );
+        }
 
         return $img;
     }
@@ -236,37 +240,38 @@ class Image_Barcode_Code39 extends Image_Barcode {
      * @author   Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    function draw( $text, $imgtype = 'png', $noText = false, $bHeight = 0 ) {
+    function draw($text, $imgtype = 'png', $noText = false, $bHeight = 0)
+    {
         // Check $text for invalid characters
         if ( $this->checkInvalid( $text ) ) {
             return false;
         }
 
         $this->text = $text;
-        $img = $this->plot( $noText, $bHeight );
+        $img = $this->plot($noText, $bHeight);
 
-                // Send image to browser
-                switch($imgtype) {
-                        case 'gif':
-                        header("Content-type: image/gif");
-                        imagegif($img);
-                        imagedestroy($img);
-                        break;
+        // Send image to browser
+        switch($imgtype) {
+                case 'gif':
+                header('Content-type: image/gif');
+                imagegif($img);
+                imagedestroy($img);
+                break;
 
-                    case 'jpg':
-                        header("Content-type: image/jpg");
-                        imagejpeg($img);
-                        imagedestroy($img);
-                    break;
+            case 'jpg':
+                header('Content-type: image/jpg');
+                imagejpeg($img);
+                imagedestroy($img);
+            break;
 
-                    default:
-                        header("Content-type: image/png");
-                        imagepng($img);
-                        imagedestroy($img);
-                    break;
-                }
+            default:
+                header('Content-type: image/png');
+                imagepng($img);
+                imagedestroy($img);
+            break;
+        }
 
-                return true;
+        return true;
     }
 
     /**
@@ -283,7 +288,8 @@ class Image_Barcode_Code39 extends Image_Barcode {
      *
      *
      */
-    function _dumpCode( $code ) {
+    function _dumpCode($code)
+    {
         $result = '';
         $color = 1; // 1: Black, 0: White
 
@@ -305,9 +311,9 @@ class Image_Barcode_Code39 extends Image_Barcode {
      * @author  Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    function checkInvalid( $text ) {
+    function checkInvalid($text)
+    {
         return preg_match( "/[^0-9A-Z\-*+\$%\/. ]/", $text );
     }
 }
-
 ?>
