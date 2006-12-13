@@ -166,12 +166,11 @@ class Image_Barcode_upca extends Image_Barcode
      */
     function &draw($text, $imgtype = 'png')
     {
-
-        if ( (is_numeric($text)==false) || (strlen($text)!=12) )  {
+        $error = false;
+        if ((is_numeric($text)==false) || (strlen($text)!=12)) {
             $barcodewidth= (12 * 7 * $this->_barwidth) + 3 + 5 + 3 + 2 * (imagefontwidth($this->_font)+1);
-            $error = 1;
-        }
-        else {
+            $error = true;
+        } else {
             // Calculate the barcode width
             $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
                 + 3 // left
@@ -180,7 +179,7 @@ class Image_Barcode_upca extends Image_Barcode
                 + imagefontwidth($this->_font)+1
                 + imagefontwidth($this->_font)+1   // check digit's padding
                 ;
-        } 
+        }
 
         $barcodelongheight = (int) (imagefontheight($this->_font)/2)+$this->_barcodeheight;
 
@@ -194,13 +193,20 @@ class Image_Barcode_upca extends Image_Barcode
         // Fill image with white color
         imagefill($img, 0, 0, $white);
 
-        if ($error == 1) {
+        if ($error) {
             $imgerror = ImageCreate($barcodewidth, $barcodelongheight+imagefontheight($this->_font)+1);
-            $red = ImageColorAllocate($imgerror, 255, 0, 0);
-            $black = ImageColorAllocate($imgerror, 0,0,0);
-            imagefill($imgerror,0,0,$red);
+            $red      = ImageColorAllocate($imgerror, 255, 0, 0);
+            $black    = ImageColorAllocate($imgerror, 0, 0, 0);
+            imagefill($imgerror, 0, 0, $red);
 
-            imagestring($imgerror, $this->_font, $barcodewidth/2-(10/2* imagefontwidth($this->_font)), $this->_barcodeheight/2, "Code Error", $black);
+            imagestring(
+                $imgerror,
+                $this->_font,
+                $barcodewidth / 2 - (10/2 * imagefontwidth($this->_font)),
+                $this->_barcodeheight / 2,
+                'Code Error',
+                $black
+            );
         }
 
         // get the first digit which is the key for creating the first 6 bars
@@ -307,7 +313,7 @@ class Image_Barcode_upca extends Image_Barcode
         // Print Check Digit
         imagestring($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
 
-        if ($error == 1) {
+        if ($error) {
             return $imgerror;
         } else {
             return $img;
