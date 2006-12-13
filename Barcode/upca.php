@@ -164,7 +164,8 @@ class Image_Barcode_upca extends Image_Barcode
      * @author  Didier Fournout <didier.fournout@nyc.fr>
      *
      */
-    function draw($text, $imgtype = 'png')  {
+    function &draw($text, $imgtype = 'png')
+    {
 
         if ( (is_numeric($text)==false) || (strlen($text)!=12) )  {
             $barcodewidth= (12 * 7 * $this->_barwidth) + 3 + 5 + 3 + 2 * (imagefontwidth($this->_font)+1);
@@ -306,52 +307,11 @@ class Image_Barcode_upca extends Image_Barcode
         // Print Check Digit
         imagestring($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
 
-
-
-        // Send image to browser
-        switch($imgtype) {
-
-            case 'gif':
-                header("Content-type: image/gif");
-
-                if ($error==1) {
-                    imagegif($imgerror);
-                    imagedestroy($imgerror);
-                }
-                else {
-                    imagegif($img);
-                    imagedestroy($img);
-                }
-            break;
-
-            case 'jpg':
-                header("Content-type: image/jpg");
-                if ($error==1) {
-                    imagejpeg($imgerror);
-                    imagedestroy($imgerror);
-                }
-                else {
-                    imagejpeg($img);
-                    imagedestroy($img);
-                }
-            break;
-
-            default:
-                header("Content-type: image/png");
-                if ($error==1) {
-                    imagepng($imgerror);
-                    imagedestroy($imgerror);
-                }
-                else {
-                    imagepng($img);
-                    imagedestroy($img);
-                }
-            break;
-
+        if ($error == 1) {
+            return $imgerror;
+        } else {
+            return $img;
         }
-
-        return;
-
     } // function create
 
 } // class

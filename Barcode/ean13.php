@@ -153,7 +153,7 @@ class Image_Barcode_ean13 extends Image_Barcode
      * @todo       Check if $text is number and len=13
      *
      */
-    function draw($text, $imgtype = 'png')
+    function &draw($text, $imgtype = 'png')
     {
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
@@ -248,31 +248,7 @@ class Image_Barcode_ean13 extends Image_Barcode
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
         $xpos += $this->_barwidth;
 
-        // Send image to browser
-        switch($imgtype) {
-
-            case 'gif':
-                header("Content-type: image/gif");
-                imagegif($img);
-                imagedestroy($img);
-            break;
-
-            case 'jpg':
-                header("Content-type: image/jpg");
-                imagejpeg($img);
-                imagedestroy($img);
-            break;
-
-            default:
-                header("Content-type: image/png");
-                imagepng($img);
-                imagedestroy($img);
-            break;
-
-        }
-
-        return;
-
+        return $img;
     } // function create
 
 } // class

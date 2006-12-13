@@ -161,7 +161,7 @@ class Image_Barcode_Code39 extends Image_Barcode
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
     *
     */
-    function plot( $noText = false, $bHeight = 0 )
+    function plot($noText = false, $bHeight = 0)
     {
        // add start and stop * characters
        $final_text = '*' . $this->text . '*';
@@ -235,43 +235,22 @@ class Image_Barcode_Code39 extends Image_Barcode
      * @param    string $imgtype     Image type; accepts jpg, png, and gif, but gif only works if you've payed for licensing
      * @param    bool $noText        Set to true if you'd like your barcode to be sans text
      * @param    int $bHeight        height of the barcode image including text
-     * @return   bool                true or die
+     * @return   gd_image            GD image object
      *
      * @author   Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    function draw($text, $imgtype = 'png', $noText = false, $bHeight = 0)
+    function &draw($text, $imgtype = 'png', $noText = false, $bHeight = 0)
     {
         // Check $text for invalid characters
-        if ( $this->checkInvalid( $text ) ) {
-            return false;
+        if ($this->checkInvalid($text)) {
+            return PEAR::raiseError('Invalid text');
         }
 
         $this->text = $text;
-        $img = $this->plot($noText, $bHeight);
+        $img = &$this->plot($noText, $bHeight);
 
-        // Send image to browser
-        switch($imgtype) {
-                case 'gif':
-                header('Content-type: image/gif');
-                imagegif($img);
-                imagedestroy($img);
-                break;
-
-            case 'jpg':
-                header('Content-type: image/jpg');
-                imagejpeg($img);
-                imagedestroy($img);
-            break;
-
-            default:
-                header('Content-type: image/png');
-                imagepng($img);
-                imagedestroy($img);
-            break;
-        }
-
-        return true;
+        return $img;
     }
 
     /**

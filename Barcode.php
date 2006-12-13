@@ -50,8 +50,10 @@ class Image_Barcode extends PEAR
      *                          ean13  - EAN 13
      *                          upca   - UPC-A
      * @param  string $imgtype  The image type that will be generated
+     * @param  boolean $bSendToBrowser  if the image shall be outputted to the
+     *                                  browser, or be returned.
      *
-     * @return image            The corresponding image barcode,
+     * @return image            The corresponding gd image object;
      *                           PEAR_Error on failure
      *
      * @access public
@@ -59,7 +61,7 @@ class Image_Barcode extends PEAR
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode 0.3
      */
-    function draw($text, $type = 'int25', $imgtype = 'png')
+    function &draw($text, $type = 'int25', $imgtype = 'png', $bSendToBrowser = true)
     {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
@@ -75,11 +77,38 @@ class Image_Barcode extends PEAR
             return PEAR::raiseError("Unable to find draw method in '$classname' class");
         }
 
-        @$obj =& new $classname;
+        @$obj =& new $classname();
 
-        return $obj->draw($text, $imgtype);
+        $img = &$obj->draw($text, $imgtype);
+
+        if (PEAR::isError($img)) {
+            return $img;
+        }
+
+        if ($bSendToBrowser) {
+            // Send image to browser
+            switch ($imgtype) {
+                case 'gif':
+                    header('Content-type: image/gif');
+                    imagegif($img);
+                    imagedestroy($img);
+                    break;
+
+                case 'jpg':
+                    header('Content-type: image/jpg');
+                    imagejpeg($img);
+                    imagedestroy($img);
+                    break;
+
+                default:
+                    header('Content-type: image/png');
+                    imagepng($img);
+                    imagedestroy($img);
+                    break;
+            }
+        } else {
+            return $img;
+        }
     }
-
 }
-
 ?>

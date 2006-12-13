@@ -100,7 +100,7 @@ class Image_Barcode_int25 extends Image_Barcode
      * @since  Image_Barcode 0.3
      */
 
-    function draw($text, $imgtype = 'png')
+    function &draw($text, $imgtype = 'png')
     {
 
         $text = trim($text);
@@ -167,31 +167,7 @@ class Image_Barcode_int25 extends Image_Barcode
         $elementwidth = $this->_barthinwidth;
         imagefilledrectangle($img, $xpos, 0, $xpos + $elementwidth - 1, $this->_barcodeheight, $black);
 
-        // Send image to browser
-        switch($imgtype) {
-
-            case 'gif':
-                header("Content-type: image/gif");
-                imagegif($img);
-                imagedestroy($img);
-            break;
-
-            case 'jpg':
-                header("Content-type: image/jpg");
-                imagejpeg($img);
-                imagedestroy($img);
-            break;
-
-            default:
-                header("Content-type: image/png");
-                imagepng($img);
-                imagedestroy($img);
-            break;
-
-        }
-
-        return;
-
+        return $img;
     } // function create
 
 } // class

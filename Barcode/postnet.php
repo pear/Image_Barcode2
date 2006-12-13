@@ -155,31 +155,7 @@ class Image_Barcode_postnet extends Image_Barcode
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
         $xpos += 2*$this->_barwidth;
 
-    // Send image to browser
-        switch($imgtype) {
-
-            case 'gif':
-                header("Content-type: image/gif");
-                imagegif($img);
-                imagedestroy($img);
-            break;
-
-            case 'jpg':
-                header("Content-type: image/jpg");
-                imagejpeg($img);
-                imagedestroy($img);
-            break;
-
-            default:
-                header("Content-type: image/png");
-                imagepng($img);
-                imagedestroy($img);
-            break;
-
-        }
-
-        return;
-
+        return $img;
     } // function create
 
 } // class

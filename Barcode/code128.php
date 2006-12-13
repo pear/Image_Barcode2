@@ -59,7 +59,7 @@ class Image_Barcode_code128 extends Image_Barcode
      * @param  string $text     A text that should be in the image barcode
      * @param  string $imgtype  The image type that will be generated
      *
-     * @return image            The corresponding Interleaved 2 of 5 image barcode
+     * @return image            The corresponding interleaved 2 of 5 image barcode
      *
      * @access public
      *
@@ -72,7 +72,7 @@ class Image_Barcode_code128 extends Image_Barcode
      * the image along with the barcode text and display it to the beholder.
      *
      */
-    function draw($text, $imgtype = 'png')
+    function &draw($text, $imgtype = 'png')
     {
 
         // We start with the Code128 Start Code character.  We
@@ -184,29 +184,7 @@ class Image_Barcode_code128 extends Image_Barcode
             }
         }
 
-        // Finally, we send the image to browser based on the
-        // type of image requested.
-        switch($imgtype) {
-            case 'gif':
-                header("Content-type: image/gif");
-                imagegif($img);
-                imagedestroy($img);
-                break;
-
-            case 'jpg':
-                header("Content-type: image/jpg");
-                imagejpeg($img);
-                imagedestroy($img);
-                break;
-
-            default:
-                header("Content-type: image/png");
-                imagepng($img);
-                imagedestroy($img);
-                 break;
-        }
-
-        return;
+        return $img;
     } // function draw()
 
 
