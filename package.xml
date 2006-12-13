@@ -59,8 +59,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </dir> <!-- /Barcode -->
    <dir name="docs">
     <dir name="examples">
-     <file baseinstalldir="Image" name="barcode_img.php" role="php" />
-     <file baseinstalldir="Image" name="test-image-barcode.php" role="php" />
+     <file baseinstalldir="Image" name="barcode_img.php" role="doc" />
+     <file baseinstalldir="Image" name="test-image-barcode.php" role="doc" />
     </dir> <!-- /docs/examples -->
     <file baseinstalldir="Image" name="ChangeLog" role="doc" />
     <file baseinstalldir="Image" name="Readme.txt" role="doc" />
