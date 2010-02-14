@@ -83,72 +83,46 @@ class Image_Barcode_upca extends Image_Barcode
      */
     var $_number_set = array(
            '0' => array(
-                    'A' => array(0,0,0,1,1,0,1),
-                    'B' => array(0,1,0,0,1,1,1),
-                    'C' => array(1,1,1,0,0,1,0)
+                    'L' => array(0,0,0,1,1,0,1),
+                    'R' => array(1,1,1,0,0,1,0)
                         ),
            '1' => array(
-                    'A' => array(0,0,1,1,0,0,1),
-                    'B' => array(0,1,1,0,0,1,1),
-                    'C' => array(1,1,0,0,1,1,0)
+                    'L' => array(0,0,1,1,0,0,1),
+                    'R' => array(1,1,0,0,1,1,0)
                         ),
            '2' => array(
-                    'A' => array(0,0,1,0,0,1,1),
-                    'B' => array(0,0,1,1,0,1,1),
-                    'C' => array(1,1,0,1,1,0,0)
+                    'L' => array(0,0,1,0,0,1,1),
+                    'R' => array(1,1,0,1,1,0,0)
                         ),
            '3' => array(
-                    'A' => array(0,1,1,1,1,0,1),
-                    'B' => array(0,1,0,0,0,0,1),
-                    'C' => array(1,0,0,0,0,1,0)
+                    'L' => array(0,1,1,1,1,0,1),
+                    'R' => array(1,0,0,0,0,1,0)
                         ),
            '4' => array(
-                    'A' => array(0,1,0,0,0,1,1),
-                    'B' => array(0,0,1,1,1,0,1),
-                    'C' => array(1,0,1,1,1,0,0)
+                    'L' => array(0,1,0,0,0,1,1),
+                    'R' => array(1,0,1,1,1,0,0)
                         ),
            '5' => array(
-                    'A' => array(0,1,1,0,0,0,1),
-                    'B' => array(0,1,1,1,0,0,1),
-                    'C' => array(1,0,0,1,1,1,0)
+                    'L' => array(0,1,1,0,0,0,1),
+                    'R' => array(1,0,0,1,1,1,0)
                         ),
            '6' => array(
-                    'A' => array(0,1,0,1,1,1,1),
-                    'B' => array(0,0,0,0,1,0,1),
-                    'C' => array(1,0,1,0,0,0,0)
+                    'L' => array(0,1,0,1,1,1,1),
+                    'R' => array(1,0,1,0,0,0,0)
                         ),
            '7' => array(
-                    'A' => array(0,1,1,1,0,1,1),
-                    'B' => array(0,0,1,0,0,0,1),
-                    'C' => array(1,0,0,0,1,0,0)
+                    'L' => array(0,1,1,1,0,1,1),
+                    'R' => array(1,0,0,0,1,0,0)
                         ),
            '8' => array(
-                    'A' => array(0,1,1,0,1,1,1),
-                    'B' => array(0,0,0,1,0,0,1),
-                    'C' => array(1,0,0,1,0,0,0)
+                    'L' => array(0,1,1,0,1,1,1),
+                    'R' => array(1,0,0,1,0,0,0)
                         ),
            '9' => array(
-                    'A' => array(0,0,0,1,0,1,1),
-                    'B' => array(0,0,1,0,1,1,1),
-                    'C' => array(1,1,1,0,1,0,0)
+                    'L' => array(0,0,0,1,0,1,1),
+                    'R' => array(1,1,1,0,1,0,0)
                         )
         );
-
-
-    var $_number_set_left_coding = array(
-           '0' => array('A','A','A','A','A','A'),
-           '1' => array('A','A','B','A','B','B'),
-           '2' => array('A','A','B','B','A','B'),
-           '3' => array('A','A','B','B','B','A'),
-           '4' => array('A','B','A','A','B','B'),
-           '5' => array('A','B','B','A','A','B'),
-           '6' => array('A','B','B','B','A','A'),
-           '7' => array('A','B','A','B','A','B'),
-           '8' => array('A','B','A','B','B','A'),
-           '9' => array('A','B','B','A','B','A')
-        );
-
-
 
     /**
      * Draws a UPC-A image barcode
@@ -231,11 +205,8 @@ class Image_Barcode_upca extends Image_Barcode
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
         $xpos += $this->_barwidth;
 
-        $set_array = $this->_number_set_left_coding[$key];
 
-
-
-        foreach ($this->_number_set['0'][$set_array[0]] as $bar) {
+        foreach ($this->_number_set[$key]['L'] as $bar) { 
             if ($bar) {
                 imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
             }
@@ -249,9 +220,7 @@ class Image_Barcode_upca extends Image_Barcode
             $value=substr($text,$idx,1);
             imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
 
-            //foreach ($this->_number_set[$value][$set_array[$idx-1]] as $bar) {
-
-            foreach ($this->_number_set[$value][$set_array[$idx]] as $bar) {
+            foreach ($this->_number_set[$value]['L'] as $bar) { 
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
                 }
@@ -279,7 +248,7 @@ class Image_Barcode_upca extends Image_Barcode
         for ($idx = 6; $idx < 11; $idx ++) {
             $value=substr($text,$idx,1);
             imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
-            foreach ($this->_number_set[$value]['C'] as $bar) {
+            foreach ($this->_number_set[$value]['R'] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
                 }
@@ -290,7 +259,7 @@ class Image_Barcode_upca extends Image_Barcode
 
 
         $value = substr($text,11,1);
-        foreach ($this->_number_set[$value]['C'] as $bar) {
+        foreach ($this->_number_set[$value]['R'] as $bar) {
             if ($bar) {
                 imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
             }
