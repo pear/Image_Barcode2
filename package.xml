@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.5.0RC1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Image_Barcode</name>
  <channel>pear.php.net</channel>
  <summary>Barcode generation</summary>
- <description>
-  With Image_Barcode class you can create a barcode
+ <description>With Image_Barcode class you can create a barcode
   representation of a given string.
 
   This class uses GD function because of this the generated graphic can be any of
-  GD supported supported image types.
- </description>
+  GD supported supported image types.</description>
  <lead>
   <name>Marcelo Subtil Marcal</name>
   <user>msmarcal</user>
   <email>msmarcal@php.net</email>
   <active>yes</active>
  </lead>
- <date>2006-12-13</date>
- <time>20:38:42</time>
+ <date>2010-10-25</date>
+ <time>19:44:01</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -31,44 +26,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-  QA bugfix release:
-  - Fixing #4597: PEAR_INSTALL_DIR constant might be empty
-  - Fixing #4755: $barcodepath not found in Image/Barcode.php
-  - Fixing #6637: error don't declare
-  - Fixing #7693: Wrong include path
-  - Fixing #7851: Needs flag to supress headers or an option to redirect output to a variable.
-  - Fixing #8301: Not compatible with Safe Mode
-  - Fixing #8813: image can't be saved to filesystem
-
-  Image_Barcode::draw has an optional fourth parameter determining if
-  the GD image resource should be returned or output to the browser.
-  This breaks backwards compatibility for people using drivers directly
-  which is always a big NO-NO. If your application breaks, it's your chance
-  to use the class properly.
+QA release
+Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
  </notes>
-
  <contents>
-  <dir name="/">
-   <dir name="Barcode">
-    <file baseinstalldir="Image" name="Code39.php" role="php" />
-    <file baseinstalldir="Image" name="code128.php" role="php" />
-    <file baseinstalldir="Image" name="ean13.php" role="php" />
-    <file baseinstalldir="Image" name="int25.php" role="php" />
-    <file baseinstalldir="Image" name="postnet.php" role="php" />
-    <file baseinstalldir="Image" name="upca.php" role="php" />
-   </dir> <!-- /Barcode -->
-   <dir name="docs">
-    <dir name="examples">
-     <file baseinstalldir="Image" name="barcode_img.php" role="doc" />
-     <file baseinstalldir="Image" name="test-image-barcode.php" role="doc" />
-    </dir> <!-- /docs/examples -->
-    <file baseinstalldir="Image" name="ChangeLog" role="doc" />
-    <file baseinstalldir="Image" name="Readme.txt" role="doc" />
-   </dir> <!-- /docs -->
-   <file baseinstalldir="Image" name="Barcode.php" role="php" />
-  </dir> <!-- / -->
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="Image" md5sum="62714a47cbc3d35f483be34324197936" name="docs/ChangeLog" role="doc" />
+   <file baseinstalldir="Image" md5sum="9d09306ee5d354c7d7216e14e3b81c49" name="docs/Readme.txt" role="doc" />
+   <file baseinstalldir="Image" md5sum="d027dd2e78465162010a1cab265eb09b" name="docs/examples/barcode_img.php" role="doc" />
+   <file baseinstalldir="Image" md5sum="783855c825cbb516b3cf7aefa0b09d29" name="docs/examples/test-image-barcode.php" role="doc" />
+   <file baseinstalldir="/" md5sum="a0f4538546e40c0e08d5f30b7640a816" name="Image/Barcode.php" role="php" />
+   <file baseinstalldir="/" md5sum="e6258d77d32860d08ab309fbace6bd24" name="Image/Barcode/Code39.php" role="php" />
+   <file baseinstalldir="/" md5sum="25703aeec6784fdf601b0a7502ebbc22" name="Image/Barcode/code128.php" role="php" />
+   <file baseinstalldir="/" md5sum="13d6e69e9615b52a7636b8d67e5b8e2a" name="Image/Barcode/ean13.php" role="php" />
+   <file baseinstalldir="/" md5sum="c152c7c632fe86c90d0b0e1cd2844838" name="Image/Barcode/int25.php" role="php" />
+   <file baseinstalldir="/" md5sum="b4f9983ac55b720bc262680829f8665a" name="Image/Barcode/postnet.php" role="php" />
+   <file baseinstalldir="/" md5sum="f65dff9c3c28d0422b20efa766067bc1" name="Image/Barcode/upca.php" role="php" />
+  </dir>
  </contents>
-
  <dependencies>
   <required>
    <php>
@@ -89,38 +64,37 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </optional>
  </dependencies>
  <phprelease />
-
  <changelog>
-
   <release>
    <version>
-    <release>1.1.0</release>
-    <api>1.1.0</api>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
    </version>
    <stability>
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2006-12-13</date>
+   <date>2005-05-24</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
-  QA bugfix release:
-  - Fixing #4597: PEAR_INSTALL_DIR constant might be empty
-  - Fixing #4755: $barcodepath not found in Image/Barcode.php
-  - Fixing #6637: error don't declare
-  - Fixing #7693: Wrong include path
-  - Fixing #7851: Needs flag to supress headers or an option to redirect output to a variable.
-  - Fixing #8301: Not compatible with Safe Mode
-  - Fixing #8813: image can't be saved to filesystem
-
-  Image_Barcode::draw has an optional fourth parameter determining if
-  the GD image resource should be returned or output to the browser.
-  This breaks backwards compatibility for people using drivers directly
-  which is always a big NO-NO. If your application breaks, it's your chance
-  to use the class properly.
+- Added UPC-A barcode rendering (thanks to Jeffrey K. Brown)
    </notes>
   </release>
-
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-05-30</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- Added Code128 barcode rendering (thanks to Jeffrey K. Brown)
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.4</release>
@@ -133,39 +107,52 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <date>2005-06-03</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
-    - Added PostNet barcode rendering (thanks to Josef "Jeff" Sipek)
+- Added PostNet barcode rendering (thanks to Josef &quot;Jeff&quot; Sipek)
    </notes>
   </release>
-
   <release>
    <version>
-    <release>1.0.3</release>
-    <api>1.0.3</api>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
    </version>
    <stability>
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2005-05-30</date>
+   <date>2006-12-13</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>- Added Code128 barcode rendering (thanks to Jeffrey K. Brown)
+   <notes>
+QA bugfix release:
+- Fixing #4597: PEAR_INSTALL_DIR constant might be empty
+- Fixing #4755: $barcodepath not found in Image/Barcode.php
+- Fixing #6637: error don&apos;t declare
+- Fixing #7693: Wrong include path
+- Fixing #7851: Needs flag to supress headers or an option to redirect output to a variable.
+- Fixing #8301: Not compatible with Safe Mode
+- Fixing #8813: image can&apos;t be saved to filesystem
+
+Image_Barcode::draw has an optional fourth parameter determining if
+the GD image resource should be returned or output to the browser.
+This breaks backwards compatibility for people using drivers directly
+which is always a big NO-NO. If your application breaks, it&apos;s your chance
+to use the class properly.
    </notes>
   </release>
-
   <release>
    <version>
-    <release>1.0.2</release>
-    <api>1.0.2</api>
+    <release>1.1.1</release>
+    <api>1.1.0</api>
    </version>
    <stability>
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2005-05-24</date>
+   <date>2010-10-25</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>- Added UPC-A barcode rendering (thanks to Jeffrey K. Brown)
+   <notes>
+QA release
+Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
    </notes>
   </release>
-
  </changelog>
 </package>
