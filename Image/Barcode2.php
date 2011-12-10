@@ -40,6 +40,10 @@ require_once 'PEAR.php';
  */
 class Image_Barcode2 extends PEAR
 {
+    const IMAGE_PNG = 'png';
+    const IMAGE_GIF = 'gif';
+    const IMAGE_JPEG = 'jpg';
+
     /**
      * Draws a image barcode
      *
@@ -49,10 +53,15 @@ class Image_Barcode2 extends PEAR
      *                          int25  - 2 Interleaved 5
      *                          ean13  - EAN 13
      *                          upca   - UPC-A
+     *                          code128
+     *                          ean8
+     *                          postnet
      * @param  string $imgtype  The image type that will be generated
      * @param  boolean $bSendToBrowser  if the image shall be outputted to the
      *                                  browser, or be returned.
      *
+     * @param  integer $height  The image height
+     * @param  integer $width   The image width
      * @return image            The corresponding gd image object;
      *                           PEAR_Error on failure
      *
@@ -61,28 +70,28 @@ class Image_Barcode2 extends PEAR
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode2 0.3
      */
-    function draw($text, $type = 'int25', $imgtype = 'png', $bSendToBrowser = true, $height=60, $barwidth = 1)
+    public function draw($text, $type = 'int25', $imgtype = Image_Barcode2::IMAGE_PNG, $bSendToBrowser = true, $height = 60, $width = 1)
     {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
             return PEAR::raiseError('Invalid barcode type ' . $type);
         }
-        if (!include_once('Image/Barcode/' . $type . '.php')) {
+        if (!include_once('Image/Barcode2/' . $type . '.php')) {
             return PEAR::raiseError($type . ' barcode is not supported');
         }
 
         $classname = 'Image_Barcode2_' . $type;
 
-        if (!in_array('draw',get_class_methods($classname))) {
+        if (!in_array('draw', get_class_methods($classname))) {
             return PEAR::raiseError("Unable to find draw method in '$classname' class");
         }
 
-        @$obj = new $classname();
+        $obj = new $classname();
     
-	if (isset($obj->_barcodeheight)) $obj->_barcodeheight = $height;
-	if (isset($obj->_barwidth)) $obj->_barwidth = $barwidth;
+        if (isset($obj->_barcodeheight)) $obj->_barcodeheight = $height;
+        if (isset($obj->_barwidth)) $obj->_barwidth = $width;
 
-        $img = $obj->draw($text, $imgtype);
+        $img = $obj->draw($text);
 
         if (PEAR::isError($img)) {
             return $img;
@@ -91,13 +100,13 @@ class Image_Barcode2 extends PEAR
         if ($bSendToBrowser) {
             // Send image to browser
             switch ($imgtype) {
-                case 'gif':
+                case self::IMAGE_GIF:
                     header('Content-type: image/gif');
                     imagegif($img);
                     imagedestroy($img);
                     break;
 
-                case 'jpg':
+                case self::IMAGE_JPEG:
                     header('Content-type: image/jpg');
                     imagejpeg($img);
                     imagedestroy($img);

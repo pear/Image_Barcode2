@@ -55,37 +55,31 @@ require_once 'Image/Barcode2.php';
 class Image_Barcode2_postnet extends Image_Barcode2
 {
     /**
-     * Barcode type
-     * @var string
-     */
-    private $_type = 'postnet';
-
-    /**
      * Bar short height
      *
      * @var integer
      */
-    private $_barshortheight = 7;
+    var $_barshortheight = 7;
 
     /**
      * Bar tall height
      *
      * @var integer
      */
-    private $_bartallheight = 15;
+    var $_bartallheight = 15;
 
     /**
      * Bar width / scaling factor
      *
      * @var integer
      */
-    private $_barwidth = 2;
+    var $_barwidth = 2;
 
     /**
      * Coding map
      * @var array
      */
-    private $_coding_map = array(
+    var $_coding_map = array(
            '0' => '11000',
            '1' => '00011',
            '2' => '00101',
@@ -102,7 +96,6 @@ class Image_Barcode2_postnet extends Image_Barcode2
      * Draws a PostNet image barcode
      *
      * @param  string $text     A text that should be in the image barcode
-     * @param  string $imgtype  The image type that will be generated
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -112,7 +105,7 @@ class Image_Barcode2_postnet extends Image_Barcode2
      * @since  Image_Barcode2 0.3
      */
 
-    public function image($text, $imgtype = 'png')
+    public function draw($text)
     {
         $text = trim($text);
 
@@ -153,7 +146,6 @@ class Image_Barcode2_postnet extends Image_Barcode2
 
         // Draws the trailer
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
-        $xpos += 2 * $this->_barwidth;
 
         return $img;
     }

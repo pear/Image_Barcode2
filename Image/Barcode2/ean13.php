@@ -42,12 +42,6 @@ require_once 'Image/Barcode2.php';
 class Image_Barcode2_ean13 extends Image_Barcode2
 {
     /**
-     * Barcode type
-     * @var string
-     */
-    var $_type = 'ean13';
-
-    /**
      * Barcode height
      *
      * @var integer
@@ -143,7 +137,6 @@ class Image_Barcode2_ean13 extends Image_Barcode2
      * Draws a EAN 13 image barcode
      *
      * @param  string $text     A text that should be in the image barcode
-     * @param  string $imgtype  The image type that will be generated
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -153,7 +146,7 @@ class Image_Barcode2_ean13 extends Image_Barcode2
      * @todo       Check if $text is number and len=13
      *
      */
-    function draw($text, $imgtype = 'png')
+    public function draw($text)
     {
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
@@ -166,20 +159,20 @@ class Image_Barcode2_ean13 extends Image_Barcode2
         $barcodelongheight = (int) (imagefontheight($this->_font)/2) + $this->_barcodeheight;
 
         // Create the image
-        $img = ImageCreate(
+        $img = imagecreate(
                     $barcodewidth,
                     $barcodelongheight + imagefontheight($this->_font) + 1
                 );
 
         // Alocate the black and white colors
-        $black = ImageColorAllocate($img, 0, 0, 0);
-        $white = ImageColorAllocate($img, 255, 255, 255);
+        $black = imagecolorallocate($img, 0, 0, 0);
+        $white = imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
         imagefill($img, 0, 0, $white);
 
         // get the first digit which is the key for creating the first 6 bars
-        $key = substr($text,0,1);
+        $key = substr($text, 0, 1);
 
         // Initiate x position
         $xpos = 0;
@@ -199,10 +192,10 @@ class Image_Barcode2_ean13 extends Image_Barcode2
         $xpos += $this->_barwidth;
 
         // Draw left $text contents
-        $set_array=$this->_number_set_left_coding[$key];
+        $set_array = $this->_number_set_left_coding[$key];
         for ($idx = 1; $idx < 7; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
             foreach ($this->_number_set[$value][$set_array[$idx-1]] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
@@ -228,8 +221,8 @@ class Image_Barcode2_ean13 extends Image_Barcode2
 
         // Draw right $text contents
         for ($idx = 7; $idx < 13; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
             foreach ($this->_number_set[$value]['C'] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
@@ -246,7 +239,6 @@ class Image_Barcode2_ean13 extends Image_Barcode2
         $xpos += $this->_barwidth;
         // bar
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
-        $xpos += $this->_barwidth;
 
         return $img;
     } // function create
