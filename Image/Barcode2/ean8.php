@@ -24,7 +24,6 @@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode2.php';
 
 /**
  * Image_Barcode2_ean8 class
@@ -40,14 +39,8 @@ require_once 'Image/Barcode2.php';
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_ean8 extends Image_Barcode2
+class Image_Barcode2_ean8
 {
-    /**
-     * Barcode type
-     * @var string
-     */
-    var $_type = 'ean8';
-
     /**
      * Barcode height
      *
@@ -121,7 +114,6 @@ class Image_Barcode2_ean8 extends Image_Barcode2
      * Draws a EAN 8 image barcode
      *
      * @param  string $text     A text that should be in the image barcode
-     * @param  string $imgtype  The image type that will be generated
      *
      * @return image            The corresponding EAN8 image barcode
      *
@@ -132,7 +124,7 @@ class Image_Barcode2_ean8 extends Image_Barcode2
      * @todo       Check if $text is number and len=8
      *
      */
-    function draw($text, $imgtype = 'png')
+    public function draw($text)
     {
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
@@ -141,17 +133,17 @@ class Image_Barcode2_ean8 extends Image_Barcode2
             + 3 * $this->_barwidth // right
             ;
 
-        $barcodelongheight = (int) (imagefontheight($this->_font)/2) + $this->_barcodeheight;
+        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
 
         // Create the image
-        $img = ImageCreate(
+        $img = imagecreate(
                     $barcodewidth,
                     $barcodelongheight + imagefontheight($this->_font) + 1
                 );
 
         // Alocate the black and white colors
-        $black = ImageColorAllocate($img, 0, 0, 0);
-        $white = ImageColorAllocate($img, 255, 255, 255);
+        $black = imagecolorallocate($img, 0, 0, 0);
+        $white = imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
         imagefill($img, 0, 0, $white);
@@ -170,8 +162,8 @@ class Image_Barcode2_ean8 extends Image_Barcode2
         $xpos += $this->_barwidth;
 
         for ($idx = 0; $idx < 4; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
             foreach ($this->_number_set[$value]['A'] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
@@ -197,8 +189,8 @@ class Image_Barcode2_ean8 extends Image_Barcode2
 
         // Draw right $text contents
         for ($idx = 4; $idx < 8; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
             foreach ($this->_number_set[$value]['C'] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
@@ -215,7 +207,6 @@ class Image_Barcode2_ean8 extends Image_Barcode2
         $xpos += $this->_barwidth;
         // bar
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
-        $xpos += $this->_barwidth;
 
         return $img;
     } // function create

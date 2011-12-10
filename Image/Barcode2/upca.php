@@ -24,7 +24,6 @@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode2.php';
 
 /**
  * Image_Barcode2_upca class
@@ -47,14 +46,8 @@ require_once 'Image/Barcode2.php';
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_upca extends Image_Barcode2
+class Image_Barcode2_upca
 {
-    /**
-     * Barcode type
-     * @var string
-     */
-    var $_type = 'upca';
-
     /**
      * Barcode height
      *
@@ -128,7 +121,6 @@ class Image_Barcode2_upca extends Image_Barcode2
      * Draws a UPC-A image barcode
      *
      * @param   string $text     A text that should be in the image barcode
-     * @param   string $imgtype  The image type that will be generated
      *
      * @return  image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -138,7 +130,7 @@ class Image_Barcode2_upca extends Image_Barcode2
      * @author  Didier Fournout <didier.fournout@nyc.fr>
      *
      */
-    public function image($text, $imgtype = 'png')
+    public function draw($text)
     {
         $text = trim($text);
 
@@ -231,8 +223,8 @@ class Image_Barcode2_upca extends Image_Barcode2
 
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value = substr($text,$idx,1);
+            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
             foreach ($this->_number_set[$value]['R'] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
@@ -243,7 +235,7 @@ class Image_Barcode2_upca extends Image_Barcode2
 
 
 
-        $value = substr($text,11,1);
+        $value = substr($text, 11, 1);
         foreach ($this->_number_set[$value]['R'] as $bar) {
             if ($bar) {
                 imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
@@ -265,13 +257,9 @@ class Image_Barcode2_upca extends Image_Barcode2
 
 
         // Print Check Digit
-        imagestring($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+        imagestring($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
 
-        if ($error) {
-            return $imgerror;
-        } else {
-            return $img;
-        }
+        return $img;
     }
 
 } // class

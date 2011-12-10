@@ -25,8 +25,6 @@
  */
 
 
-require_once 'Image/Barcode2.php';
-
 /**
  * Image_Barcode2_Code39 class
  *
@@ -41,14 +39,8 @@ require_once 'Image/Barcode2.php';
  * @link       http://pear.php.net/package/Image_Barcode2
  * @since      Image_Barcode2 0.5
  */
-class Image_Barcode2_Code39 extends Image_Barcode2
+class Image_Barcode2_Code39
 {
-    /**
-     * Barcode type
-     * @var string
-     */
-    var $_type = 'Code39';
-
     /**
      * Barcode height
      *
@@ -159,76 +151,59 @@ class Image_Barcode2_Code39 extends Image_Barcode2
    /**
     * Make an image resource using the GD image library
     *
-    * @param    bool $noText       Set to true if you'd like your barcode to be sans text
-    * @param    int $bHeight       height of the barcode image including text
     * @return   resource           The Barcode Image (TM)
     *
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
     *
     */
-    private function _plot($noText = false, $bHeight = 0)
+    private function _plot()
     {
-       // add start and stop * characters
-       $final_text = '*' . $this->text . '*';
+        // add start and stop * characters
+        $final_text = '*' . $this->text . '*';
 
-        if ( $bHeight > 0 ) {
-            $this->_barcodeheight = $bHeight;
+        $barcode = '';
+        foreach ( str_split( $final_text ) as $character ) {
+            $barcode .= $this->_dumpCode( $this->_coding_map[$character] . '0' );
         }
 
-       $barcode = '';
-       foreach ( str_split( $final_text ) as $character ) {
-           $barcode .= $this->_dumpCode( $this->_coding_map[$character] . '0' );
-       }
+        $barcode_len = strlen( $barcode );
 
-       $barcode_len = strlen( $barcode );
+        // Create GD image object
+        $img = imagecreate( $barcode_len, $this->_barcodeheight );
 
-       // Create GD image object
-       $img = imagecreate( $barcode_len, $this->_barcodeheight );
+        // Allocate black and white colors to the image
+        $black = imagecolorallocate( $img, 0, 0, 0 );
+        $white = imagecolorallocate( $img, 255, 255, 255 );
+        $font_height = imagefontheight( $this->_font_size );
+        $font_width = imagefontwidth( $this->_font_size );
 
-       // Allocate black and white colors to the image
-       $black = imagecolorallocate( $img, 0, 0, 0 );
-       $white = imagecolorallocate( $img, 255, 255, 255 );
-       $font_height = ( $noText ? 0 : imagefontheight( $this->_font_size ) );
-       $font_width = imagefontwidth( $this->_font_size );
+        // fill background with white color
+        imagefill( $img, 0, 0, $white );
 
-       // fill background with white color
-       imagefill( $img, 0, 0, $white );
+        // Initialize X position
+        $xpos = 0;
 
-       // Initialize X position
-       $xpos = 0;
-
-       // draw barcode bars to image
-        if ( $noText ) {
-            foreach (str_split($barcode) as $character_code ) {
-                if ($character_code == 0 ) {
-                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $white);
-                } else {
-                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $black);
-                }
-
-                $xpos++;
-            }
-        } else {
-            foreach (str_split($barcode) as $character_code ) {
-                if ($character_code == 0) {
-                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $white);
-                } else {
-                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $black);
-                }
-
-                $xpos++;
+        // draw barcode bars to image
+        foreach (str_split($barcode) as $character_code ) {
+            if ($character_code == 0) {
+                imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $white);
+            } else {
+                imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $black);
             }
 
-            // draw text under barcode
-            imagestring(
-                $img,
-                $this->_font_size,
-                ( $barcode_len - $font_width * strlen( $this->text ) )/2,
-                $this->_barcodeheight - $font_height,
-                $this->text,
-                $black
-            );
+            $xpos++;
         }
+
+        // draw text under barcode
+        imagestring(
+            $img,
+            $this->_font_size,
+            ( $barcode_len - $font_width * strlen( $this->text ) )/2,
+            $this->_barcodeheight - $font_height,
+            $this->text,
+            $black
+        );
+
 
         return $img;
     }
@@ -238,15 +213,12 @@ class Image_Barcode2_Code39 extends Image_Barcode2
      * Send image to the browser; for Image_Barcode2 compaitbility
      *
      * @param    string $text
-     * @param    string $imgtype     Image type; accepts jpg, png, and gif, but gif only works if you've payed for licensing
-     * @param    bool $noText        Set to true if you'd like your barcode to be sans text
-     * @param    int $bHeight        height of the barcode image including text
      * @return   gd_image            GD image object
      *
      * @author   Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    public function image($text, $imgtype = 'png', $noText = false, $bHeight = 0)
+    public function draw($text)
     {
         $text = trim($text);
 
@@ -256,7 +228,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2
         }
 
         $this->text = $text;
-        return $this->_plot($noText, $bHeight);
+        return $this->_plot();
     }
 
 

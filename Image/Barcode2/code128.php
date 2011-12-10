@@ -42,22 +42,19 @@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode.php';
 
-class Image_Barcode2_code128 extends Image_Barcode2
+class Image_Barcode2_code128
 {
-    private $_type = 'code128';
-    private $_barcodeheight = 60;
-    private $_font = 2;  
-    private $_barwidth = 1;
-    private $_code;
+    var $_barcodeheight = 60;
+    var $_font = 2;
+    var $_barwidth = 1;
+    var $_code;
 
 
     /**
      * Draws a Code128 image barcode
      *
      * @param  string $text     A text that should be in the image barcode
-     * @param  string $imgtype  The image type that will be generated
      *
      * @return image            The corresponding interleaved 2 of 5 image barcode
      *
@@ -72,7 +69,7 @@ class Image_Barcode2_code128 extends Image_Barcode2
      * the image along with the barcode text and display it to the beholder.
      *
      */
-    public function image($text, $imgtype = 'png')
+    public function draw($text)
     {
         // We start with the Code128 Start Code character.  We
         // initialize checksum to 104, rather than calculate it.
@@ -303,17 +300,18 @@ class Image_Barcode2_code128 extends Image_Barcode2
 
 
     /**
-    * Return the Code128 code for a character
-    */
-    private function _getCharCode($c)
+     * @param string $char
+     * @return the Code128 code for a character
+     */
+    private function _getCharCode($char)
     {
-        return $this->_code[ord($c) - 32];
+        return $this->_code[ord($char) - 32];
     }
 
 
     /**
-    * Return the Start Code for Code128
-    */
+     * @return the Start Code for Code128
+     */
     private function _getStartCode()
     {
         return '211214';
@@ -321,8 +319,8 @@ class Image_Barcode2_code128 extends Image_Barcode2
 
 
     /**
-    * Return the Stop Code for Code128
-    */
+     * @return the Stop Code for Code128
+     */
     private function _getStopCode()
     {
         return '2331112';
@@ -330,8 +328,9 @@ class Image_Barcode2_code128 extends Image_Barcode2
 
 
     /**
-    * Return the Code128 code equivalent of a character number
-    */
+     * @param int $index
+     * @return the Code128 code equivalent of a character number
+     */
     private function _getNumCode($index)
     {
         return $this->_code[$index];
@@ -339,11 +338,12 @@ class Image_Barcode2_code128 extends Image_Barcode2
 
 
     /**
-    * Return the Code128 numerical equivalent of a character.
-    */
-    private function _getCharNumber($c)
+     * @param string $char
+     * @return int the Code128 numerical equivalent of a character.
+     */
+    private function _getCharNumber($char)
     {
-        return ord($c) - 32;
+        return ord($char) - 32;
     }
 
 } // class
