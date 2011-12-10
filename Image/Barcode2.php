@@ -40,9 +40,24 @@ require_once 'PEAR.php';
  */
 class Image_Barcode2 extends PEAR
 {
+    /**
+     * Image type
+     */
     const IMAGE_PNG = 'png';
     const IMAGE_GIF = 'gif';
     const IMAGE_JPEG = 'jpg';
+
+    /**
+     * Barcode type
+     */
+    const BARCODE_CODE39    = 'code39';
+    const BARCODE_INT25     = 'int25';
+    const BARCODE_EAN13     = 'ean13';
+    const BARCODE_UPCA      = 'upca';
+    const BARCODE_CODE128   = 'code128';
+    const BARCODE_EAN8      = 'ean8';
+    const BARCODE_POSTNET   = 'postnet';
+
 
     /**
      * Draws a image barcode
@@ -56,7 +71,7 @@ class Image_Barcode2 extends PEAR
      *                          code128
      *                          ean8
      *                          postnet
-     * @param  string $imgtype  The image type that will be generated
+     * @param  string $imgtype  The image type that will be generated (gif, jpg, png)
      * @param  boolean $bSendToBrowser  if the image shall be outputted to the
      *                                  browser, or be returned.
      *
@@ -70,7 +85,7 @@ class Image_Barcode2 extends PEAR
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode2 0.3
      */
-    public function draw($text, $type = 'int25', $imgtype = Image_Barcode2::IMAGE_PNG, $bSendToBrowser = true, $height = 60, $width = 1)
+    public function draw($text, $type = Image_Barcode2::BARCODE_INT25, $imgtype = Image_Barcode2::IMAGE_PNG, $bSendToBrowser = true, $height = 60, $width = 1)
     {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
@@ -87,7 +102,7 @@ class Image_Barcode2 extends PEAR
         }
 
         $obj = new $classname();
-    
+
         if (isset($obj->_barcodeheight)) $obj->_barcodeheight = $height;
         if (isset($obj->_barwidth)) $obj->_barwidth = $width;
 
