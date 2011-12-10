@@ -157,9 +157,9 @@ class Image_Barcode_ean13 extends Image_Barcode
     {
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
-            + 3 // left
-            + 5 // center
-            + 3 // right
+            + 3 * $this->_barwidth  // left
+            + 5 * $this->_barwidth  // center
+            + 3 * $this->_barwidth // right
             + imagefontwidth($this->_font)+1
             ;
 
