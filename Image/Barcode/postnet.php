@@ -6,7 +6,7 @@
  *
  * Renders PostNet barcodes
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -58,34 +58,34 @@ class Image_Barcode_postnet extends Image_Barcode
      * Barcode type
      * @var string
      */
-    var $_type = 'postnet';
+    private $_type = 'postnet';
 
     /**
      * Bar short height
      *
      * @var integer
      */
-    var $_barshortheight = 7;
+    private $_barshortheight = 7;
 
     /**
      * Bar tall height
      *
      * @var integer
      */
-    var $_bartallheight = 15;
+    private $_bartallheight = 15;
 
     /**
      * Bar width / scaling factor
      *
      * @var integer
      */
-    var $_barwidth = 2;
+    private $_barwidth = 2;
 
     /**
      * Coding map
      * @var array
      */
-    var $_coding_map = array(
+    private $_coding_map = array(
            '0' => '11000',
            '1' => '00011',
            '2' => '00101',
@@ -112,23 +112,23 @@ class Image_Barcode_postnet extends Image_Barcode
      * @since  Image_Barcode 0.3
      */
 
-    function draw($text, $imgtype = 'png')
+    public function image($text, $imgtype = 'png')
     {
         $text = trim($text);
 
         if (!preg_match('/[0-9]/', $text)) {
-            return;
+            return 'Invalid text';
         }
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * 2 * 5 * $this->_barwidth + $this->_barwidth*3;
+        $barcodewidth = (strlen($text)) * 2 * 5 * $this->_barwidth + $this->_barwidth * 3;
 
         // Create the image
-        $img = ImageCreate($barcodewidth, $this->_bartallheight);
+        $img = imagecreate($barcodewidth, $this->_bartallheight);
 
         // Alocate the black and white colors
-        $black = ImageColorAllocate($img, 0, 0, 0);
-        $white = ImageColorAllocate($img, 255, 255, 255);
+        $black = imagecolorallocate($img, 0, 0, 0);
+        $white = imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
         imagefill($img, 0, 0, $white);
@@ -138,25 +138,26 @@ class Image_Barcode_postnet extends Image_Barcode
 
         // Draws the leader
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
-        $xpos += 2*$this->_barwidth;
+        $xpos += 2 * $this->_barwidth;
 
         // Draw $text contents
-        for ($idx = 0; $idx < strlen($text); $idx++) {
+        for ($idx = 0, $all = strlen($text); $idx < $all; $idx++) {
             $char  = substr($text, $idx, 1);
 
             for ($baridx = 0; $baridx < 5; $baridx++) {
                 $elementheight = (substr($this->_coding_map[$char], $baridx, 1)) ?  0 : $this->_barshortheight;
                 imagefilledrectangle($img, $xpos, $elementheight, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
-                $xpos += 2*$this->_barwidth;
+                $xpos += 2 * $this->_barwidth;
             }
         }
 
         // Draws the trailer
         imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
-        $xpos += 2*$this->_barwidth;
+        $xpos += 2 * $this->_barwidth;
 
         return $img;
-    } // function create
+    }
 
 } // class
+
 ?>

@@ -6,7 +6,7 @@
  *
  * Renders Interleaved 2 of 5 barcodes
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -23,8 +23,7 @@
  * @link       http://pear.php.net/package/Image_Barcode
  */
 
-require_once "PEAR.php";
-require_once "Image/Barcode.php";
+require_once 'Image/Barcode.php';
 
 
 /**
@@ -46,34 +45,34 @@ class Image_Barcode_int25 extends Image_Barcode
      * Barcode type
      * @var string
      */
-    var $_type = 'int25';
+    private $_type = 'int25';
 
     /**
      * Barcode height
      *
      * @var integer
      */
-    var $_barcodeheight = 50;
+    private $_barcodeheight = 50;
 
     /**
      * Bar thin width
      *
      * @var integer
      */
-    var $_barthinwidth = 1;
+    private $_barthinwidth = 1;
 
     /**
      * Bar thick width
      *
      * @var integer
      */
-    var $_barthickwidth = 3;
+    private $_barthickwidth = 3;
 
     /**
      * Coding map
      * @var array
      */
-    var $_coding_map = array(
+    private $_coding_map = array(
            '0' => '00110',
            '1' => '10001',
            '2' => '01001',
@@ -100,12 +99,13 @@ class Image_Barcode_int25 extends Image_Barcode
      * @since  Image_Barcode 0.3
      */
 
-    function &draw($text, $imgtype = 'png')
+    public function image($text, $imgtype = 'png')
     {
-
         $text = trim($text);
 
-        if (!preg_match("/[0-9]/",$text)) return;
+        if (!preg_match('/[0-9]/', $text)) {
+            return 'Invalid text';
+        }
 
         // if odd $text lenght adds a '0' at string beginning
         $text = strlen($text) % 2 ? '0' . $text : $text;
@@ -116,11 +116,11 @@ class Image_Barcode_int25 extends Image_Barcode
             (7 * $this->_barthinwidth + $this->_barthickwidth) + 3;
 
         // Create the image
-        $img = ImageCreate($barcodewidth, $this->_barcodeheight);
+        $img = imagecreate($barcodewidth, $this->_barcodeheight);
 
         // Alocate the black and white colors
-        $black = ImageColorAllocate($img, 0, 0, 0);
-        $white = ImageColorAllocate($img, 255, 255, 255);
+        $black = imagecolorallocate($img, 0, 0, 0);
+        $white = imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
         imagefill($img, 0, 0, $white);
@@ -129,7 +129,7 @@ class Image_Barcode_int25 extends Image_Barcode
         $xpos = 0;
 
         // Draws the leader
-        for ($i=0; $i < 2; $i++) {
+        for ($i = 0; $i < 2; $i++) {
             $elementwidth = $this->_barthinwidth;
             imagefilledrectangle($img, $xpos, 0, $xpos + $elementwidth - 1, $this->_barcodeheight, $black);
             $xpos += $elementwidth;
@@ -138,7 +138,7 @@ class Image_Barcode_int25 extends Image_Barcode
         }
 
         // Draw $text contents
-        for ($idx = 0; $idx < strlen($text); $idx += 2) {       // Draw 2 chars at a time
+        for ($idx = 0, $all = strlen($text); $idx < $all; $idx += 2) {       // Draw 2 chars at a time
             $oddchar  = substr($text, $idx, 1);                 // get odd char
             $evenchar = substr($text, $idx + 1, 1);             // get even char
 
@@ -168,7 +168,8 @@ class Image_Barcode_int25 extends Image_Barcode
         imagefilledrectangle($img, $xpos, 0, $xpos + $elementwidth - 1, $this->_barcodeheight, $black);
 
         return $img;
-    } // function create
+    }
 
 } // class
+
 ?>

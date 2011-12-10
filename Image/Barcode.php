@@ -6,7 +6,7 @@
  *
  * Package to render barcodes
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -109,9 +109,9 @@ class Image_Barcode extends PEAR
                     imagedestroy($img);
                     break;
             }
-        } else {
-            return $img;
         }
+        return $img;
+
     }
 }
 ?>

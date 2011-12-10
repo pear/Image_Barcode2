@@ -25,7 +25,7 @@
  * The Code128B bar codes produced by the algorithm have been validated
  * using my trusty Cue-Cat bar code reader.
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -42,15 +42,15 @@
  * @link       http://pear.php.net/package/Image_Barcode
  */
 
-require_once "Image/Barcode.php";
+require_once 'Image/Barcode.php';
 
 class Image_Barcode_code128 extends Image_Barcode
 {
-    var $_type = 'code128';
-    var $_barcodeheight = 60;
-    var $_font = 2;  
-    var $_barwidth = 1;
-    var $code;
+    private $_type = 'code128';
+    private $_barcodeheight = 60;
+    private $_font = 2;  
+    private $_barwidth = 1;
+    private $_code;
 
 
     /**
@@ -72,16 +72,16 @@ class Image_Barcode_code128 extends Image_Barcode
      * the image along with the barcode text and display it to the beholder.
      *
      */
-    function &draw($text, $imgtype = 'png')
+    public function image($text, $imgtype = 'png')
     {
-
         // We start with the Code128 Start Code character.  We
         // initialize checksum to 104, rather than calculate it.
         // We then add the startcode to $allbars, the main string
         // containing the bar sizes for the entire code.
-        $startcode= $this->getStartCode();
-        $checksum = 104;
-        $allbars = $startcode;
+        $startcode = $this->_getStartCode();
+        $checksum  = 104;
+        $allbars   = $startcode;
+        $text      = trim($text);
 
 
         // Next, we read the $text string that was passed to the
@@ -90,13 +90,13 @@ class Image_Barcode_code128 extends Image_Barcode
         // In addition, we continually add the character's value
         // to the checksum
         $bars = '';
-        for ($i=0; $i < strlen($text); ++$i) {
+        for ($i = 0, $all = strlen($text); $i < $all; ++$i) {
             $char = $text[$i];
-            $val = $this->getCharNumber($char);
+            $val = $this->_getCharNumber($char);
 
             $checksum += ($val * ($i + 1));
 
-            $bars = $this->getCharCode($char);
+            $bars = $this->_getCharCode($char);
             $allbars = $allbars . $bars;
         }
 
@@ -105,7 +105,7 @@ class Image_Barcode_code128 extends Image_Barcode
         // of the Code128 Check Character.  We get its bar
         // pattern and add it to $allbars in the next section.
         $checkdigit = $checksum % 103;
-        $bars = $this->getNumCode($checkdigit);
+        $bars = $this->_getNumCode($checkdigit);
 
 
         // Finally, we get the Stop Code pattern and put the
@@ -113,7 +113,7 @@ class Image_Barcode_code128 extends Image_Barcode
         // string $allbars containing all of the bar widths
         // and can now think about writing it to the image.
 
-        $stopcode = $this->getStopCode();
+        $stopcode = $this->_getStopCode();
         $allbars = $allbars . $bars . $stopcode;
 
         //------------------------------------------------------//
@@ -130,7 +130,7 @@ class Image_Barcode_code128 extends Image_Barcode
         // total $barcodewidth.  The height of the barcode is
         // calculated by taking the bar height plus the font height.
 
-        for ($i=0; $i < strlen($allbars); ++$i) {
+        for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
             $barcodewidth += ($nval * $this->_barwidth);
         }
@@ -141,9 +141,9 @@ class Image_Barcode_code128 extends Image_Barcode
         // the image with a nice, white background, ready for printing
         // our black bars and the text.
 
-        $img = ImageCreate($barcodewidth, $barcodelongheight+ imagefontheight($this->_font)+1);
-        $black = ImageColorAllocate($img, 0, 0, 0);
-        $white = ImageColorAllocate($img, 255, 255, 255);
+        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font)+1);
+        $black = imagecolorallocate($img, 0, 0, 0);
+        $white = imagecolorallocate($img, 255, 255, 255);
         imagefill($img, 0, 0, $white);
 
 
@@ -170,12 +170,12 @@ class Image_Barcode_code128 extends Image_Barcode
         // array.  The number in each position is read and then alternating
         // black bars and spaces are drawn with the corresponding width.
         $bar = 1;
-        for ($i=0; $i < strlen($allbars); ++$i) {
+        for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
             $width = $nval * $this->_barwidth;
 
-            if ($bar==1) {
-                imagefilledrectangle($img, $xpos, 0, $xpos + $width-1, $barcodelongheight, $black);
+            if ($bar == 1) {
+                imagefilledrectangle($img, $xpos, 0, $xpos + $width - 1, $barcodelongheight, $black);
                 $xpos += $width;
                 $bar = 0;
             } else {
@@ -185,7 +185,7 @@ class Image_Barcode_code128 extends Image_Barcode
         }
 
         return $img;
-    } // function draw()
+    }
 
 
     /**
@@ -194,150 +194,158 @@ class Image_Barcode_code128 extends Image_Barcode
     * the $code array, containing the bar and space pattern
     * for the Code128 B character set.
     */
-    function Image_Barcode_code128()
+    public function __construct()
     {
-        $this->code[0] = "212222";  // " "
-        $this->code[1] = "222122";  // "!"
-        $this->code[2] = "222221";  // "{QUOTE}"
-        $this->code[3] = "121223";  // "#"
-        $this->code[4] = "121322";  // "$"
-        $this->code[5] = "131222";  // "%"
-        $this->code[6] = "122213";  // "&"
-        $this->code[7] = "122312";  // "'"
-        $this->code[8] = "132212";  // "("
-        $this->code[9] = "221213";  // ")"
-        $this->code[10] = "221312"; // "*"
-        $this->code[11] = "231212"; // "+"
-        $this->code[12] = "112232"; // ","
-        $this->code[13] = "122132"; // "-"
-        $this->code[14] = "122231"; // "."
-        $this->code[15] = "113222"; // "/"
-        $this->code[16] = "123122"; // "0"
-        $this->code[17] = "123221"; // "1"
-        $this->code[18] = "223211"; // "2"
-        $this->code[19] = "221132"; // "3"
-        $this->code[20] = "221231"; // "4"
-        $this->code[21] = "213212"; // "5"
-        $this->code[22] = "223112"; // "6"
-        $this->code[23] = "312131"; // "7"
-        $this->code[24] = "311222"; // "8"
-        $this->code[25] = "321122"; // "9"
-        $this->code[26] = "321221"; // ":"
-        $this->code[27] = "312212"; // ";"
-        $this->code[28] = "322112"; // "<"
-        $this->code[29] = "322211"; // "="
-        $this->code[30] = "212123"; // ">"
-        $this->code[31] = "212321"; // "?"
-        $this->code[32] = "232121"; // "@"
-        $this->code[33] = "111323"; // "A"
-        $this->code[34] = "131123"; // "B"
-        $this->code[35] = "131321"; // "C"
-        $this->code[36] = "112313"; // "D"
-        $this->code[37] = "132113"; // "E"
-        $this->code[38] = "132311"; // "F"
-        $this->code[39] = "211313"; // "G"
-        $this->code[40] = "231113"; // "H"
-        $this->code[41] = "231311"; // "I"
-        $this->code[42] = "112133"; // "J"
-        $this->code[43] = "112331"; // "K"
-        $this->code[44] = "132131"; // "L"
-        $this->code[45] = "113123"; // "M"
-        $this->code[46] = "113321"; // "N"
-        $this->code[47] = "133121"; // "O"
-        $this->code[48] = "313121"; // "P"
-        $this->code[49] = "211331"; // "Q"
-        $this->code[50] = "231131"; // "R"
-        $this->code[51] = "213113"; // "S"
-        $this->code[52] = "213311"; // "T"
-        $this->code[53] = "213131"; // "U"
-        $this->code[54] = "311123"; // "V"
-        $this->code[55] = "311321"; // "W"
-        $this->code[56] = "331121"; // "X"
-        $this->code[57] = "312113"; // "Y"
-        $this->code[58] = "312311"; // "Z"
-        $this->code[59] = "332111"; // "["
-        $this->code[60] = "314111"; // "\"
-        $this->code[61] = "221411"; // "]"
-        $this->code[62] = "431111"; // "^"
-        $this->code[63] = "111224"; // "_"
-        $this->code[64] = "111422"; // "`"
-        $this->code[65] = "121124"; // "a"
-        $this->code[66] = "121421"; // "b"
-        $this->code[67] = "141122"; // "c"
-        $this->code[68] = "141221"; // "d"
-        $this->code[69] = "112214"; // "e"
-        $this->code[70] = "112412"; // "f"
-        $this->code[71] = "122114"; // "g"
-        $this->code[72] = "122411"; // "h"
-        $this->code[73] = "142112"; // "i"
-        $this->code[74] = "142211"; // "j"
-        $this->code[75] = "241211"; // "k"
-        $this->code[76] = "221114"; // "l"
-        $this->code[77] = "413111"; // "m"
-        $this->code[78] = "241112"; // "n"
-        $this->code[79] = "134111"; // "o"
-        $this->code[80] = "111242"; // "p"
-        $this->code[81] = "121142"; // "q"
-        $this->code[82] = "121241"; // "r"
-        $this->code[83] = "114212"; // "s"
-        $this->code[84] = "124112"; // "t"
-        $this->code[85] = "124211"; // "u"
-        $this->code[86] = "411212"; // "v"
-        $this->code[87] = "421112"; // "w"
-        $this->code[88] = "421211"; // "x"
-        $this->code[89] = "212141"; // "y"
-        $this->code[90] = "214121"; // "z"
-        $this->code[91] = "412121"; // "{"
-        $this->code[92] = "111143"; // "|"
-        $this->code[93] = "111341"; // "}"
-        $this->code[94] = "131141"; // "~"
-        $this->code[95] = "114113"; // 95
-        $this->code[96] = "114311"; // 96
-        $this->code[97] = "411113"; // 97
-        $this->code[98] = "411311"; // 98
-        $this->code[99] = "113141"; // 99
-        $this->code[100] = "114131"; // 100
-        $this->code[101] = "311141"; // 101
-        $this->code[102] = "411131"; // 102
+        $this->_code[0] = "212222";  // " "
+        $this->_code[1] = "222122";  // "!"
+        $this->_code[2] = "222221";  // "{QUOTE}"
+        $this->_code[3] = "121223";  // "#"
+        $this->_code[4] = "121322";  // "$"
+        $this->_code[5] = "131222";  // "%"
+        $this->_code[6] = "122213";  // "&"
+        $this->_code[7] = "122312";  // "'"
+        $this->_code[8] = "132212";  // "("
+        $this->_code[9] = "221213";  // ")"
+        $this->_code[10] = "221312"; // "*"
+        $this->_code[11] = "231212"; // "+"
+        $this->_code[12] = "112232"; // ","
+        $this->_code[13] = "122132"; // "-"
+        $this->_code[14] = "122231"; // "."
+        $this->_code[15] = "113222"; // "/"
+        $this->_code[16] = "123122"; // "0"
+        $this->_code[17] = "123221"; // "1"
+        $this->_code[18] = "223211"; // "2"
+        $this->_code[19] = "221132"; // "3"
+        $this->_code[20] = "221231"; // "4"
+        $this->_code[21] = "213212"; // "5"
+        $this->_code[22] = "223112"; // "6"
+        $this->_code[23] = "312131"; // "7"
+        $this->_code[24] = "311222"; // "8"
+        $this->_code[25] = "321122"; // "9"
+        $this->_code[26] = "321221"; // ":"
+        $this->_code[27] = "312212"; // ";"
+        $this->_code[28] = "322112"; // "<"
+        $this->_code[29] = "322211"; // "="
+        $this->_code[30] = "212123"; // ">"
+        $this->_code[31] = "212321"; // "?"
+        $this->_code[32] = "232121"; // "@"
+        $this->_code[33] = "111323"; // "A"
+        $this->_code[34] = "131123"; // "B"
+        $this->_code[35] = "131321"; // "C"
+        $this->_code[36] = "112313"; // "D"
+        $this->_code[37] = "132113"; // "E"
+        $this->_code[38] = "132311"; // "F"
+        $this->_code[39] = "211313"; // "G"
+        $this->_code[40] = "231113"; // "H"
+        $this->_code[41] = "231311"; // "I"
+        $this->_code[42] = "112133"; // "J"
+        $this->_code[43] = "112331"; // "K"
+        $this->_code[44] = "132131"; // "L"
+        $this->_code[45] = "113123"; // "M"
+        $this->_code[46] = "113321"; // "N"
+        $this->_code[47] = "133121"; // "O"
+        $this->_code[48] = "313121"; // "P"
+        $this->_code[49] = "211331"; // "Q"
+        $this->_code[50] = "231131"; // "R"
+        $this->_code[51] = "213113"; // "S"
+        $this->_code[52] = "213311"; // "T"
+        $this->_code[53] = "213131"; // "U"
+        $this->_code[54] = "311123"; // "V"
+        $this->_code[55] = "311321"; // "W"
+        $this->_code[56] = "331121"; // "X"
+        $this->_code[57] = "312113"; // "Y"
+        $this->_code[58] = "312311"; // "Z"
+        $this->_code[59] = "332111"; // "["
+        $this->_code[60] = "314111"; // "\"
+        $this->_code[61] = "221411"; // "]"
+        $this->_code[62] = "431111"; // "^"
+        $this->_code[63] = "111224"; // "_"
+        $this->_code[64] = "111422"; // "`"
+        $this->_code[65] = "121124"; // "a"
+        $this->_code[66] = "121421"; // "b"
+        $this->_code[67] = "141122"; // "c"
+        $this->_code[68] = "141221"; // "d"
+        $this->_code[69] = "112214"; // "e"
+        $this->_code[70] = "112412"; // "f"
+        $this->_code[71] = "122114"; // "g"
+        $this->_code[72] = "122411"; // "h"
+        $this->_code[73] = "142112"; // "i"
+        $this->_code[74] = "142211"; // "j"
+        $this->_code[75] = "241211"; // "k"
+        $this->_code[76] = "221114"; // "l"
+        $this->_code[77] = "413111"; // "m"
+        $this->_code[78] = "241112"; // "n"
+        $this->_code[79] = "134111"; // "o"
+        $this->_code[80] = "111242"; // "p"
+        $this->_code[81] = "121142"; // "q"
+        $this->_code[82] = "121241"; // "r"
+        $this->_code[83] = "114212"; // "s"
+        $this->_code[84] = "124112"; // "t"
+        $this->_code[85] = "124211"; // "u"
+        $this->_code[86] = "411212"; // "v"
+        $this->_code[87] = "421112"; // "w"
+        $this->_code[88] = "421211"; // "x"
+        $this->_code[89] = "212141"; // "y"
+        $this->_code[90] = "214121"; // "z"
+        $this->_code[91] = "412121"; // "{"
+        $this->_code[92] = "111143"; // "|"
+        $this->_code[93] = "111341"; // "}"
+        $this->_code[94] = "131141"; // "~"
+        $this->_code[95] = "114113"; // 95
+        $this->_code[96] = "114311"; // 96
+        $this->_code[97] = "411113"; // 97
+        $this->_code[98] = "411311"; // 98
+        $this->_code[99] = "113141"; // 99
+        $this->_code[100] = "114131"; // 100
+        $this->_code[101] = "311141"; // 101
+        $this->_code[102] = "411131"; // 102
     }
+
 
     /**
     * Return the Code128 code for a character
     */
-    function getCharCode($c) {
-        $retval = $this->code[ord($c) - 32];
-        return $retval;
+    private function _getCharCode($c)
+    {
+        return $this->_code[ord($c) - 32];
     }
+
 
     /**
     * Return the Start Code for Code128
     */
-    function getStartCode() {
+    private function _getStartCode()
+    {
         return '211214';
     }
+
 
     /**
     * Return the Stop Code for Code128
     */
-    function getStopCode() {
+    private function _getStopCode()
+    {
         return '2331112';
     }
+
 
     /**
     * Return the Code128 code equivalent of a character number
     */
-    function getNumCode($index) {
-        $retval = $this->code[$index];
-        return $retval;
+    private function _getNumCode($index)
+    {
+        return $this->_code[$index];
     }
+
 
     /**
     * Return the Code128 numerical equivalent of a character.
     */
-    function getCharNumber($c) {
-        $retval = ord($c) - 32;
-        return $retval;
+    private function _getCharNumber($c)
+    {
+        return ord($c) - 32;
     }
 
 } // class
+
 ?>

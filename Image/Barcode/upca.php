@@ -6,7 +6,7 @@
  *
  * Renders UPC-A barcodes
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -138,61 +138,46 @@ class Image_Barcode_upca extends Image_Barcode
      * @author  Didier Fournout <didier.fournout@nyc.fr>
      *
      */
-    function &draw($text, $imgtype = 'png')
+    public function image($text, $imgtype = 'png')
     {
-        $error = false;
-        if ((is_numeric($text)==false) || (strlen($text)!=12)) {
-            $barcodewidth= (12 * 7 * $this->_barwidth) + 3 + 5 + 3 + 2 * (imagefontwidth($this->_font)+1);
-            $error = true;
-        } else {
-            // Calculate the barcode width
-            $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
-                + 3 // left
-                + 5 // center
-                + 3 // right
-                + imagefontwidth($this->_font)+1
-                + imagefontwidth($this->_font)+1   // check digit's padding
-                ;
+        $text = trim($text);
+
+        if (!preg_match('/[0-9]{12}/', $text)) {
+            return 'Invalid text';
         }
 
-        $barcodelongheight = (int) (imagefontheight($this->_font)/2)+$this->_barcodeheight;
+
+        // Calculate the barcode width
+        $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
+            + 3 // left
+            + 5 // center
+            + 3 // right
+            + imagefontwidth($this->_font) + 1
+            + imagefontwidth($this->_font) + 1   // check digit's padding
+            ;
+
+
+        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
 
         // Create the image
-        $img = ImageCreate($barcodewidth, $barcodelongheight+ imagefontheight($this->_font)+1);
+        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font)+1);
 
         // Alocate the black and white colors
-        $black = ImageColorAllocate($img, 0, 0, 0);
-        $white = ImageColorAllocate($img, 255, 255, 255);
+        $black = imagecolorallocate($img, 0, 0, 0);
+        $white = imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
         imagefill($img, 0, 0, $white);
 
-        if ($error) {
-            $imgerror = ImageCreate($barcodewidth, $barcodelongheight+imagefontheight($this->_font)+1);
-            $red      = ImageColorAllocate($imgerror, 255, 0, 0);
-            $black    = ImageColorAllocate($imgerror, 0, 0, 0);
-            imagefill($imgerror, 0, 0, $red);
-
-            imagestring(
-                $imgerror,
-                $this->_font,
-                $barcodewidth / 2 - (10/2 * imagefontwidth($this->_font)),
-                $this->_barcodeheight / 2,
-                'Code Error',
-                $black
-            );
-        }
-
         // get the first digit which is the key for creating the first 6 bars
-        $key = substr($text,0,1);
+        $key = substr($text, 0, 1);
 
         // Initiate x position
         $xpos = 0;
 
         // print first digit
         imagestring($img, $this->_font, $xpos, $this->_barcodeheight, $key, $black);
-        $xpos= imagefontwidth($this->_font) + 1;
-
+        $xpos = imagefontwidth($this->_font) + 1;
 
 
         // Draws the left guard pattern (bar-space-bar)
@@ -287,7 +272,8 @@ class Image_Barcode_upca extends Image_Barcode
         } else {
             return $img;
         }
-    } // function create
+    }
 
 } // class
+
 ?>

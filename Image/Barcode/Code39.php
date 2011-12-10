@@ -7,7 +7,7 @@
  * Image_Barcode_Code39 creates Code 3 of 9 ( Code39 ) barcode images. It's
  * implementation borrows heavily for the perl module GD::Barcode::Code39
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -25,13 +25,7 @@
  */
 
 
-require_once "Image/Barcode.php";
-
-
-if (!function_exists('str_split')) {
-    require_once 'PHP/Compat.php';
-    PHP_Compat::loadFunction('str_split');
-}
+require_once 'Image/Barcode.php';
 
 /**
  * Image_Barcode_Code39 class
@@ -144,16 +138,20 @@ class Image_Barcode_Code39 extends Image_Barcode
      * @author Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    function Image_Barcode_Code39( $text = '', $wThin = 0, $wThick = 0 )
+    public function __construct( $text = '', $wThin = 0, $wThick = 0 )
     {
         // Check $text for invalid characters
-        if ( $this->checkInvalid( $text ) ) {
+        if ( $this->_checkInvalid( $text ) ) {
             return false;
         }
 
         $this->text = $text;
-        if ( $wThin > 0 ) $this->_barthinwidth = $wThin;
-        if ( $wThick > 0 ) $this->_barthickwidth = $wThick;
+        if ( $wThin > 0 ) {
+            $this->_barthinwidth = $wThin;
+        }
+        if ( $wThick > 0 ) {
+            $this->_barthickwidth = $wThick;
+        }
 
         return true;
     }
@@ -168,7 +166,7 @@ class Image_Barcode_Code39 extends Image_Barcode
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
     *
     */
-    function plot($noText = false, $bHeight = 0)
+    private function _plot($noText = false, $bHeight = 0)
     {
        // add start and stop * characters
        $final_text = '*' . $this->text . '*';
@@ -203,9 +201,9 @@ class Image_Barcode_Code39 extends Image_Barcode
         if ( $noText ) {
             foreach (str_split($barcode) as $character_code ) {
                 if ($character_code == 0 ) {
-                        imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $white);
+                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $white);
                 } else {
-                        imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $black);
+                    imageline($img, $xpos, 0, $xpos, $this->_barcodeheight, $black);
                 }
 
                 $xpos++;
@@ -235,6 +233,7 @@ class Image_Barcode_Code39 extends Image_Barcode
         return $img;
     }
 
+
     /**
      * Send image to the browser; for Image_Barcode compaitbility
      *
@@ -247,18 +246,19 @@ class Image_Barcode_Code39 extends Image_Barcode
      * @author   Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    function &draw($text, $imgtype = 'png', $noText = false, $bHeight = 0)
+    public function image($text, $imgtype = 'png', $noText = false, $bHeight = 0)
     {
+        $text = trim($text);
+
         // Check $text for invalid characters
-        if ($this->checkInvalid($text)) {
-            return PEAR::raiseError('Invalid text');
+        if ($this->_checkInvalid($text)) {
+            return 'Invalid text';
         }
 
         $this->text = $text;
-        $img = &$this->plot($noText, $bHeight);
-
-        return $img;
+        return $this->_plot($noText, $bHeight);
     }
+
 
     /**
      * _dumpCode is a PHP implementation of dumpCode from the Perl module
@@ -274,19 +274,20 @@ class Image_Barcode_Code39 extends Image_Barcode
      *
      *
      */
-    function _dumpCode($code)
+    private function _dumpCode($code)
     {
         $result = '';
         $color = 1; // 1: Black, 0: White
 
         // if $bit is 1, line is wide; if $bit is 0 line is thin
         foreach ( str_split( $code ) as $bit ) {
-            $result .= ( ( $bit == 1 ) ? str_repeat( "$color", $this->_barthickwidth ) : str_repeat( "$color", $this->_barthinwidth ) );
+            $result .= ( ( $bit == 1 ) ? str_repeat( $color, $this->_barthickwidth ) : str_repeat( $color, $this->_barthinwidth ) );
             $color = ( ( $color == 0 ) ? 1 : 0 );
         }
 
         return $result;
     }
+
 
     /**
      * Check for invalid characters
@@ -297,9 +298,10 @@ class Image_Barcode_Code39 extends Image_Barcode
      * @author  Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
-    function checkInvalid($text)
+    private function _checkInvalid($text)
     {
         return preg_match( "/[^0-9A-Z\-*+\$%\/. ]/", $text );
     }
 }
+
 ?>
