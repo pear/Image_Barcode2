@@ -36,8 +36,6 @@
   *  density:        22 bars/inch    = 8.66 bars/cm
   */
 
-require_once 'Image/Barcode2.php';
-
 
 /**
  * Image_Barcode2_postnet class
@@ -52,7 +50,7 @@ require_once 'Image/Barcode2.php';
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_postnet extends Image_Barcode2
+class Image_Barcode2_postnet
 {
     /**
      * Bar short height

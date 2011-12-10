@@ -38,7 +38,7 @@ require_once 'PEAR.php';
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2 extends PEAR
+class Image_Barcode2
 {
     /**
      * Image type
@@ -108,7 +108,7 @@ class Image_Barcode2 extends PEAR
 
         $img = $obj->draw($text);
 
-        if (PEAR::isError($img)) {
+        if (@PEAR::isError($img)) {
             return $img;
         }
 
@@ -134,7 +134,7 @@ class Image_Barcode2 extends PEAR
                     break;
             }
         }
-        return $img;
 
+        return $img;
     }
 }

@@ -42,9 +42,8 @@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode2.php';
 
-class Image_Barcode2_code128 extends Image_Barcode2
+class Image_Barcode2_code128
 {
     var $_barcodeheight = 60;
     var $_font = 2;

@@ -24,7 +24,6 @@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode2.php';
 
 /**
  * Image_Barcode2_upca class
@@ -47,7 +46,7 @@ require_once 'Image/Barcode2.php';
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_upca extends Image_Barcode2
+class Image_Barcode2_upca
 {
     /**
      * Barcode height

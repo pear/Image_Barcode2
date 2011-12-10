@@ -25,8 +25,6 @@
  */
 
 
-require_once 'Image/Barcode2.php';
-
 /**
  * Image_Barcode2_Code39 class
  *
@@ -41,7 +39,7 @@ require_once 'Image/Barcode2.php';
  * @link       http://pear.php.net/package/Image_Barcode2
  * @since      Image_Barcode2 0.5
  */
-class Image_Barcode2_Code39 extends Image_Barcode2
+class Image_Barcode2_Code39
 {
     /**
      * Barcode height

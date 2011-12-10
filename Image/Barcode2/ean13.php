@@ -23,7 +23,6 @@
  * @link       http://pear.php.net/package/Image_Barcode
  */
 
-require_once 'Image/Barcode2.php';
 
 /**
  * Image_Barcode2_ean13 class
@@ -31,7 +30,7 @@ require_once 'Image/Barcode2.php';
  * Package which provides a method to create EAN 13 barcode using GD library.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Didier Fournout <didier.fournout@nyc.fr>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
@@ -39,7 +38,7 @@ require_once 'Image/Barcode2.php';
  * @link       http://pear.php.net/package/Image_Barcode
  * @since      Image_Barcode2 0.4
  */
-class Image_Barcode2_ean13 extends Image_Barcode2
+class Image_Barcode2_ean13
 {
     /**
      * Barcode height
