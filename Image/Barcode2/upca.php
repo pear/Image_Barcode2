@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode_upca class
+ * Image_Barcode2_upca class
  *
  * Renders UPC-A barcodes
  *
@@ -15,39 +15,39 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
  * @author     Didier Fournout <didier.fournout@nyc.fr>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode.php';
+require_once 'Image/Barcode2.php';
 
 /**
- * Image_Barcode_upca class
+ * Image_Barcode2_upca class
  *
  * Package which provides a method to create UPC-A barcode using GD library.
  *
  * Slightly Modified ean13.php to get upca.php I needed a way to print
- * UPC-A bar codes on a PHP page.  The Image_Barcode class seemed like
+ * UPC-A bar codes on a PHP page.  The Image_Barcode2 class seemed like
  * the best way to do it, so I modified ean13 to print in the UPC-A format.
  * Checked the bar code tables against some documentation below (no errors)
  * and validated the changes with my trusty cue-cat.
  * http://www.indiana.edu/~atmat/units/barcodes/bar_t4.htm
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
  * @author     Didier Fournout <didier.fournout@nyc.fr>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode_upca extends Image_Barcode
+class Image_Barcode2_upca extends Image_Barcode2
 {
     /**
      * Barcode type

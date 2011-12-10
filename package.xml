@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
- <name>Image_Barcode</name>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Image_Barcode2</name>
  <channel>pear.php.net</channel>
  <summary>Barcode generation</summary>
  <description>With Image_Barcode class you can create a barcode
@@ -14,11 +14,11 @@
   <email>msmarcal@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-10-25</date>
- <time>19:44:01</time>
+ <date>2011-12-10</date>
+ <time>22:34:22</time>
  <version>
-  <release>1.1.1</release>
-  <api>1.1.0</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,19 +35,21 @@ Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
    <file baseinstalldir="Image" md5sum="9d09306ee5d354c7d7216e14e3b81c49" name="docs/Readme.txt" role="doc" />
    <file baseinstalldir="Image" md5sum="d027dd2e78465162010a1cab265eb09b" name="docs/examples/barcode_img.php" role="doc" />
    <file baseinstalldir="Image" md5sum="783855c825cbb516b3cf7aefa0b09d29" name="docs/examples/test-image-barcode.php" role="doc" />
-   <file baseinstalldir="/" md5sum="a0f4538546e40c0e08d5f30b7640a816" name="Image/Barcode.php" role="php" />
-   <file baseinstalldir="/" md5sum="e6258d77d32860d08ab309fbace6bd24" name="Image/Barcode/Code39.php" role="php" />
-   <file baseinstalldir="/" md5sum="25703aeec6784fdf601b0a7502ebbc22" name="Image/Barcode/code128.php" role="php" />
-   <file baseinstalldir="/" md5sum="13d6e69e9615b52a7636b8d67e5b8e2a" name="Image/Barcode/ean13.php" role="php" />
-   <file baseinstalldir="/" md5sum="c152c7c632fe86c90d0b0e1cd2844838" name="Image/Barcode/int25.php" role="php" />
-   <file baseinstalldir="/" md5sum="b4f9983ac55b720bc262680829f8665a" name="Image/Barcode/postnet.php" role="php" />
-   <file baseinstalldir="/" md5sum="f65dff9c3c28d0422b20efa766067bc1" name="Image/Barcode/upca.php" role="php" />
+   <file baseinstalldir="/" md5sum="7d134244f64ed011a96cdb97bdcb45ad" name="Image/Barcode2.php" role="php" />
+   <file baseinstalldir="/" md5sum="5da23d9e0818080fcc2bba1c95b24ece" name="Image/Barcode2/Code39.php" role="php" />
+   <file baseinstalldir="/" md5sum="630a68961a5ab99765868e0c72a53213" name="Image/Barcode2/code128.php" role="php" />
+   <file baseinstalldir="/" md5sum="d34fea1279ac20af35f08231ed16d6d3" name="Image/Barcode2/ean8.php" role="php" />
+   <file baseinstalldir="/" md5sum="5fb832ed8e90bd0ec1ed1bffe6f1ee98" name="Image/Barcode2/ean13.php" role="php" />
+   <file baseinstalldir="/" md5sum="c8f6ee291d82f2cba4f4adf6d2aac4ec" name="Image/Barcode2/int25.php" role="php" />
+   <file baseinstalldir="/" md5sum="52623b5e5442cebca2226027ef879deb" name="Image/Barcode2/postnet.php" role="php" />
+   <file baseinstalldir="/" md5sum="471c34e9a20cf1797ba2485579e25b09" name="Image/Barcode2/upca.php" role="php" />
+   <file baseinstalldir="/" md5sum="24fc56ca72d6362637db65025008d49f" name="README" role="data" />
   </dir>
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>4.0.0</min>
+    <min>5.0.0</min>
    </php>
    <pearinstaller>
     <min>1.4.0b1</min>
@@ -148,6 +150,22 @@ to use the class properly.
     <api>stable</api>
    </stability>
    <date>2010-10-25</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+QA release
+Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-12-10</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
 QA release

@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode_int25 class
+ * Image_Barcode2_int25 class
  *
  * Renders Interleaved 2 of 5 barcodes
  *
@@ -15,31 +15,31 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Marcelo Subtil Marcal <msmarcal@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
 
 require_once 'Image/Barcode.php';
 
 
 /**
- * Image_Barcode_int25 class
+ * Image_Barcode2_int25 class
  *
  * Package which provides a method to create Interleaved 2 of 5 barcode using GD library.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Marcelo Subtil Marcal <msmarcal@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode_int25 extends Image_Barcode
+class Image_Barcode2_int25 extends Image_Barcode2
 {
     /**
      * Barcode type
@@ -96,7 +96,7 @@ class Image_Barcode_int25 extends Image_Barcode
      * @access public
      *
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
-     * @since  Image_Barcode 0.3
+     * @since  Image_Barcode2 0.3
      */
 
     public function image($text, $imgtype = 'png')

@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode class
+ * Image_Barcode2 class
  *
  * Package to render barcodes
  *
@@ -15,30 +15,30 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Marcelo Subtil Marcal <msmarcal@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
 
 require_once 'PEAR.php';
 
 /**
- * Image_Barcode class
+ * Image_Barcode2 class
  *
  * Package which provides a method to create barcode using GD library.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Marcelo Subtil Marcal <msmarcal@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode extends PEAR
+class Image_Barcode2 extends PEAR
 {
     /**
      * Draws a image barcode
@@ -59,9 +59,9 @@ class Image_Barcode extends PEAR
      * @access public
      *
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
-     * @since  Image_Barcode 0.3
+     * @since  Image_Barcode2 0.3
      */
-    function &draw($text, $type = 'int25', $imgtype = 'png', $bSendToBrowser = true, $height=60, $barwidth = 1)
+    function draw($text, $type = 'int25', $imgtype = 'png', $bSendToBrowser = true, $height=60, $barwidth = 1)
     {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
@@ -71,18 +71,18 @@ class Image_Barcode extends PEAR
             return PEAR::raiseError($type . ' barcode is not supported');
         }
 
-        $classname = 'Image_Barcode_' . $type;
+        $classname = 'Image_Barcode2_' . $type;
 
         if (!in_array('draw',get_class_methods($classname))) {
             return PEAR::raiseError("Unable to find draw method in '$classname' class");
         }
 
-        @$obj =& new $classname();
+        @$obj = new $classname();
     
 	if (isset($obj->_barcodeheight)) $obj->_barcodeheight = $height;
 	if (isset($obj->_barwidth)) $obj->_barwidth = $barwidth;
 
-        $img = &$obj->draw($text, $imgtype);
+        $img = $obj->draw($text, $imgtype);
 
         if (PEAR::isError($img)) {
             return $img;
@@ -114,4 +114,3 @@ class Image_Barcode extends PEAR
 
     }
 }
-?>

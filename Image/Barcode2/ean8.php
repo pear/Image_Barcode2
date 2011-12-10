@@ -2,11 +2,11 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode_ean8 class
+ * Image_Barcode2_ean8 class
  *
  * Renders EAN 8 barcodes
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -15,32 +15,32 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Tobias Frost <tobi@coldtobi.de> , 
  * 			   based on EAN13 code by Didier Fournout <didier.fournout@nyc.fr>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id: 
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode.php';
+require_once 'Image/Barcode2.php';
 
 /**
- * Image_Barcode_ean8 class
+ * Image_Barcode2_ean8 class
  *
  * Package which provides a method to create EAN 13 barcode using GD library.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Tobias Frost <tobi@coldtobi.de> , 
  * 			   based on EAN13 code by Didier Fournout <didier.fournout@nyc.fr>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode_ean8 extends Image_Barcode
+class Image_Barcode2_ean8 extends Image_Barcode2
 {
     /**
      * Barcode type
@@ -132,7 +132,7 @@ class Image_Barcode_ean8 extends Image_Barcode
      * @todo       Check if $text is number and len=8
      *
      */
-    function &draw($text, $imgtype = 'png')
+    function draw($text, $imgtype = 'png')
     {
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)

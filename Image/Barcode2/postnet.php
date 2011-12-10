@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode_postnet class
+ * Image_Barcode2_postnet class
  *
  * Renders PostNet barcodes
  *
@@ -15,12 +15,12 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Josef "Jeff" Sipek <jeffpc@optonline.net>
  * @copyright  2005 Josef "Jeff" Sipek
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
 
  /*
@@ -36,23 +36,23 @@
   *  density:        22 bars/inch    = 8.66 bars/cm
   */
 
-require_once 'Image/Barcode.php';
+require_once 'Image/Barcode2.php';
 
 
 /**
- * Image_Barcode_postnet class
+ * Image_Barcode2_postnet class
  *
  * Package which provides a method to create PostNet barcode using GD library.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Josef "Jeff" Sipek <jeffpc@optonline.net>
  * @copyright  2005 Josef "Jeff" Sipek
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode_postnet extends Image_Barcode
+class Image_Barcode2_postnet extends Image_Barcode2
 {
     /**
      * Barcode type
@@ -109,7 +109,7 @@ class Image_Barcode_postnet extends Image_Barcode
      * @access public
      *
      * @author Josef "Jeff" Sipek <jeffpc@optonline.net>
-     * @since  Image_Barcode 0.3
+     * @since  Image_Barcode2 0.3
      */
 
     public function image($text, $imgtype = 'png')

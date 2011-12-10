@@ -2,9 +2,9 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode_Code39 class
+ * Image_Barcode2_Code39 class
  *
- * Image_Barcode_Code39 creates Code 3 of 9 ( Code39 ) barcode images. It's
+ * Image_Barcode2_Code39 creates Code 3 of 9 ( Code39 ) barcode images. It's
  * implementation borrows heavily for the perl module GD::Barcode::Code39
  *
  * PHP versions 5
@@ -16,32 +16,32 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Ryan Briones <ryanbriones@webxdesign.org>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
 
 
-require_once 'Image/Barcode.php';
+require_once 'Image/Barcode2.php';
 
 /**
- * Image_Barcode_Code39 class
+ * Image_Barcode2_Code39 class
  *
  * Package which provides a method to create Code39 using GD library.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Ryan Briones <ryanbriones@webxdesign.org>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode
- * @since      Image_Barcode 0.5
+ * @link       http://pear.php.net/package/Image_Barcode2
+ * @since      Image_Barcode2 0.5
  */
-class Image_Barcode_Code39 extends Image_Barcode
+class Image_Barcode2_Code39 extends Image_Barcode2
 {
     /**
      * Barcode type
@@ -235,7 +235,7 @@ class Image_Barcode_Code39 extends Image_Barcode
 
 
     /**
-     * Send image to the browser; for Image_Barcode compaitbility
+     * Send image to the browser; for Image_Barcode2 compaitbility
      *
      * @param    string $text
      * @param    string $imgtype     Image type; accepts jpg, png, and gif, but gif only works if you've payed for licensing

@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode_code128 class
+ * Image_Barcode2_code128 class
  *
  * Renders Code128 barcodes
  * Code128 is a high density encoding for alphanumeric strings.
@@ -20,7 +20,7 @@
  * I originally wrote this algorithm in Visual Basic 6 for a Rapid 
  * Software Development class, where we printed Code128 B bar codes
  * to read using Cue Cat bar code readers.  I rewrote the algorithm
- * using PHP for inclusion in the PEAR Image_Barcode project.
+ * using PHP for inclusion in the PEAR Image_Barcode2 project.
  *
  * The Code128B bar codes produced by the algorithm have been validated
  * using my trusty Cue-Cat bar code reader.
@@ -34,17 +34,17 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Image
- * @package    Image_Barcode
+ * @package    Image_Barcode2
  * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @link       http://pear.php.net/package/Image_Barcode2
  */
 
 require_once 'Image/Barcode.php';
 
-class Image_Barcode_code128 extends Image_Barcode
+class Image_Barcode2_code128 extends Image_Barcode2
 {
     private $_type = 'code128';
     private $_barcodeheight = 60;
@@ -190,7 +190,7 @@ class Image_Barcode_code128 extends Image_Barcode
 
     /**
     * @internal
-    * In the Image_Barcode_code128 constructor, we initialize
+    * In the Image_Barcode2_code128 constructor, we initialize
     * the $code array, containing the bar and space pattern
     * for the Code128 B character set.
     */

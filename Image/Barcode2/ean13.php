@@ -2,11 +2,11 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode_ean13 class
+ * Image_Barcode2_ean13 class
  *
  * Renders EAN 13 barcodes
  *
- * PHP versions 4
+ * PHP versions 5
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -23,10 +23,10 @@
  * @link       http://pear.php.net/package/Image_Barcode
  */
 
-require_once 'Image/Barcode.php';
+require_once 'Image/Barcode2.php';
 
 /**
- * Image_Barcode_ean13 class
+ * Image_Barcode2_ean13 class
  *
  * Package which provides a method to create EAN 13 barcode using GD library.
  *
@@ -37,9 +37,9 @@ require_once 'Image/Barcode.php';
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Image_Barcode
- * @since      Image_Barcode 0.4
+ * @since      Image_Barcode2 0.4
  */
-class Image_Barcode_ean13 extends Image_Barcode
+class Image_Barcode2_ean13 extends Image_Barcode2
 {
     /**
      * Barcode type
@@ -153,7 +153,7 @@ class Image_Barcode_ean13 extends Image_Barcode
      * @todo       Check if $text is number and len=13
      *
      */
-    function &draw($text, $imgtype = 'png')
+    function draw($text, $imgtype = 'png')
     {
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
