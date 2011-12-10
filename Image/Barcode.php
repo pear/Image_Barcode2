@@ -61,7 +61,7 @@ class Image_Barcode extends PEAR
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode 0.3
      */
-    function &draw($text, $type = 'int25', $imgtype = 'png', $bSendToBrowser = true)
+    function &draw($text, $type = 'int25', $imgtype = 'png', $bSendToBrowser = true, $height=60, $barwidth = 1)
     {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
@@ -78,6 +78,9 @@ class Image_Barcode extends PEAR
         }
 
         @$obj =& new $classname();
+    
+	if (isset($obj->_barcodeheight)) $obj->_barcodeheight = $height;
+	if (isset($obj->_barwidth)) $obj->_barwidth = $barwidth;
 
         $img = &$obj->draw($text, $imgtype);
 
