@@ -25,6 +25,7 @@
 
 require_once 'PEAR.php';
 require_once 'Image/Barcode2/Writer.php';
+require_once 'Image/Barcode2/Driver.php';
 
 /**
  * Image_Barcode2 class
@@ -104,15 +105,15 @@ class Image_Barcode2
 
         $classname = 'Image_Barcode2_' . $type;
 
-        if (!in_array('draw', get_class_methods($classname))) {
+        $writer = new Image_Barcode2_Writer();
+
+        $obj = new $classname($writer);
+
+        if (!$obj instanceof Image_Barcode2_Driver) {
             return PEAR::raiseError(
                 "Unable to find draw method in '$classname' class"
             );
         }
-
-        $writer = new Image_Barcode2_Writer();
-
-        $obj = new $classname($writer);
 
         if (isset($obj->_barcodeheight)) {
             $obj->_barcodeheight = $height;
