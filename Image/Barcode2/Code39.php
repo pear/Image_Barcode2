@@ -15,13 +15,13 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Ryan Briones <ryanbriones@webxdesign.org>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Ryan Briones <ryanbriones@webxdesign.org>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 
@@ -30,14 +30,14 @@
  *
  * Package which provides a method to create Code39 using GD library.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Ryan Briones <ryanbriones@webxdesign.org>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode2
- * @since      Image_Barcode2 0.5
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Ryan Briones <ryanbriones@webxdesign.org>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode2
+ * @since     Image_Barcode2 0.5
  */
 class Image_Barcode2_Code39
 {
@@ -136,33 +136,47 @@ class Image_Barcode2_Code39
         $final_text = '*' . $text . '*';
 
         $barcode = '';
-        foreach ( str_split( $final_text ) as $character ) {
-            $barcode .= $this->_dumpCode( $this->_coding_map[$character] . '0' );
+        foreach (str_split($final_text) as $character) {
+            $barcode .= $this->_dumpCode($this->_coding_map[$character] . '0');
         }
 
-        $barcode_len = strlen( $barcode );
+        $barcode_len = strlen($barcode);
 
         // Create GD image object
-        $img = imagecreate( $barcode_len, $this->_barcodeheight );
+        $img = imagecreate($barcode_len, $this->_barcodeheight);
 
         // Allocate black and white colors to the image
-        $black = imagecolorallocate( $img, 0, 0, 0 );
-        $white = imagecolorallocate( $img, 255, 255, 255 );
-        $font_height = imagefontheight( $this->_font_size );
-        $font_width = imagefontwidth( $this->_font_size );
+        $black = imagecolorallocate($img, 0, 0, 0);
+        $white = imagecolorallocate($img, 255, 255, 255);
+        $font_height = imagefontheight($this->_font_size);
+        $font_width = imagefontwidth($this->_font_size);
 
         // fill background with white color
-        imagefill( $img, 0, 0, $white );
+        imagefill($img, 0, 0, $white);
 
         // Initialize X position
         $xpos = 0;
 
         // draw barcode bars to image
-        foreach (str_split($barcode) as $character_code ) {
+        foreach (str_split($barcode) as $character_code) {
             if ($character_code == 0) {
-                imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $white);
+                imageline(
+                    $img, 
+                    $xpos, 
+                    0, 
+                    $xpos, 
+                    $this->_barcodeheight - $font_height - 1, 
+                    $white
+                );
             } else {
-                imageline($img, $xpos, 0, $xpos, $this->_barcodeheight - $font_height - 1, $black);
+                imageline(
+                    $img, 
+                    $xpos, 
+                    0, 
+                    $xpos, 
+                    $this->_barcodeheight - $font_height - 1, 
+                    $black
+                );
             }
 
             $xpos++;
@@ -172,7 +186,7 @@ class Image_Barcode2_Code39
         imagestring(
             $img,
             $this->_font_size,
-            ( $barcode_len - $font_width * strlen( $text ) ) / 2,
+            ($barcode_len - $font_width * strlen($this->text)) / 2,
             $this->_barcodeheight - $font_height,
             $text,
             $black
@@ -184,13 +198,12 @@ class Image_Barcode2_Code39
 
 
     /**
-     * Send image to the browser; for Image_Barcode2 compaitbility
+     * Send image to the browser; for Image_Barcode2 compatibility
      *
-     * @param    string $text        A text that should be in the image barcode
+     * @param string $text Text to render
+     *
      * @return   gd_image            GD image object
-     *
      * @author   Ryan Briones <ryanbriones@webxdesign.org>
-     *
      */
     public function draw($text)
     {
@@ -210,11 +223,10 @@ class Image_Barcode2_Code39
      * GD::Barcode::Code39. I royally screwed up when trying to do the thing
      * my own way the first time. This way works.
      *
-     * @param   string $code        Code39 barcode code
+     * @param string $code Code39 barcode code
+     *
      * @return  string $result      barcode line code
-     *
      * @access  private
-     *
      * @author   Ryan Briones <ryanbriones@webxdesign.org>
      *
      *
@@ -225,9 +237,14 @@ class Image_Barcode2_Code39
         $color = 1; // 1: Black, 0: White
 
         // if $bit is 1, line is wide; if $bit is 0 line is thin
-        foreach ( str_split( $code ) as $bit ) {
-            $result .= ( ( $bit == 1 ) ? str_repeat( $color, $this->_barthickwidth ) : str_repeat( $color, $this->_barthinwidth ) );
-            $color = ( ( $color == 0 ) ? 1 : 0 );
+        foreach (str_split($code) as $bit) {
+            if ($bit == 1) {
+                $result .= str_repeat($color, $this->_barthickwidth);
+            } else {
+                $result .= str_repeat($color, $this->_barthinwidth);
+            }
+
+            $color = ($color == 0) ? 1 : 0;
         }
 
         return $result;
@@ -237,15 +254,15 @@ class Image_Barcode2_Code39
     /**
      * Check for invalid characters
      *
-     * @param   string $text    text to be ckecked
-     * @return  bool            returns true when invalid characters have been found
+     * @param string $text text to be ckecked
      *
+     * @return  bool            returns true when invalid characters have been found
      * @author  Ryan Briones <ryanbriones@webxdesign.org>
      *
      */
     private function _checkInvalid($text)
     {
-        return preg_match( "/[^0-9A-Z\-*+\$%\/. ]/", $text );
+        return preg_match("/[^0-9A-Z\-*+\$%\/. ]/", $text);
     }
 }
 

@@ -14,13 +14,13 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Marcelo Subtil Marcal <msmarcal@php.net>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Marcelo Subtil Marcal <msmarcal@php.net>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 require_once 'PEAR.php';
@@ -30,13 +30,13 @@ require_once 'PEAR.php';
  *
  * Package which provides a method to create barcode using GD library.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Marcelo Subtil Marcal <msmarcal@php.net>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Marcelo Subtil Marcal <msmarcal@php.net>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 class Image_Barcode2
 {
@@ -62,49 +62,62 @@ class Image_Barcode2
     /**
      * Draws a image barcode
      *
-     * @param  string $text     A text that should be in the image barcode
-     * @param  string $type     The barcode type. Supported types:
-     *                          Code39 - Code 3 of 9
-     *                          int25  - 2 Interleaved 5
-     *                          ean13  - EAN 13
-     *                          upca   - UPC-A
-     *                          code128
-     *                          ean8
-     *                          postnet
-     * @param  string $imgtype  The image type that will be generated (gif, jpg, png)
-     * @param  boolean $bSendToBrowser  if the image shall be outputted to the
-     *                                  browser, or be returned.
+     * @param string  $text           A text that should be in the image barcode
+     * @param string  $type           The barcode type. Supported types:
+     *                                Code39 - Code 3 of 9
+     *                                int25  - 2 Interleaved 5
+     *                                ean13  - EAN 13
+     *                                upca   - UPC-A
+     *                                code128
+     *                                ean8
+     *                                postnet
+     * @param string  $imgtype        The image type that will be generated
+     *                                (gif, jpg, png)
+     * @param boolean $bSendToBrowser if the image shall be outputted to the
+     *                                 browser, or be returned.
+     * @param integer $height         The image height
+     * @param integer $width          The image width
      *
-     * @param  integer $height  The image height
-     * @param  integer $width   The image width
-     * @return image            The corresponding gd image object;
-     *                           PEAR_Error on failure
+     * @return image The corresponding gd image object;
+     *               PEAR_Error on failure
      *
      * @access public
      *
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode2 0.3
      */
-    public static function draw($text, $type = Image_Barcode2::BARCODE_INT25, $imgtype = Image_Barcode2::IMAGE_PNG, $bSendToBrowser = true, $height = 60, $width = 1)
-    {
+    public static function draw($text, 
+        $type = Image_Barcode2::BARCODE_INT25,
+        $imgtype = Image_Barcode2::IMAGE_PNG, 
+        $bSendToBrowser = true,
+        $height = 60,
+        $width = 1
+    ) {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
             return PEAR::raiseError('Invalid barcode type ' . $type);
         }
-        if (!include_once('Image/Barcode2/' . $type . '.php')) {
+        if (!include_once 'Image/Barcode2/' . $type . '.php') {
             return PEAR::raiseError($type . ' barcode is not supported');
         }
 
         $classname = 'Image_Barcode2_' . $type;
 
         if (!in_array('draw', get_class_methods($classname))) {
-            return PEAR::raiseError("Unable to find draw method in '$classname' class");
+            return PEAR::raiseError(
+                "Unable to find draw method in '$classname' class"
+            );
         }
 
         $obj = new $classname();
 
-        if (isset($obj->_barcodeheight)) $obj->_barcodeheight = $height;
-        if (isset($obj->_barwidth)) $obj->_barwidth = $width;
+        if (isset($obj->_barcodeheight)) {
+            $obj->_barcodeheight = $height;
+        }
+
+        if (isset($obj->_barwidth)) {
+            $obj->_barwidth = $width;
+        }
 
         $img = $obj->draw($text);
 
@@ -115,23 +128,23 @@ class Image_Barcode2
         if ($bSendToBrowser) {
             // Send image to browser
             switch ($imgtype) {
-                case self::IMAGE_GIF:
-                    header('Content-type: image/gif');
-                    imagegif($img);
-                    imagedestroy($img);
-                    break;
+            case self::IMAGE_GIF:
+                header('Content-type: image/gif');
+                imagegif($img);
+                imagedestroy($img);
+                break;
 
-                case self::IMAGE_JPEG:
-                    header('Content-type: image/jpg');
-                    imagejpeg($img);
-                    imagedestroy($img);
-                    break;
+            case self::IMAGE_JPEG:
+                header('Content-type: image/jpg');
+                imagejpeg($img);
+                imagedestroy($img);
+                break;
 
-                default:
-                    header('Content-type: image/png');
-                    imagepng($img);
-                    imagedestroy($img);
-                    break;
+            default:
+                header('Content-type: image/png');
+                imagepng($img);
+                imagedestroy($img);
+                break;
             }
         }
 

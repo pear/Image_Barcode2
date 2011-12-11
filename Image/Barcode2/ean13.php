@@ -14,13 +14,13 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode
- * @author     Didier Fournout <didier.fournout@nyc.fr>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode
+ * @category  Image
+ * @package   Image_Barcode
+ * @author    Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode
  */
 
 
@@ -29,14 +29,14 @@
  *
  * Package which provides a method to create EAN 13 barcode using GD library.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Didier Fournout <didier.fournout@nyc.fr>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode
- * @since      Image_Barcode2 0.4
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode
+ * @since     Image_Barcode2 0.4
  */
 class Image_Barcode2_ean13
 {
@@ -135,7 +135,7 @@ class Image_Barcode2_ean13
     /**
      * Draws a EAN 13 image barcode
      *
-     * @param  string $text     A text that should be in the image barcode
+     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -155,13 +155,14 @@ class Image_Barcode2_ean13
             + imagefontwidth($this->_font) + 1
             ;
 
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
+        $barcodelongheight = (int) (imagefontheight($this->_font) / 2)
+            + $this->_barcodeheight;
 
         // Create the image
         $img = imagecreate(
-                    $barcodewidth,
-                    $barcodelongheight + imagefontheight($this->_font) + 1
-                );
+            $barcodewidth,
+            $barcodelongheight + imagefontheight($this->_font) + 1
+        );
 
         // Alocate the black and white colors
         $black = imagecolorallocate($img, 0, 0, 0);
@@ -182,22 +183,52 @@ class Image_Barcode2_ean13
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight, 
+            $black
+        );
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight, 
+            $black
+        );
         $xpos += $this->_barwidth;
 
         // Draw left $text contents
         $set_array = $this->_number_set_left_coding[$key];
         for ($idx = 1; $idx < 7; $idx ++) {
             $value = substr($text, $idx, 1);
-            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
+
+            imagestring(
+                $img, 
+                $this->_font, 
+                $xpos + 1, 
+                $this->_barcodeheight, 
+                $value, 
+                $black
+            );
+
             foreach ($this->_number_set[$value][$set_array[$idx - 1]] as $bar) {
                 if ($bar) {
-                    imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
+                    imagefilledrectangle(
+                        $img,
+                        $xpos,
+                        0,
+                        $xpos + $this->_barwidth - 1,
+                        $barcodelongheight, 
+                        $black
+                    );
                 }
                 $xpos += $this->_barwidth;
             }
@@ -207,12 +238,26 @@ class Image_Barcode2_ean13
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight, 
+            $black
+        );
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight, 
+            $black
+        );
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
@@ -221,10 +266,26 @@ class Image_Barcode2_ean13
         // Draw right $text contents
         for ($idx = 7; $idx < 13; $idx ++) {
             $value = substr($text, $idx, 1);
-            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
+
+            imagestring(
+                $img,
+                $this->_font,
+                $xpos + 1,
+                $this->_barcodeheight,
+                $value,
+                $black
+            );
+
             foreach ($this->_number_set[$value]['C'] as $bar) {
                 if ($bar) {
-                    imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
+                    imagefilledrectangle(
+                        $img,
+                        $xpos,
+                        0,
+                        $xpos + $this->_barwidth - 1,
+                        $barcodelongheight, 
+                        $black
+                    );
                 }
                 $xpos += $this->_barwidth;
             }
@@ -232,12 +293,26 @@ class Image_Barcode2_ean13
 
         // Draws the right guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight, 
+            $black
+        );
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight, 
+            $black
+        );
 
         return $img;
     } // function create
