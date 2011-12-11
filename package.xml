@@ -14,11 +14,11 @@
   <email>msmarcal@php.net</email>
   <active>yes</active>
  </lead>
- <date>2011-12-10</date>
- <time>22:34:22</time>
+ <date>2011-12-12</date>
+ <time>01:10:32</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -26,24 +26,28 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-QA release
-Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
+Introduce Adapter
+PHPCS
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="Image" md5sum="62714a47cbc3d35f483be34324197936" name="docs/ChangeLog" role="doc" />
-   <file baseinstalldir="Image" md5sum="9d09306ee5d354c7d7216e14e3b81c49" name="docs/Readme.txt" role="doc" />
-   <file baseinstalldir="Image" md5sum="d027dd2e78465162010a1cab265eb09b" name="docs/examples/barcode_img.php" role="doc" />
+   <file baseinstalldir="Image" md5sum="c27a1c8b14ee9d792819abafbfa20c85" name="docs/Readme.txt" role="doc" />
+   <file baseinstalldir="Image" md5sum="cf057300a5e9f34743d9e4ebe893de34" name="docs/examples/barcode_img.php" role="doc" />
    <file baseinstalldir="Image" md5sum="783855c825cbb516b3cf7aefa0b09d29" name="docs/examples/test-image-barcode.php" role="doc" />
-   <file baseinstalldir="/" md5sum="7d134244f64ed011a96cdb97bdcb45ad" name="Image/Barcode2.php" role="php" />
-   <file baseinstalldir="/" md5sum="5da23d9e0818080fcc2bba1c95b24ece" name="Image/Barcode2/Code39.php" role="php" />
-   <file baseinstalldir="/" md5sum="630a68961a5ab99765868e0c72a53213" name="Image/Barcode2/code128.php" role="php" />
-   <file baseinstalldir="/" md5sum="d34fea1279ac20af35f08231ed16d6d3" name="Image/Barcode2/ean8.php" role="php" />
-   <file baseinstalldir="/" md5sum="5fb832ed8e90bd0ec1ed1bffe6f1ee98" name="Image/Barcode2/ean13.php" role="php" />
-   <file baseinstalldir="/" md5sum="c8f6ee291d82f2cba4f4adf6d2aac4ec" name="Image/Barcode2/int25.php" role="php" />
-   <file baseinstalldir="/" md5sum="52623b5e5442cebca2226027ef879deb" name="Image/Barcode2/postnet.php" role="php" />
-   <file baseinstalldir="/" md5sum="471c34e9a20cf1797ba2485579e25b09" name="Image/Barcode2/upca.php" role="php" />
-   <file baseinstalldir="/" md5sum="24fc56ca72d6362637db65025008d49f" name="README" role="data" />
+   <file baseinstalldir="/" md5sum="7e05588758ba7876a40d655a6770801c" name="Image/Barcode2.php" role="php" />
+   <file baseinstalldir="/" md5sum="cc479d3de3648a58f346c0762f6520e4" name="Image/Barcode2/Code39.php" role="php" />
+   <file baseinstalldir="/" md5sum="bd6e1a53798cc3fc47159640e071d2db" name="Image/Barcode2/code128.php" role="php" />
+   <file baseinstalldir="/" md5sum="1434f750505fd7a2644fbb2ad2a5314b" name="Image/Barcode2/ean8.php" role="php" />
+   <file baseinstalldir="/" md5sum="108a4b157cebbb46f937e48c8c340baa" name="Image/Barcode2/ean13.php" role="php" />
+   <file baseinstalldir="/" md5sum="c20ebce1af753b580a1253a284983f6c" name="Image/Barcode2/int25.php" role="php" />
+   <file baseinstalldir="/" md5sum="26855a370a6e6508658803fff14d726e" name="Image/Barcode2/postnet.php" role="php" />
+   <file baseinstalldir="/" md5sum="7988a1731f9dfb366853094c24fbd631" name="Image/Barcode2/upca.php" role="php" />
+   <file baseinstalldir="/" md5sum="12bcc4a117f675608748558a03f16a30" name="Image/Barcode2/Writer.php" role="php" />
+   <file baseinstalldir="/" md5sum="cf62c3815657593bab511762b1950377" name="tests/Image_Barcode2Test.php" role="test" />
+   <file baseinstalldir="/" md5sum="4599d66d9092baec4286443e1a6d678e" name="build.xml" role="data" />
+   <file baseinstalldir="/" md5sum="e9d89152910001df5be865aa37ab9733" name="phpunit.xml" role="data" />
+   <file baseinstalldir="/" md5sum="fb2d18e736a93085849de2fa293203c6" name="README" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -170,6 +174,22 @@ Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
    <notes>
 QA release
 Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-12-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Introduce Adapter
+PHPCS
    </notes>
   </release>
  </changelog>
