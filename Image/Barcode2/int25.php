@@ -43,13 +43,6 @@ require_once 'Image/Barcode2/Common.php';
 class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
-     * Barcode height
-     *
-     * @var integer
-     */
-    var $_barcodeheight = 50;
-
-    /**
      * Bar thin width
      *
      * @var integer
@@ -79,6 +72,17 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
            '8' => '10010',
            '9' => '01010'
         );
+
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarcodeHeight(50);
+    }
 
     /**
      * Draws a Interleaved 2 of 5 image barcode
@@ -112,7 +116,7 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
             + (7 * $this->_barthinwidth + $this->_barthickwidth) + 3;
 
         // Create the image
-        $img = $this->writer->imagecreate($barcodewidth, $this->_barcodeheight);
+        $img = $this->writer->imagecreate($barcodewidth, $this->getBarcodeHeight());
 
         // Alocate the black and white colors
         $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
@@ -132,7 +136,7 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
                 $xpos,
                 0,
                 $xpos + $elementwidth - 1,
-                $this->_barcodeheight,
+                $this->getBarcodeHeight(),
                 $black
             );
             $xpos += $elementwidth;
@@ -162,7 +166,7 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
                     $xpos, 
                     0, 
                     $xpos + $elementwidth - 1, 
-                    $this->_barcodeheight, 
+                    $this->getBarcodeHeight(), 
                     $black
                 );
 
@@ -187,7 +191,7 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
             $xpos, 
             0, 
             $xpos + $elementwidth - 1,
-            $this->_barcodeheight, 
+            $this->getBarcodeHeight(), 
             $black
         );
         $xpos += $elementwidth;
@@ -199,7 +203,7 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
             $xpos,
             0, 
             $xpos + $elementwidth - 1,
-            $this->_barcodeheight, 
+            $this->getBarcodeHeight(), 
             $black
         );
 

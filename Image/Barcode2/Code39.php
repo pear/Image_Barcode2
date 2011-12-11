@@ -44,13 +44,6 @@ require_once 'Image/Barcode2/Common.php';
 class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
-     * Barcode height
-     *
-     * @var integer
-     */
-    var $_barcodeheight = 50;
-
-    /**
      * Bar thin width
      *
      * @var integer
@@ -122,6 +115,17 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         ' ' => '011000100'
     );
 
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarcodeHeight(50);
+    }
+
    /**
     * Make an image resource using the GD image library
     *
@@ -144,7 +148,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         $barcode_len = strlen($barcode);
 
         // Create GD image object
-        $img = $this->writer->imagecreate($barcode_len, $this->_barcodeheight);
+        $img = $this->writer->imagecreate($barcode_len, $this->getBarcodeHeight());
 
         // Allocate black and white colors to the image
         $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
@@ -166,7 +170,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
                     $xpos, 
                     0, 
                     $xpos, 
-                    $this->_barcodeheight - $font_height - 1, 
+                    $this->getBarcodeHeight() - $font_height - 1, 
                     $white
                 );
             } else {
@@ -175,7 +179,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
                     $xpos, 
                     0, 
                     $xpos, 
-                    $this->_barcodeheight - $font_height - 1, 
+                    $this->getBarcodeHeight() - $font_height - 1, 
                     $black
                 );
             }
@@ -188,7 +192,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
             $img,
             $this->_font_size,
             ($barcode_len - $font_width * strlen($this->text)) / 2,
-            $this->_barcodeheight - $font_height,
+            $this->getBarcodeHeight() - $font_height,
             $text,
             $black
         );

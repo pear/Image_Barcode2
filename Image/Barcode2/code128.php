@@ -58,10 +58,20 @@ require_once 'Image/Barcode2/Common.php';
 
 class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
-    var $_barcodeheight = 60;
     var $_font = 2;
-    var $_barwidth = 1;
     var $_code;
+
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarcodeHeight(60);
+        $this->setBarWidth(1);
+    }
 
     /**
      * Draws a Code128 image barcode
@@ -141,11 +151,11 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
 
         for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
-            $barcodewidth += ($nval * $this->_barwidth);
+            $barcodewidth += ($nval * $this->getBarWidth());
         }
 
         $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2)
-            + $this->_barcodeheight;
+            + $this->getBarcodeHeight();
 
 
         // Then, we create the image, allocate the colors, and fill
@@ -171,7 +181,7 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
             $img,
             $this->_font,
             $barcodewidth / 2 - strlen($text) / 2 * ($this->writer->imagefontwidth($this->_font)),
-            $this->_barcodeheight + $this->writer->imagefontheight($this->_font) / 2,
+            $this->getBarcodeHeight() + $this->writer->imagefontheight($this->_font) / 2,
             $text,
             $black
         );
@@ -186,7 +196,7 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
         $bar = 1;
         for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
-            $width = $nval * $this->_barwidth;
+            $width = $nval * $this->getBarWidth();
 
             if ($bar == 1) {
                 $this->writer->imagefilledrectangle(

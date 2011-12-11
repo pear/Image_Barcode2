@@ -44,26 +44,11 @@ require_once 'Image/Barcode2/Common.php';
 class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
-     * Barcode height
-     *
-     * @var integer
-     */
-    var $_barcodeheight = 50;
-
-    /**
      * Font use to display text
      *
      * @var integer
      */
     var $_font = 2;  // gd internal small font
-
-    /**
-     * Bar width
-     *
-     * @var integer
-     */
-    var $_barwidth = 1;
-
 
     /**
      * Number set
@@ -113,6 +98,18 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
         );
 
     /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarcodeHeight(50);
+        $this->setBarWidth(1);
+    }
+
+    /**
      * Draws a EAN 8 image barcode
      *
      * @param string $text A text that should be in the image barcode
@@ -129,14 +126,14 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
     public function draw($text)
     {
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
-            + 3 * $this->_barwidth // left
-            + 5 * $this->_barwidth // center
-            + 3 * $this->_barwidth // right
+        $barcodewidth = (strlen($text)) * (7 * $this->getBarWidth())
+            + 3 * $this->getBarWidth() // left
+            + 5 * $this->getBarWidth() // center
+            + 3 * $this->getBarWidth() // right
             ;
 
         $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2)
-             + $this->_barcodeheight;
+             + $this->getBarcodeHeight();
 
         // Create the image
         $img = $this->writer->imagecreate(
@@ -160,23 +157,23 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight, 
             $black
         );
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
         $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight, 
             $black
         );
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
 
         for ($idx = 0; $idx < 4; $idx ++) {
             $value = substr($text, $idx, 1);
@@ -184,7 +181,7 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
                 $img,
                 $this->_font,
                 $xpos + 1, 
-                $this->_barcodeheight, 
+                $this->getBarcodeHeight(), 
                 $value, 
                 $black
             );
@@ -194,44 +191,44 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
                         $img,
                         $xpos,
                         0,
-                        $xpos + $this->_barwidth - 1,
+                        $xpos + $this->getBarWidth() - 1,
                         $barcodelongheight, 
                         $black
                     );
                 }
-                $xpos += $this->_barwidth;
+                $xpos += $this->getBarWidth();
             }
         }
 
         // Draws the center pattern (space-bar-space-bar-space)
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
         $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight, 
             $black
         );
 
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
         $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight, 
             $black
         );
 
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
 
 
         // Draw right $text contents
@@ -242,7 +239,7 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
                 $img,
                 $this->_font, 
                 $xpos + 1, 
-                $this->_barcodeheight, 
+                $this->getBarcodeHeight(), 
                 $value, 
                 $black
             );
@@ -253,12 +250,12 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
                         $img,
                         $xpos,
                         0,
-                        $xpos + $this->_barwidth - 1,
+                        $xpos + $this->getBarWidth() - 1,
                         $barcodelongheight, 
                         $black
                     );
                 }
-                $xpos += $this->_barwidth;
+                $xpos += $this->getBarWidth();
             }
         }
 
@@ -268,19 +265,19 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight, 
             $black
         );
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
         $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight, 
             $black
         );

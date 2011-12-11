@@ -69,13 +69,6 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
     var $_bartallheight = 15;
 
     /**
-     * Bar width / scaling factor
-     *
-     * @var integer
-     */
-    var $_barwidth = 2;
-
-    /**
      * Coding map
      * @var array
      */
@@ -91,6 +84,17 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
            '8' => '10010',
            '9' => '10100'
         );
+
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarWidth(2);
+    }
 
     /**
      * Draws a PostNet image barcode
@@ -114,8 +118,8 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
         }
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * 2 * 5 * $this->_barwidth
-            + $this->_barwidth * 3;
+        $barcodewidth = (strlen($text)) * 2 * 5 * $this->getBarWidth()
+            + $this->getBarWidth() * 3;
 
         // Create the image
         $img = $this->writer->imagecreate($barcodewidth, $this->_bartallheight);
@@ -135,12 +139,12 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $this->_bartallheight,
             $black
         );
 
-        $xpos += 2 * $this->_barwidth;
+        $xpos += 2 * $this->getBarWidth();
 
         // Draw $text contents
         for ($idx = 0, $all = strlen($text); $idx < $all; $idx++) {
@@ -157,12 +161,12 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
                     $img, 
                     $xpos, 
                     $elementheight,
-                    $xpos + $this->_barwidth - 1,
+                    $xpos + $this->getBarWidth() - 1,
                     $this->_bartallheight,
                     $black
                 );
 
-                $xpos += 2 * $this->_barwidth;
+                $xpos += 2 * $this->getBarWidth();
             }
         }
 
@@ -171,7 +175,7 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
             $img, 
             $xpos, 
             0, 
-            $xpos + $this->_barwidth - 1, 
+            $xpos + $this->getBarWidth() - 1, 
             $this->_bartallheight,
             $black
         );
