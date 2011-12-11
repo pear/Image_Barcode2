@@ -42,6 +42,8 @@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
+require_once 'Image/Barcode2/Driver.php';
+
 /**
  * Code128
  *
@@ -53,7 +55,7 @@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
-class Image_Barcode2_code128
+class Image_Barcode2_code128 implements Image_Barcode2_Driver
 {
     var $_barcodeheight = 60;
     var $_font = 2;

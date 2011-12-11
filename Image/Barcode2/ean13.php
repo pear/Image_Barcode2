@@ -23,6 +23,7 @@
  * @link      http://pear.php.net/package/Image_Barcode
  */
 
+require_once 'Image/Barcode2/Driver.php';
 
 /**
  * Image_Barcode2_ean13 class
@@ -38,7 +39,7 @@
  * @link      http://pear.php.net/package/Image_Barcode
  * @since     Image_Barcode2 0.4
  */
-class Image_Barcode2_ean13
+class Image_Barcode2_ean13 implements Image_Barcode2_Driver
 {
     /**
      * Barcode height

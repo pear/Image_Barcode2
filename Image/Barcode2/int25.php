@@ -23,6 +23,7 @@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
+require_once 'Image/Barcode2/Driver.php';
 
 /**
  * Image_Barcode2_int25 class
@@ -38,7 +39,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_int25
+class Image_Barcode2_int25 implements Image_Barcode2_Driver
 {
     /**
      * Barcode height
