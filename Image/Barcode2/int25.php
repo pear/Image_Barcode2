@@ -23,8 +23,6 @@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'Image/Barcode.php';
-
 
 /**
  * Image_Barcode2_int25 class
@@ -39,40 +37,34 @@ require_once 'Image/Barcode.php';
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_int25 extends Image_Barcode2
+class Image_Barcode2_int25
 {
-    /**
-     * Barcode type
-     * @var string
-     */
-    private $_type = 'int25';
-
     /**
      * Barcode height
      *
      * @var integer
      */
-    private $_barcodeheight = 50;
+    var $_barcodeheight = 50;
 
     /**
      * Bar thin width
      *
      * @var integer
      */
-    private $_barthinwidth = 1;
+    var $_barthinwidth = 1;
 
     /**
      * Bar thick width
      *
      * @var integer
      */
-    private $_barthickwidth = 3;
+    var $_barthickwidth = 3;
 
     /**
      * Coding map
      * @var array
      */
-    private $_coding_map = array(
+    var $_coding_map = array(
            '0' => '00110',
            '1' => '10001',
            '2' => '01001',
@@ -89,7 +81,6 @@ class Image_Barcode2_int25 extends Image_Barcode2
      * Draws a Interleaved 2 of 5 image barcode
      *
      * @param  string $text     A text that should be in the image barcode
-     * @param  string $imgtype  The image type that will be generated
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -99,7 +90,7 @@ class Image_Barcode2_int25 extends Image_Barcode2
      * @since  Image_Barcode2 0.3
      */
 
-    public function image($text, $imgtype = 'png')
+    public function draw($text)
     {
         $text = trim($text);
 
