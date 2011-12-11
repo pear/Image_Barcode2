@@ -155,7 +155,7 @@ class Image_Barcode2_ean13
             + imagefontwidth($this->_font)+1
             ;
 
-        $barcodelongheight = (int) (imagefontheight($this->_font)/2) + $this->_barcodeheight;
+        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
 
         // Create the image
         $img = imagecreate(
@@ -243,4 +243,5 @@ class Image_Barcode2_ean13
     } // function create
 
 } // class
+
 ?>

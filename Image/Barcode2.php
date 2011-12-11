@@ -85,7 +85,7 @@ class Image_Barcode2
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode2 0.3
      */
-    public function draw($text, $type = Image_Barcode2::BARCODE_INT25, $imgtype = Image_Barcode2::IMAGE_PNG, $bSendToBrowser = true, $height = 60, $width = 1)
+    public static function draw($text, $type = Image_Barcode2::BARCODE_INT25, $imgtype = Image_Barcode2::IMAGE_PNG, $bSendToBrowser = true, $height = 60, $width = 1)
     {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {

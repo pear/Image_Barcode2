@@ -1,7 +1,7 @@
-= Image_Barcode - a package to render barcodes =
+= Image_Barcode2 - a package to render barcodes =
 ------------------------------------------------
 
-With PEAR::Image_Barcode class you can create a barcode representation of a
+With PEAR::Image_Barcode2 class you can create a barcode representation of a
 given string.
 
 This class uses GD function because this the generated graphic can be any of
@@ -11,9 +11,9 @@ GD supported supported image types.
 = Installation =
 ----------------
 
-You can install Image_Barcode issuing the following command (as root):
+You can install Image_Barcode2 issuing the following command (as root):
 
-    # pear install Image_Barcode
+    # pear install Image_Barcode2
 
 If you don't have the 'pear' command, please consult PEAR::The PHP Extension and
 Application Repository homepage at http://pear.php.net
@@ -24,11 +24,11 @@ Application Repository homepage at http://pear.php.net
 
 Just load the class in your script:
 
-    require_once('Image/Barcode.php');
+    require_once('Image/Barcode2.php');
 
-Call the Image_Barcode::draw() as the follow:
+Call the Image_Barcode2::draw() as the follow:
 
-    Image_Barcode::draw('1234', 'int25', 'png');
+    Image_Barcode2::draw('1234', 'int25', 'png');
 
 Where:
 
@@ -41,7 +41,7 @@ Where:
 -----------------
 
 You can get the latest code at the PEAR site:
-    http://pear.php.net/package/Image_Barcode/
+    http://pear.php.net/package/Image_Barcode2/
 
 
 = Contributing =
@@ -88,4 +88,4 @@ Written by Marcelo Subtil Marcal <msmarcal@php.net>
 = Reporting Bugs =
 ------------------
 
-Report bugs at: http://pear.php.net/bugs/report.php?package=Image_Barcode
+Report bugs at: http://pear.php.net/bugs/report.php?package=Image_Barcode2

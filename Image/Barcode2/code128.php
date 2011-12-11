@@ -138,7 +138,7 @@ class Image_Barcode2_code128
         // the image with a nice, white background, ready for printing
         // our black bars and the text.
 
-        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font)+1);
+        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font) + 1);
         $black = imagecolorallocate($img, 0, 0, 0);
         $white = imagecolorallocate($img, 255, 255, 255);
         imagefill($img, 0, 0, $white);

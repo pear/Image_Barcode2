@@ -120,46 +120,20 @@ class Image_Barcode2_Code39
         ' ' => '011000100'
     );
 
-    /**
-     * Constructor
-     *
-     * @param  string $text     A text that should be in the image barcode
-     * @param  int $wThin       Width of the thin lines on the barcode
-     * @param  int $wThick      Width of the thick lines on the barcode
-     *
-     * @author Ryan Briones <ryanbriones@webxdesign.org>
-     *
-     */
-    public function __construct( $text = '', $wThin = 0, $wThick = 0 )
-    {
-        // Check $text for invalid characters
-        if ( $this->_checkInvalid( $text ) ) {
-            return false;
-        }
-
-        $this->text = $text;
-        if ( $wThin > 0 ) {
-            $this->_barthinwidth = $wThin;
-        }
-        if ( $wThick > 0 ) {
-            $this->_barthickwidth = $wThick;
-        }
-
-        return true;
-    }
 
    /**
     * Make an image resource using the GD image library
     *
+    * @param    string $text        A text that should be in the image barcode
     * @return   resource           The Barcode Image (TM)
     *
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
     *
     */
-    private function _plot()
+    private function _plot($text)
     {
         // add start and stop * characters
-        $final_text = '*' . $this->text . '*';
+        $final_text = '*' . $text . '*';
 
         $barcode = '';
         foreach ( str_split( $final_text ) as $character ) {
@@ -198,9 +172,9 @@ class Image_Barcode2_Code39
         imagestring(
             $img,
             $this->_font_size,
-            ( $barcode_len - $font_width * strlen( $this->text ) )/2,
+            ( $barcode_len - $font_width * strlen( $text ) ) / 2,
             $this->_barcodeheight - $font_height,
-            $this->text,
+            $text,
             $black
         );
 
@@ -212,7 +186,7 @@ class Image_Barcode2_Code39
     /**
      * Send image to the browser; for Image_Barcode2 compaitbility
      *
-     * @param    string $text
+     * @param    string $text        A text that should be in the image barcode
      * @return   gd_image            GD image object
      *
      * @author   Ryan Briones <ryanbriones@webxdesign.org>
@@ -227,8 +201,7 @@ class Image_Barcode2_Code39
             return 'Invalid text';
         }
 
-        $this->text = $text;
-        return $this->_plot();
+        return $this->_plot($text);
     }
 
 

@@ -152,7 +152,7 @@ class Image_Barcode2_upca
         $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
 
         // Create the image
-        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font)+1);
+        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font) + 1);
 
         // Alocate the black and white colors
         $black = imagecolorallocate($img, 0, 0, 0);
@@ -194,8 +194,8 @@ class Image_Barcode2_upca
 
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value=substr($text, $idx, 1);
+            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
 
             foreach ($this->_number_set[$value]['L'] as $bar) { 
                 if ($bar) {
@@ -223,7 +223,7 @@ class Image_Barcode2_upca
 
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
-            $value = substr($text,$idx,1);
+            $value = substr($text, $idx, 1);
             imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
             foreach ($this->_number_set[$value]['R'] as $bar) {
                 if ($bar) {
