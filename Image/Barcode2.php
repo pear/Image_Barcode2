@@ -23,7 +23,6 @@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'PEAR.php';
 require_once 'Image/Barcode2/Writer.php';
 require_once 'Image/Barcode2/Driver.php';
 
@@ -81,8 +80,8 @@ class Image_Barcode2
      * @param integer $width          The image width
      *
      * @return image The corresponding gd image object;
-     *               PEAR_Error on failure
-     *
+     *               
+     * @throws InvalidArgumentException
      * @access public
      *
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
@@ -97,10 +96,11 @@ class Image_Barcode2
     ) {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
-            return PEAR::raiseError('Invalid barcode type ' . $type);
+            throw new InvalidArgumentException('Invalid barcode type ' . $type);
         }
+
         if (!include_once 'Image/Barcode2/' . $type . '.php') {
-            return PEAR::raiseError($type . ' barcode is not supported');
+            throw new InvalidArgumentException($type . ' barcode is not supported');
         }
 
         $classname = 'Image_Barcode2_' . $type;
@@ -110,8 +110,8 @@ class Image_Barcode2
         $obj = new $classname($writer);
 
         if (!$obj instanceof Image_Barcode2_Driver) {
-            return PEAR::raiseError(
-                "Unable to find draw method in '$classname' class"
+            throw new InvalidArgumentException(
+                "'$classname' does not implement Image_Barcode2_Driver"
             );
         }
 
@@ -125,10 +125,6 @@ class Image_Barcode2
 
 
         $img = $obj->draw($text);
-
-        if (@PEAR::isError($img)) {
-            return $img;
-        }
 
         if ($bSendToBrowser) {
             // Send image to browser
