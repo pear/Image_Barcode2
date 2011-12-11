@@ -14,28 +14,29 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Marcelo Subtil Marcal <msmarcal@php.net>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Marcelo Subtil Marcal <msmarcal@php.net>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 
 /**
  * Image_Barcode2_int25 class
  *
- * Package which provides a method to create Interleaved 2 of 5 barcode using GD library.
+ * Package which provides a method to create Interleaved 2 of 5
+ * barcode using GD library.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Marcelo Subtil Marcal <msmarcal@php.net>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Marcelo Subtil Marcal <msmarcal@php.net>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 class Image_Barcode2_int25
 {
@@ -80,7 +81,7 @@ class Image_Barcode2_int25
     /**
      * Draws a Interleaved 2 of 5 image barcode
      *
-     * @param  string $text     A text that should be in the image barcode
+     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -102,9 +103,11 @@ class Image_Barcode2_int25
         $text = strlen($text) % 2 ? '0' . $text : $text;
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * (3 * $this->_barthinwidth + 2 * $this->_barthickwidth) +
-            (strlen($text)) * 2.5 +
-            (7 * $this->_barthinwidth + $this->_barthickwidth) + 3;
+        $barcodewidth = (strlen($text)) 
+            * (3 * $this->_barthinwidth + 2 * $this->_barthickwidth)
+            + (strlen($text))
+            * 2.5
+            + (7 * $this->_barthinwidth + $this->_barthickwidth) + 3;
 
         // Create the image
         $img = imagecreate($barcodewidth, $this->_barcodeheight);
@@ -122,27 +125,53 @@ class Image_Barcode2_int25
         // Draws the leader
         for ($i = 0; $i < 2; $i++) {
             $elementwidth = $this->_barthinwidth;
-            imagefilledrectangle($img, $xpos, 0, $xpos + $elementwidth - 1, $this->_barcodeheight, $black);
+            imagefilledrectangle(
+                $img,
+                $xpos,
+                0,
+                $xpos + $elementwidth - 1,
+                $this->_barcodeheight,
+                $black
+            );
             $xpos += $elementwidth;
             $xpos += $this->_barthinwidth;
             $xpos ++;
         }
 
         // Draw $text contents
-        for ($idx = 0, $all = strlen($text); $idx < $all; $idx += 2) {       // Draw 2 chars at a time
-            $oddchar  = substr($text, $idx, 1);                 // get odd char
-            $evenchar = substr($text, $idx + 1, 1);             // get even char
+        $all = strlen($text);
+
+        // Draw 2 chars at a time
+        for ($idx = 0; $idx < $all; $idx += 2) {
+            $oddchar  = substr($text, $idx, 1);
+            $evenchar = substr($text, $idx + 1, 1);
 
             // interleave
             for ($baridx = 0; $baridx < 5; $baridx++) {
 
                 // Draws odd char corresponding bar (black)
-                $elementwidth = (substr($this->_coding_map[$oddchar], $baridx, 1)) ?  $this->_barthickwidth : $this->_barthinwidth;
-                imagefilledrectangle($img, $xpos, 0, $xpos + $elementwidth - 1, $this->_barcodeheight, $black);
+                $elementwidth = $this->_barthinwidth;
+                if (substr($this->_coding_map[$oddchar], $baridx, 1)) {
+                    $elementwidth = $this->_barthickwidt;
+                }
+
+                imagefilledrectangle(
+                    $img, 
+                    $xpos, 
+                    0, 
+                    $xpos + $elementwidth - 1, 
+                    $this->_barcodeheight, 
+                    $black
+                );
+
                 $xpos += $elementwidth;
 
                 // Left enought space to draw even char (white)
-                $elementwidth = (substr($this->_coding_map[$evenchar], $baridx, 1)) ?  $this->_barthickwidth : $this->_barthinwidth;
+                $elementwidth = $this->_barthinwidth;
+                if (substr($this->_coding_map[$evenchar], $baridx, 1)) {
+                    $elementwidth = $this->_barthickwidth;
+                }
+
                 $xpos += $elementwidth; 
                 $xpos ++;
             }
@@ -151,12 +180,26 @@ class Image_Barcode2_int25
 
         // Draws the trailer
         $elementwidth = $this->_barthickwidth;
-        imagefilledrectangle($img, $xpos, 0, $xpos + $elementwidth - 1, $this->_barcodeheight, $black);
+        imagefilledrectangle(
+            $img, 
+            $xpos, 
+            0, 
+            $xpos + $elementwidth - 1,
+            $this->_barcodeheight, 
+            $black
+        );
         $xpos += $elementwidth;
         $xpos += $this->_barthinwidth;
         $xpos ++;
         $elementwidth = $this->_barthinwidth;
-        imagefilledrectangle($img, $xpos, 0, $xpos + $elementwidth - 1, $this->_barcodeheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0, 
+            $xpos + $elementwidth - 1,
+            $this->_barcodeheight, 
+            $black
+        );
 
         return $img;
     }

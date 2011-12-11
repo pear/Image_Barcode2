@@ -33,13 +33,13 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 
