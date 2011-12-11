@@ -36,6 +36,7 @@
   *  density:        22 bars/inch    = 8.66 bars/cm
   */
 
+require_once 'Image/Barcode2/Driver.php';
 
 /**
  * Image_Barcode2_postnet class
@@ -50,7 +51,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_postnet
+class Image_Barcode2_postnet implements Image_Barcode2_Driver
 {
     /**
      * Bar short height
