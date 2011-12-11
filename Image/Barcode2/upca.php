@@ -14,14 +14,14 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
- * @author     Didier Fournout <didier.fournout@nyc.fr>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author    Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 
@@ -37,14 +37,14 @@
  * and validated the changes with my trusty cue-cat.
  * http://www.indiana.edu/~atmat/units/barcodes/bar_t4.htm
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
- * @author     Didier Fournout <didier.fournout@nyc.fr>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author    Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 class Image_Barcode2_upca
 {
@@ -120,15 +120,12 @@ class Image_Barcode2_upca
     /**
      * Draws a UPC-A image barcode
      *
-     * @param   string $text     A text that should be in the image barcode
+     * @param string $text A text that should be in the image barcode
      *
-     * @return  image            The corresponding Interleaved 2 of 5 image barcode
-     *
-     * @access  public
+     * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
      * @author  Jeffrey K. Brown <jkb@darkfantastic.net>
      * @author  Didier Fournout <didier.fournout@nyc.fr>
-     *
      */
     public function draw($text)
     {
@@ -194,8 +191,8 @@ class Image_Barcode2_upca
 
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
 
             foreach ($this->_number_set[$value]['L'] as $bar) { 
                 if ($bar) {
@@ -223,8 +220,8 @@ class Image_Barcode2_upca
 
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
-            $value = substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
             foreach ($this->_number_set[$value]['R'] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
