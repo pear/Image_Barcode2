@@ -44,20 +44,6 @@ require_once 'Image/Barcode2/Common.php';
 class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
-     * Bar thin width
-     *
-     * @var integer
-     */
-    var $_barthinwidth = 1;
-
-    /**
-     * Bar thick width
-     *
-     * @var integer
-     */
-    var $_barthickwidth = 3;
-
-    /**
      * Font size
      *
      * @var integer
@@ -124,6 +110,8 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
     {
         parent::__construct($writer);
         $this->setBarcodeHeight(50);
+        $this->setBarWidthThin(1);
+        $this->setBarWidthThick(3);
     }
 
    /**
@@ -244,9 +232,9 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         // if $bit is 1, line is wide; if $bit is 0 line is thin
         foreach (str_split($code) as $bit) {
             if ($bit == 1) {
-                $result .= str_repeat($color, $this->_barthickwidth);
+                $result .= str_repeat($color, $this->getBarWidthThick());
             } else {
-                $result .= str_repeat($color, $this->_barthinwidth);
+                $result .= str_repeat($color, $this->getBarWidthThin());
             }
 
             $color = ($color == 0) ? 1 : 0;
