@@ -180,7 +180,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         $this->writer->imagestring(
             $img,
             $this->_font_size,
-            ($barcode_len - $font_width * strlen($this->text)) / 2,
+            ($barcode_len - $font_width * strlen($text)) / 2,
             $this->getBarcodeHeight() - $font_height,
             $text,
             $black

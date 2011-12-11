@@ -49,7 +49,7 @@ require_once 'Image/Barcode2/Common.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode2_Driver
-
+{
     /**
      * Font use to display text
      *
