@@ -146,7 +146,7 @@ class Image_Barcode2_code128
             $barcodewidth += ($nval * $this->_barwidth);
         }
 
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) 
+        $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2)
             + $this->_barcodeheight;
 
 
@@ -154,13 +154,13 @@ class Image_Barcode2_code128
         // the image with a nice, white background, ready for printing
         // our black bars and the text.
 
-        $img = imagecreate(
+        $img = $this->writer->imagecreate(
             $barcodewidth,
-            $barcodelongheight + imagefontheight($this->_font) + 1
+            $barcodelongheight + $this->writer->imagefontheight($this->_font) + 1
         );
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
-        imagefill($img, 0, 0, $white);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
+        $this->writer->imagefill($img, 0, 0, $white);
 
 
         //------------------------------------------------------//
@@ -169,11 +169,11 @@ class Image_Barcode2_code128
 
 
         // First, print the image, centered across the bottom.
-        imagestring(
+        $this->writer->imagestring(
             $img,
             $this->_font,
-            $barcodewidth / 2 - strlen($text) / 2 * (imagefontwidth($this->_font)),
-            $this->_barcodeheight + imagefontheight($this->_font) / 2,
+            $barcodewidth / 2 - strlen($text) / 2 * ($this->writer->imagefontwidth($this->_font)),
+            $this->_barcodeheight + $this->writer->imagefontheight($this->_font) / 2,
             $text,
             $black
         );
@@ -191,7 +191,7 @@ class Image_Barcode2_code128
             $width = $nval * $this->_barwidth;
 
             if ($bar == 1) {
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 

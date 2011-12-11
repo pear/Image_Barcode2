@@ -171,13 +171,13 @@ class Image_Barcode2_Code39
         $img = $this->writer->imagecreate($barcode_len, $this->_barcodeheight);
 
         // Allocate black and white colors to the image
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
-        $font_height = imagefontheight($this->_font_size);
-        $font_width = imagefontwidth($this->_font_size);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
+        $font_height = $this->writer->imagefontheight($this->_font_size);
+        $font_width = $this->writer->imagefontwidth($this->_font_size);
 
         // fill background with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // Initialize X position
         $xpos = 0;
@@ -185,7 +185,7 @@ class Image_Barcode2_Code39
         // draw barcode bars to image
         foreach (str_split($barcode) as $character_code) {
             if ($character_code == 0) {
-                imageline(
+                $this->writer->imageline(
                     $img, 
                     $xpos, 
                     0, 
@@ -194,7 +194,7 @@ class Image_Barcode2_Code39
                     $white
                 );
             } else {
-                imageline(
+                $this->writer->imageline(
                     $img, 
                     $xpos, 
                     0, 
@@ -208,7 +208,7 @@ class Image_Barcode2_Code39
         }
 
         // draw text under barcode
-        imagestring(
+        $this->writer->imagestring(
             $img,
             $this->_font_size,
             ($barcode_len - $font_width * strlen($this->text)) / 2,

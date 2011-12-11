@@ -39,4 +39,8 @@ class Image_Barcode2_Writer {
     public function imagecolorallocate($image, $red, $green, $blue) {
         return imagecolorallocate($image, $red, $green, $blue);
     }
+
+    public function imageline($image, $x1, $y1, $x2, $y2, $color) {
+        return imageline($image, $x1, $y1, $x2, $y2, $color);
+    }
 }
