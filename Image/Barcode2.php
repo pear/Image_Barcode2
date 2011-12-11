@@ -24,6 +24,7 @@
  */
 
 require_once 'PEAR.php';
+require_once 'Image/Barcode2/Writer.php';
 
 /**
  * Image_Barcode2 class
@@ -109,7 +110,9 @@ class Image_Barcode2
             );
         }
 
-        $obj = new $classname();
+        $writer = new Image_Barcode2_Writer();
+
+        $obj = new $classname($writer);
 
         if (isset($obj->_barcodeheight)) {
             $obj->_barcodeheight = $height;

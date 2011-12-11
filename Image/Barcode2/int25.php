@@ -79,6 +79,31 @@ class Image_Barcode2_int25
         );
 
     /**
+     * @var Image_Barcode2_Writer
+     */
+    protected $writer;
+
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        $this->setWriter($writer);
+    }
+
+    /**
+     * Set the image rendering library.
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function setWriter(Image_Barcode2_Writer $writer) 
+    {
+        $this->writer = $writer;
+    }
+
+    /**
      * Draws a Interleaved 2 of 5 image barcode
      *
      * @param string $text A text that should be in the image barcode

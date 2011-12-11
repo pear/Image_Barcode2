@@ -120,6 +120,31 @@ class Image_Barcode2_Code39
         ' ' => '011000100'
     );
 
+    /**
+     * @var Image_Barcode2_Writer
+     */
+    protected $writer;
+
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        $this->setWriter($writer);
+    }
+
+    /**
+     * Set the image rendering library.
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function setWriter(Image_Barcode2_Writer $writer) 
+    {
+        $this->writer = $writer;
+    }
+
 
    /**
     * Make an image resource using the GD image library

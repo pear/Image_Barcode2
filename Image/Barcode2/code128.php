@@ -60,6 +60,10 @@ class Image_Barcode2_code128
     var $_barwidth = 1;
     var $_code;
 
+    /**
+     * @var Image_Barcode2_Writer
+     */
+    protected $writer;
 
     /**
      * Draws a Code128 image barcode
@@ -207,12 +211,13 @@ class Image_Barcode2_code128
     }
 
 
+
     /**
      * In the Image_Barcode2_code128 constructor, we initialize
      * the $code array, containing the bar and space pattern
      * for the Code128 B character set.
      */
-    public function __construct()
+    public function __construct(Image_Barcode2_Writer $writer)
     {
         $this->_code[0] = "212222";  // " "
         $this->_code[1] = "222122";  // "!"
@@ -317,8 +322,19 @@ class Image_Barcode2_code128
         $this->_code[100] = "114131"; // 100
         $this->_code[101] = "311141"; // 101
         $this->_code[102] = "411131"; // 102
+
+        $this->setWriter($writer);
     }
 
+    /**
+     * Set the image rendering library.
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function setWriter(Image_Barcode2_Writer $writer) 
+    {
+        $this->writer = $writer;
+    }
 
     /**
      * Get the Code128 code for a character
