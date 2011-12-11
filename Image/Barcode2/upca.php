@@ -14,14 +14,14 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
- * @author     Didier Fournout <didier.fournout@nyc.fr>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author    Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 
@@ -37,14 +37,14 @@
  * and validated the changes with my trusty cue-cat.
  * http://www.indiana.edu/~atmat/units/barcodes/bar_t4.htm
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Jeffrey K. Brown <jkb@darkfantastic.net>
- * @author     Didier Fournout <didier.fournout@nyc.fr>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author    Didier Fournout <didier.fournout@nyc.fr>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 class Image_Barcode2_upca
 {
@@ -120,15 +120,12 @@ class Image_Barcode2_upca
     /**
      * Draws a UPC-A image barcode
      *
-     * @param   string $text     A text that should be in the image barcode
+     * @param string $text A text that should be in the image barcode
      *
-     * @return  image            The corresponding Interleaved 2 of 5 image barcode
-     *
-     * @access  public
+     * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
      * @author  Jeffrey K. Brown <jkb@darkfantastic.net>
      * @author  Didier Fournout <didier.fournout@nyc.fr>
-     *
      */
     public function draw($text)
     {
@@ -149,10 +146,14 @@ class Image_Barcode2_upca
             ;
 
 
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
+        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) 
+            + $this->_barcodeheight;
 
         // Create the image
-        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font)+1);
+        $img = imagecreate(
+            $barcodewidth,
+            $barcodelongheight + imagefontheight($this->_font) + 1
+        );
 
         // Alocate the black and white colors
         $black = imagecolorallocate($img, 0, 0, 0);
@@ -174,18 +175,40 @@ class Image_Barcode2_upca
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight,
+            $black
+        );
+
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $barcodelongheight,
+            $black
+        );
+
         $xpos += $this->_barwidth;
 
 
         foreach ($this->_number_set[$key]['L'] as $bar) { 
             if ($bar) {
-                imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+                imagefilledrectangle(
+                    $img, 
+                    $xpos, 
+                    0, 
+                    $xpos + $this->_barwidth - 1,
+                    $barcodelongheight, $black
+                );
             }
             $xpos += $this->_barwidth;
         }
@@ -194,12 +217,26 @@ class Image_Barcode2_upca
 
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
-            $value=substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos+1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring(
+                $img,
+                $this->_font,
+                $xpos+1,
+                $this->_barcodeheight,
+                $value, 
+                $black
+            );
 
             foreach ($this->_number_set[$value]['L'] as $bar) { 
                 if ($bar) {
-                    imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
+                    imagefilledrectangle(
+                        $img,
+                        $xpos, 
+                        0, 
+                        $xpos + $this->_barwidth - 1,
+                        $this->_barcodeheight,
+                        $black
+                    );
                 }
                 $xpos += $this->_barwidth;
             }
@@ -210,12 +247,26 @@ class Image_Barcode2_upca
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos, 
+            0, 
+            $xpos + $this->_barwidth - 1,
+            $this->_barcodeheight,
+            $black
+        );
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos, 
+            0, 
+            $xpos + $this->_barwidth - 1,
+            $this->_barcodeheight,
+            $black
+        );
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
@@ -223,11 +274,25 @@ class Image_Barcode2_upca
 
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
-            $value = substr($text,$idx,1);
-            imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
+            $value = substr($text, $idx, 1);
+            imagestring(
+                $img,
+                $this->_font,
+                $xpos + 1,
+                $this->_barcodeheight,
+                $value,
+                $black
+            );
             foreach ($this->_number_set[$value]['R'] as $bar) {
                 if ($bar) {
-                    imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
+                    imagefilledrectangle(
+                        $img,
+                        $xpos, 
+                        0, 
+                        $xpos + $this->_barwidth - 1,
+                        $this->_barcodeheight,
+                        $black
+                    );
                 }
                 $xpos += $this->_barwidth;
             }
@@ -238,7 +303,15 @@ class Image_Barcode2_upca
         $value = substr($text, 11, 1);
         foreach ($this->_number_set[$value]['R'] as $bar) {
             if ($bar) {
-                imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+                imagefilledrectangle(
+                    $img,
+                    $xpos, 
+                    0, 
+                    $xpos + $this->_barwidth - 1,
+                    $this->_barcodeheight,
+                    $black
+                );
+
             }
             $xpos += $this->_barwidth;
         }
@@ -247,17 +320,40 @@ class Image_Barcode2_upca
 
         // Draws the right guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos, 
+            0, 
+            $xpos + $this->_barwidth - 1,
+            $this->_barcodeheight,
+            $black
+        );
+
         $xpos += $this->_barwidth;
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $barcodelongheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos, 
+            0, 
+            $xpos + $this->_barwidth - 1,
+            $this->_barcodeheight,
+            $black
+        );
+
         $xpos += $this->_barwidth;
 
 
         // Print Check Digit
-        imagestring($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
+        imagestring(
+            $img,
+            $this->_font,
+            $xpos + 1,
+            $this->_barcodeheight,
+            $value,
+            $black
+        );
 
         return $img;
     }
