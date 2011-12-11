@@ -16,4 +16,8 @@ interface Image_Barcode2_Driver
      * @param Image_Barcode2_Writer $writer Library to use.
      */
     public function setWriter(Image_Barcode2_Writer $writer);
+
+    public function setBarcodeHeight($barcodeheight);
+
+    public function setBarWidth($width);
 }

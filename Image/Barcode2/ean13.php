@@ -24,6 +24,7 @@
  */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
 
 /**
  * Image_Barcode2_ean13 class
@@ -39,7 +40,7 @@ require_once 'Image/Barcode2/Driver.php';
  * @link      http://pear.php.net/package/Image_Barcode
  * @since     Image_Barcode2 0.4
  */
-class Image_Barcode2_ean13 implements Image_Barcode2_Driver
+class Image_Barcode2_ean13 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
      * Barcode height
@@ -132,31 +133,6 @@ class Image_Barcode2_ean13 implements Image_Barcode2_Driver
            '8' => array('A','B','A','B','B','A'),
            '9' => array('A','B','B','A','B','A')
         );
-
-    /**
-     * @var Image_Barcode2_Writer
-     */
-    protected $writer;
-
-    /**
-     * Class constructor
-     *
-     * @param Image_Barcode2_Writer $writer Library to use.
-     */
-    public function __construct(Image_Barcode2_Writer $writer) 
-    {
-        $this->setWriter($writer);
-    }
-
-    /**
-     * Set the image rendering library.
-     *
-     * @param Image_Barcode2_Writer $writer Library to use.
-     */
-    public function setWriter(Image_Barcode2_Writer $writer) 
-    {
-        $this->writer = $writer;
-    }
 
     /**
      * Draws a EAN 13 image barcode

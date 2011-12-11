@@ -43,6 +43,7 @@
  */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
 
 /**
  * Code128
@@ -55,17 +56,12 @@ require_once 'Image/Barcode2/Driver.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
-class Image_Barcode2_code128 implements Image_Barcode2_Driver
+class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     var $_barcodeheight = 60;
     var $_font = 2;
     var $_barwidth = 1;
     var $_code;
-
-    /**
-     * @var Image_Barcode2_Writer
-     */
-    protected $writer;
 
     /**
      * Draws a Code128 image barcode
@@ -221,6 +217,8 @@ class Image_Barcode2_code128 implements Image_Barcode2_Driver
      */
     public function __construct(Image_Barcode2_Writer $writer)
     {
+        __parent::construct($writer);
+
         $this->_code[0] = "212222";  // " "
         $this->_code[1] = "222122";  // "!"
         $this->_code[2] = "222221";  // "{QUOTE}"
@@ -324,18 +322,6 @@ class Image_Barcode2_code128 implements Image_Barcode2_Driver
         $this->_code[100] = "114131"; // 100
         $this->_code[101] = "311141"; // 101
         $this->_code[102] = "411131"; // 102
-
-        $this->setWriter($writer);
-    }
-
-    /**
-     * Set the image rendering library.
-     *
-     * @param Image_Barcode2_Writer $writer Library to use.
-     */
-    public function setWriter(Image_Barcode2_Writer $writer) 
-    {
-        $this->writer = $writer;
     }
 
     /**

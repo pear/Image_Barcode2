@@ -37,6 +37,7 @@
   */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
 
 /**
  * Image_Barcode2_postnet class
@@ -51,7 +52,7 @@ require_once 'Image/Barcode2/Driver.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_postnet implements Image_Barcode2_Driver
+class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
      * Bar short height
@@ -90,31 +91,6 @@ class Image_Barcode2_postnet implements Image_Barcode2_Driver
            '8' => '10010',
            '9' => '10100'
         );
-
-    /**
-     * @var Image_Barcode2_Writer
-     */
-    protected $writer;
-
-    /**
-     * Class constructor
-     *
-     * @param Image_Barcode2_Writer $writer Library to use.
-     */
-    public function __construct(Image_Barcode2_Writer $writer) 
-    {
-        $this->setWriter($writer);
-    }
-
-    /**
-     * Set the image rendering library.
-     *
-     * @param Image_Barcode2_Writer $writer Library to use.
-     */
-    public function setWriter(Image_Barcode2_Writer $writer) 
-    {
-        $this->writer = $writer;
-    }
 
     /**
      * Draws a PostNet image barcode
