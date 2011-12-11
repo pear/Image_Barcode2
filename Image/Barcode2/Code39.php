@@ -168,7 +168,7 @@ class Image_Barcode2_Code39
         $barcode_len = strlen($barcode);
 
         // Create GD image object
-        $img = imagecreate($barcode_len, $this->_barcodeheight);
+        $img = $this->writer->imagecreate($barcode_len, $this->_barcodeheight);
 
         // Allocate black and white colors to the image
         $black = imagecolorallocate($img, 0, 0, 0);

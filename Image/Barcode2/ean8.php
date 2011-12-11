@@ -158,28 +158,28 @@ class Image_Barcode2_ean8
             + 3 * $this->_barwidth // right
             ;
 
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2)
+        $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2)
              + $this->_barcodeheight;
 
         // Create the image
-        $img = imagecreate(
+        $img = $this->writer->imagecreate(
             $barcodewidth,
-            $barcodelongheight + imagefontheight($this->_font) + 1
+            $barcodelongheight + $this->writer->imagefontheight($this->_font) + 1
         );
 
         // Alocate the black and white colors
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -191,7 +191,7 @@ class Image_Barcode2_ean8
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -203,7 +203,7 @@ class Image_Barcode2_ean8
 
         for ($idx = 0; $idx < 4; $idx ++) {
             $value = substr($text, $idx, 1);
-            imagestring(
+            $this->writer->imagestring(
                 $img,
                 $this->_font,
                 $xpos + 1, 
@@ -213,7 +213,7 @@ class Image_Barcode2_ean8
             );
             foreach ($this->_number_set[$value]['A'] as $bar) {
                 if ($bar) {
-                    imagefilledrectangle(
+                    $this->writer->imagefilledrectangle(
                         $img,
                         $xpos,
                         0,
@@ -230,7 +230,7 @@ class Image_Barcode2_ean8
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -243,7 +243,7 @@ class Image_Barcode2_ean8
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -261,7 +261,7 @@ class Image_Barcode2_ean8
         for ($idx = 4; $idx < 8; $idx ++) {
             $value = substr($text, $idx, 1);
 
-            imagestring(
+            $this->writer->imagestring(
                 $img,
                 $this->_font, 
                 $xpos + 1, 
@@ -272,7 +272,7 @@ class Image_Barcode2_ean8
 
             foreach ($this->_number_set[$value]['C'] as $bar) {
                 if ($bar) {
-                    imagefilledrectangle(
+                    $this->writer->imagefilledrectangle(
                         $img,
                         $xpos,
                         0,
@@ -287,7 +287,7 @@ class Image_Barcode2_ean8
 
         // Draws the right guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -299,7 +299,7 @@ class Image_Barcode2_ean8
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
