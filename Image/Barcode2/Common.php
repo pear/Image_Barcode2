@@ -3,6 +3,8 @@ class Image_Barcode2_Common
 {
     protected $_barcodeheight;
     protected $_barwidth;
+    protected $_barthinwidth;
+    protected $_barthickwidth;
 
     /**
      * @var Image_Barcode2_Writer
