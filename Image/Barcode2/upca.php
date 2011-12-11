@@ -141,26 +141,26 @@ class Image_Barcode2_upca
             + 3 // left
             + 5 // center
             + 3 // right
-            + imagefontwidth($this->_font) + 1
-            + imagefontwidth($this->_font) + 1   // check digit's padding
+            + $this->writer->imagefontwidth($this->_font) + 1
+            + $this->writer->imagefontwidth($this->_font) + 1 // check digit padding
             ;
 
 
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) 
+        $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2) 
             + $this->_barcodeheight;
 
         // Create the image
-        $img = imagecreate(
+        $img = $this->writer->imagecreate(
             $barcodewidth,
-            $barcodelongheight + imagefontheight($this->_font) + 1
+            $barcodelongheight + $this->writer->imagefontheight($this->_font) + 1
         );
 
         // Alocate the black and white colors
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // get the first digit which is the key for creating the first 6 bars
         $key = substr($text, 0, 1);
@@ -169,13 +169,20 @@ class Image_Barcode2_upca
         $xpos = 0;
 
         // print first digit
-        imagestring($img, $this->_font, $xpos, $this->_barcodeheight, $key, $black);
-        $xpos = imagefontwidth($this->_font) + 1;
+        $this->writer->imagestring(
+            $img,
+            $this->_font,
+            $xpos,
+            $this->_barcodeheight,
+            $key,
+            $black
+        );
+        $xpos = $this->writer->imagefontwidth($this->_font) + 1;
 
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -188,7 +195,7 @@ class Image_Barcode2_upca
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -202,7 +209,7 @@ class Image_Barcode2_upca
 
         foreach ($this->_number_set[$key]['L'] as $bar) { 
             if ($bar) {
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 
@@ -218,7 +225,7 @@ class Image_Barcode2_upca
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
             $value = substr($text, $idx, 1);
-            imagestring(
+            $this->writer->imagestring(
                 $img,
                 $this->_font,
                 $xpos+1,
@@ -229,7 +236,7 @@ class Image_Barcode2_upca
 
             foreach ($this->_number_set[$value]['L'] as $bar) { 
                 if ($bar) {
-                    imagefilledrectangle(
+                    $this->writer->imagefilledrectangle(
                         $img,
                         $xpos, 
                         0, 
@@ -247,7 +254,7 @@ class Image_Barcode2_upca
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
@@ -259,7 +266,7 @@ class Image_Barcode2_upca
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
@@ -275,7 +282,7 @@ class Image_Barcode2_upca
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
             $value = substr($text, $idx, 1);
-            imagestring(
+            $this->writer->imagestring(
                 $img,
                 $this->_font,
                 $xpos + 1,
@@ -285,7 +292,7 @@ class Image_Barcode2_upca
             );
             foreach ($this->_number_set[$value]['R'] as $bar) {
                 if ($bar) {
-                    imagefilledrectangle(
+                    $this->writer->imagefilledrectangle(
                         $img,
                         $xpos, 
                         0, 
@@ -303,7 +310,7 @@ class Image_Barcode2_upca
         $value = substr($text, 11, 1);
         foreach ($this->_number_set[$value]['R'] as $bar) {
             if ($bar) {
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img,
                     $xpos, 
                     0, 
@@ -320,7 +327,7 @@ class Image_Barcode2_upca
 
         // Draws the right guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
@@ -333,7 +340,7 @@ class Image_Barcode2_upca
         // space
         $xpos += $this->_barwidth;
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
@@ -346,7 +353,7 @@ class Image_Barcode2_upca
 
 
         // Print Check Digit
-        imagestring(
+        $this->writer->imagestring(
             $img,
             $this->_font,
             $xpos + 1,

@@ -141,20 +141,20 @@ class Image_Barcode2_postnet
             + $this->_barwidth * 3;
 
         // Create the image
-        $img = imagecreate($barcodewidth, $this->_bartallheight);
+        $img = $this->writer->imagecreate($barcodewidth, $this->_bartallheight);
 
         // Alocate the black and white colors
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the leader
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -176,7 +176,7 @@ class Image_Barcode2_postnet
                     $elementheight = 0;
                 }
 
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     $elementheight,
@@ -190,7 +190,7 @@ class Image_Barcode2_postnet
         }
 
         // Draws the trailer
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img, 
             $xpos, 
             0, 

@@ -135,14 +135,14 @@ class Image_Barcode2_int25
             + (7 * $this->_barthinwidth + $this->_barthickwidth) + 3;
 
         // Create the image
-        $img = imagecreate($barcodewidth, $this->_barcodeheight);
+        $img = $this->writer->imagecreate($barcodewidth, $this->_barcodeheight);
 
         // Alocate the black and white colors
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
@@ -150,7 +150,7 @@ class Image_Barcode2_int25
         // Draws the leader
         for ($i = 0; $i < 2; $i++) {
             $elementwidth = $this->_barthinwidth;
-            imagefilledrectangle(
+            $this->writer->imagefilledrectangle(
                 $img,
                 $xpos,
                 0,
@@ -180,7 +180,7 @@ class Image_Barcode2_int25
                     $elementwidth = $this->_barthickwidt;
                 }
 
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 
@@ -205,7 +205,7 @@ class Image_Barcode2_int25
 
         // Draws the trailer
         $elementwidth = $this->_barthickwidth;
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img, 
             $xpos, 
             0, 
@@ -217,7 +217,7 @@ class Image_Barcode2_int25
         $xpos += $this->_barthinwidth;
         $xpos ++;
         $elementwidth = $this->_barthinwidth;
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0, 
