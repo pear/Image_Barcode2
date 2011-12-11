@@ -24,7 +24,7 @@ Application Repository homepage at http://pear.php.net
 
 Just load the class in your script:
 
-    require_once('Image/Barcode.php');
+    require_once('Image/Barcode2.php');
 
 Call the Image_Barcode2::draw() as the follow:
 

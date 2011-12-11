@@ -287,4 +287,5 @@ class Image_Barcode2_ean8
     } // function create
 
 } // class
+
 ?>

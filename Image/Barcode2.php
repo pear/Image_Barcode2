@@ -86,7 +86,7 @@ class Image_Barcode2
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode2 0.3
      */
-    public function draw($text, 
+    public static function draw($text, 
         $type = Image_Barcode2::BARCODE_INT25,
         $imgtype = Image_Barcode2::IMAGE_PNG, 
         $bSendToBrowser = true,
