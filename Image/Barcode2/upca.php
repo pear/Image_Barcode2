@@ -194,7 +194,7 @@ class Image_Barcode2_upca
 
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
-            $value=substr($text, $idx, 1);
+            $value = substr($text, $idx, 1);
             imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
 
             foreach ($this->_number_set[$value]['L'] as $bar) { 
