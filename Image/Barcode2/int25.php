@@ -24,6 +24,8 @@
  */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
+require_once 'Image/Barcode2/DualWidth.php';
 
 /**
  * Image_Barcode2_int25 class
@@ -39,28 +41,7 @@ require_once 'Image/Barcode2/Driver.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_int25 implements Image_Barcode2_Driver
-{
-    /**
-     * Barcode height
-     *
-     * @var integer
-     */
-    var $_barcodeheight = 50;
-
-    /**
-     * Bar thin width
-     *
-     * @var integer
-     */
-    var $_barthinwidth = 1;
-
-    /**
-     * Bar thick width
-     *
-     * @var integer
-     */
-    var $_barthickwidth = 3;
+class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
 
     /**
      * Coding map
@@ -78,6 +59,19 @@ class Image_Barcode2_int25 implements Image_Barcode2_Driver
            '8' => '10010',
            '9' => '01010'
         );
+
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarcodeHeight(50);
+        $this->setBarWidthThin(1);
+        $this->setBarWidthThick(3);
+    }
 
     /**
      * Draws a Interleaved 2 of 5 image barcode
@@ -105,37 +99,37 @@ class Image_Barcode2_int25 implements Image_Barcode2_Driver
 
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) 
-            * (3 * $this->_barthinwidth + 2 * $this->_barthickwidth)
+            * (3 * $this->getBarWidthThin() + 2 * $this->getBarWidthThick())
             + (strlen($text))
             * 2.5
-            + (7 * $this->_barthinwidth + $this->_barthickwidth) + 3;
+            + (7 * $this->getBarWidthThin() + $this->getBarWidthThick()) + 3;
 
         // Create the image
-        $img = imagecreate($barcodewidth, $this->_barcodeheight);
+        $img = $this->writer->imagecreate($barcodewidth, $this->getBarcodeHeight());
 
         // Alocate the black and white colors
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the leader
         for ($i = 0; $i < 2; $i++) {
-            $elementwidth = $this->_barthinwidth;
-            imagefilledrectangle(
+            $elementwidth = $this->getBarWidthThin();
+            $this->writer->imagefilledrectangle(
                 $img,
                 $xpos,
                 0,
                 $xpos + $elementwidth - 1,
-                $this->_barcodeheight,
+                $this->getBarcodeHeight(),
                 $black
             );
             $xpos += $elementwidth;
-            $xpos += $this->_barthinwidth;
+            $xpos += $this->getBarWidthThin();
             $xpos ++;
         }
 
@@ -151,26 +145,26 @@ class Image_Barcode2_int25 implements Image_Barcode2_Driver
             for ($baridx = 0; $baridx < 5; $baridx++) {
 
                 // Draws odd char corresponding bar (black)
-                $elementwidth = $this->_barthinwidth;
+                $elementwidth = $this->getBarWidthThin();
                 if (substr($this->_coding_map[$oddchar], $baridx, 1)) {
-                    $elementwidth = $this->_barthickwidt;
+                    $elementwidth = $this->getBarWidthThick();
                 }
 
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 
                     $xpos + $elementwidth - 1, 
-                    $this->_barcodeheight, 
+                    $this->getBarcodeHeight(), 
                     $black
                 );
 
                 $xpos += $elementwidth;
 
                 // Left enought space to draw even char (white)
-                $elementwidth = $this->_barthinwidth;
+                $elementwidth = $this->getBarWidthThin();
                 if (substr($this->_coding_map[$evenchar], $baridx, 1)) {
-                    $elementwidth = $this->_barthickwidth;
+                    $elementwidth = $this->getBarWidthThick();
                 }
 
                 $xpos += $elementwidth; 
@@ -180,25 +174,25 @@ class Image_Barcode2_int25 implements Image_Barcode2_Driver
 
 
         // Draws the trailer
-        $elementwidth = $this->_barthickwidth;
-        imagefilledrectangle(
+        $elementwidth = $this->getBarWidthThick();
+        $this->writer->imagefilledrectangle(
             $img, 
             $xpos, 
             0, 
             $xpos + $elementwidth - 1,
-            $this->_barcodeheight, 
+            $this->getBarcodeHeight(), 
             $black
         );
         $xpos += $elementwidth;
-        $xpos += $this->_barthinwidth;
+        $xpos += $this->getBarWidthThin();
         $xpos ++;
-        $elementwidth = $this->_barthinwidth;
-        imagefilledrectangle(
+        $elementwidth = $this->getBarWidthThin();
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0, 
             $xpos + $elementwidth - 1,
-            $this->_barcodeheight, 
+            $this->getBarcodeHeight(), 
             $black
         );
 

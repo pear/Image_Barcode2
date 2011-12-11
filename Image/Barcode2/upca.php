@@ -25,6 +25,7 @@
  */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
 
 /**
  * Image_Barcode2_upca class
@@ -47,14 +48,7 @@ require_once 'Image/Barcode2/Driver.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_upca implements Image_Barcode2_Driver
-{
-    /**
-     * Barcode height
-     *
-     * @var integer
-     */
-    var $_barcodeheight = 50;
+class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode2_Driver
 
     /**
      * Font use to display text
@@ -62,14 +56,6 @@ class Image_Barcode2_upca implements Image_Barcode2_Driver
      * @var integer
      */
     var $_font = 2;  // gd internal small font
-
-    /**
-     * Bar width
-     *
-     * @var integer
-     */
-    var $_barwidth = 1;
-
 
     /**
      * Number set
@@ -119,6 +105,18 @@ class Image_Barcode2_upca implements Image_Barcode2_Driver
         );
 
     /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarcodeHeight(50);
+        $this->setBarWidth(1);
+    }
+
+    /**
      * Draws a UPC-A image barcode
      *
      * @param string $text A text that should be in the image barcode
@@ -138,30 +136,30 @@ class Image_Barcode2_upca implements Image_Barcode2_Driver
 
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * (7 * $this->_barwidth)
+        $barcodewidth = (strlen($text)) * (7 * $this->getBarWidth())
             + 3 // left
             + 5 // center
             + 3 // right
-            + imagefontwidth($this->_font) + 1
-            + imagefontwidth($this->_font) + 1   // check digit's padding
+            + $this->writer->imagefontwidth($this->_font) + 1
+            + $this->writer->imagefontwidth($this->_font) + 1 // check digit padding
             ;
 
 
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) 
-            + $this->_barcodeheight;
+        $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2) 
+            + $this->getBarcodeHeight();
 
         // Create the image
-        $img = imagecreate(
+        $img = $this->writer->imagecreate(
             $barcodewidth,
-            $barcodelongheight + imagefontheight($this->_font) + 1
+            $barcodelongheight + $this->writer->imagefontheight($this->_font) + 1
         );
 
         // Alocate the black and white colors
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // get the first digit which is the key for creating the first 6 bars
         $key = substr($text, 0, 1);
@@ -170,48 +168,55 @@ class Image_Barcode2_upca implements Image_Barcode2_Driver
         $xpos = 0;
 
         // print first digit
-        imagestring($img, $this->_font, $xpos, $this->_barcodeheight, $key, $black);
-        $xpos = imagefontwidth($this->_font) + 1;
+        $this->writer->imagestring(
+            $img,
+            $this->_font,
+            $xpos,
+            $this->getBarcodeHeight(),
+            $key,
+            $black
+        );
+        $xpos = $this->writer->imagefontwidth($this->_font) + 1;
 
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight,
             $black
         );
 
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $barcodelongheight,
             $black
         );
 
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
 
 
         foreach ($this->_number_set[$key]['L'] as $bar) { 
             if ($bar) {
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 
-                    $xpos + $this->_barwidth - 1,
+                    $xpos + $this->getBarWidth() - 1,
                     $barcodelongheight, $black
                 );
             }
-            $xpos += $this->_barwidth;
+            $xpos += $this->getBarWidth();
         }
 
 
@@ -219,83 +224,83 @@ class Image_Barcode2_upca implements Image_Barcode2_Driver
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
             $value = substr($text, $idx, 1);
-            imagestring(
+            $this->writer->imagestring(
                 $img,
                 $this->_font,
                 $xpos+1,
-                $this->_barcodeheight,
+                $this->getBarcodeHeight(),
                 $value, 
                 $black
             );
 
             foreach ($this->_number_set[$value]['L'] as $bar) { 
                 if ($bar) {
-                    imagefilledrectangle(
+                    $this->writer->imagefilledrectangle(
                         $img,
                         $xpos, 
                         0, 
-                        $xpos + $this->_barwidth - 1,
-                        $this->_barcodeheight,
+                        $xpos + $this->getBarWidth() - 1,
+                        $this->getBarcodeHeight(),
                         $black
                     );
                 }
-                $xpos += $this->_barwidth;
+                $xpos += $this->getBarWidth();
             }
         }
 
 
         // Draws the center pattern (space-bar-space-bar-space)
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
-            $xpos + $this->_barwidth - 1,
-            $this->_barcodeheight,
+            $xpos + $this->getBarWidth() - 1,
+            $this->getBarcodeHeight(),
             $black
         );
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
-            $xpos + $this->_barwidth - 1,
-            $this->_barcodeheight,
+            $xpos + $this->getBarWidth() - 1,
+            $this->getBarcodeHeight(),
             $black
         );
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
 
 
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
             $value = substr($text, $idx, 1);
-            imagestring(
+            $this->writer->imagestring(
                 $img,
                 $this->_font,
                 $xpos + 1,
-                $this->_barcodeheight,
+                $this->getBarcodeHeight(),
                 $value,
                 $black
             );
             foreach ($this->_number_set[$value]['R'] as $bar) {
                 if ($bar) {
-                    imagefilledrectangle(
+                    $this->writer->imagefilledrectangle(
                         $img,
                         $xpos, 
                         0, 
-                        $xpos + $this->_barwidth - 1,
-                        $this->_barcodeheight,
+                        $xpos + $this->getBarWidth() - 1,
+                        $this->getBarcodeHeight(),
                         $black
                     );
                 }
-                $xpos += $this->_barwidth;
+                $xpos += $this->getBarWidth();
             }
         }
 
@@ -304,54 +309,54 @@ class Image_Barcode2_upca implements Image_Barcode2_Driver
         $value = substr($text, 11, 1);
         foreach ($this->_number_set[$value]['R'] as $bar) {
             if ($bar) {
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img,
                     $xpos, 
                     0, 
-                    $xpos + $this->_barwidth - 1,
-                    $this->_barcodeheight,
+                    $xpos + $this->getBarWidth() - 1,
+                    $this->getBarcodeHeight(),
                     $black
                 );
 
             }
-            $xpos += $this->_barwidth;
+            $xpos += $this->getBarWidth();
         }
 
 
 
         // Draws the right guard pattern (bar-space-bar)
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
-            $xpos + $this->_barwidth - 1,
-            $this->_barcodeheight,
+            $xpos + $this->getBarWidth() - 1,
+            $this->getBarcodeHeight(),
             $black
         );
 
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // space
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
         // bar
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos, 
             0, 
-            $xpos + $this->_barwidth - 1,
-            $this->_barcodeheight,
+            $xpos + $this->getBarWidth() - 1,
+            $this->getBarcodeHeight(),
             $black
         );
 
-        $xpos += $this->_barwidth;
+        $xpos += $this->getBarWidth();
 
 
         // Print Check Digit
-        imagestring(
+        $this->writer->imagestring(
             $img,
             $this->_font,
             $xpos + 1,
-            $this->_barcodeheight,
+            $this->getBarcodeHeight(),
             $value,
             $black
         );
