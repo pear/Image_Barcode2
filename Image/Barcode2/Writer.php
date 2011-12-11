@@ -31,6 +31,10 @@ class Image_Barcode2_Writer {
         return imagefontheight($font);
     }
 
+    public function imagefontwidth($font) {
+        return imagefontwidth($font);
+    }
+
     public function imagecolorallocate($image, $red, $green, $blue) {
         return imagecolorallocate($image, $red, $green, $blue);
     }
