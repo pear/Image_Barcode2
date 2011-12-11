@@ -25,6 +25,7 @@
 
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
+require_once 'Image/Barcode2/DualWidth.php';
 
 /**
  * Image_Barcode2_int25 class
@@ -40,7 +41,7 @@ require_once 'Image/Barcode2/Common.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
 
     /**
      * Coding map

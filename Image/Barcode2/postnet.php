@@ -52,7 +52,7 @@ require_once 'Image/Barcode2/Common.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualHeight
 {
     /**
      * Bar short height

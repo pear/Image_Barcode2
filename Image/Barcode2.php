@@ -115,13 +115,14 @@ class Image_Barcode2
             );
         }
 
-        if (isset($obj->_barcodeheight)) {
-            $obj->_barcodeheight = $height;
+        if (!$obj instanceof Image_Barcode2_DualWidth) {
+            $obj->setBarWidth($width);
         }
 
-        if (isset($obj->_barwidth)) {
-            $obj->_barwidth = $width;
+        if (!$obj instanceof Image_Barcode2_DualHeight) {
+            $obj->setBarcodeHeight($height);
         }
+
 
         $img = $obj->draw($text);
 
