@@ -42,6 +42,16 @@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
+/**
+ * Code128
+ *
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @link      http://pear.php.net/package/Image_Barcode2
+ */
 
 class Image_Barcode2_code128
 {
@@ -54,7 +64,7 @@ class Image_Barcode2_code128
     /**
      * Draws a Code128 image barcode
      *
-     * @param  string $text     A text that should be in the image barcode
+     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding interleaved 2 of 5 image barcode
      *
@@ -131,14 +141,19 @@ class Image_Barcode2_code128
             $nval = $allbars[$i];
             $barcodewidth += ($nval * $this->_barwidth);
         }
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
+
+        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) 
+            + $this->_barcodeheight;
 
 
         // Then, we create the image, allocate the colors, and fill
         // the image with a nice, white background, ready for printing
         // our black bars and the text.
 
-        $img = imagecreate($barcodewidth, $barcodelongheight + imagefontheight($this->_font)+1);
+        $img = imagecreate(
+            $barcodewidth,
+            $barcodelongheight + imagefontheight($this->_font) + 1
+        );
         $black = imagecolorallocate($img, 0, 0, 0);
         $white = imagecolorallocate($img, 255, 255, 255);
         imagefill($img, 0, 0, $white);
@@ -172,7 +187,14 @@ class Image_Barcode2_code128
             $width = $nval * $this->_barwidth;
 
             if ($bar == 1) {
-                imagefilledrectangle($img, $xpos, 0, $xpos + $width - 1, $barcodelongheight, $black);
+                imagefilledrectangle(
+                    $img, 
+                    $xpos, 
+                    0, 
+                    $xpos + $width - 1, 
+                    $barcodelongheight, 
+                    $black
+                );
                 $xpos += $width;
                 $bar = 0;
             } else {
@@ -186,11 +208,10 @@ class Image_Barcode2_code128
 
 
     /**
-    * @internal
-    * In the Image_Barcode2_code128 constructor, we initialize
-    * the $code array, containing the bar and space pattern
-    * for the Code128 B character set.
-    */
+     * In the Image_Barcode2_code128 constructor, we initialize
+     * the $code array, containing the bar and space pattern
+     * for the Code128 B character set.
+     */
     public function __construct()
     {
         $this->_code[0] = "212222";  // " "
@@ -300,8 +321,11 @@ class Image_Barcode2_code128
 
 
     /**
-     * @param string $char
-     * @return the Code128 code for a character
+     * Get the Code128 code for a character
+     *
+     * @param string $char Chacter
+     *
+     * @return string
      */
     private function _getCharCode($char)
     {
@@ -310,7 +334,9 @@ class Image_Barcode2_code128
 
 
     /**
-     * @return the Start Code for Code128
+     * Get the Start Code for Code128
+     *
+     * @return string
      */
     private function _getStartCode()
     {
@@ -319,7 +345,9 @@ class Image_Barcode2_code128
 
 
     /**
-     * @return the Stop Code for Code128
+     * Get the Stop Code for Code128
+     *
+     * @return string
      */
     private function _getStopCode()
     {
@@ -328,8 +356,11 @@ class Image_Barcode2_code128
 
 
     /**
-     * @param int $index
-     * @return the Code128 code equivalent of a character number
+     * Rhe Code128 code equivalent of a character number
+     *
+     * @param int $index Index
+     *
+     * @return string 
      */
     private function _getNumCode($index)
     {
@@ -338,8 +369,11 @@ class Image_Barcode2_code128
 
 
     /**
-     * @param string $char
-     * @return int the Code128 numerical equivalent of a character.
+     * Get the Code128 numerical equivalent of a character.
+     *
+     * @param string $char Character
+     *
+     * @return int
      */
     private function _getCharNumber($char)
     {
