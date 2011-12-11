@@ -186,7 +186,7 @@ class Image_Barcode2_ean13 extends Image_Barcode2_Common implements Image_Barcod
             $black
         );
 
-        $xpos= $this->writer->fontwidth($this->_font) + 1;
+        $xpos = $this->writer->imagefontwidth($this->_font) + 1;
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
