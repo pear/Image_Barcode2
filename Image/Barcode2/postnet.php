@@ -37,6 +37,7 @@
   */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
 
 /**
  * Image_Barcode2_postnet class
@@ -51,7 +52,7 @@ require_once 'Image/Barcode2/Driver.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_postnet implements Image_Barcode2_Driver
+class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualHeight
 {
     /**
      * Bar short height
@@ -66,13 +67,6 @@ class Image_Barcode2_postnet implements Image_Barcode2_Driver
      * @var integer
      */
     var $_bartallheight = 15;
-
-    /**
-     * Bar width / scaling factor
-     *
-     * @var integer
-     */
-    var $_barwidth = 2;
 
     /**
      * Coding map
@@ -90,6 +84,17 @@ class Image_Barcode2_postnet implements Image_Barcode2_Driver
            '8' => '10010',
            '9' => '10100'
         );
+
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarWidth(2);
+    }
 
     /**
      * Draws a PostNet image barcode
@@ -113,33 +118,33 @@ class Image_Barcode2_postnet implements Image_Barcode2_Driver
         }
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * 2 * 5 * $this->_barwidth
-            + $this->_barwidth * 3;
+        $barcodewidth = (strlen($text)) * 2 * 5 * $this->getBarWidth()
+            + $this->getBarWidth() * 3;
 
         // Create the image
-        $img = imagecreate($barcodewidth, $this->_bartallheight);
+        $img = $this->writer->imagecreate($barcodewidth, $this->_bartallheight);
 
         // Alocate the black and white colors
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the leader
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->_barwidth - 1,
+            $xpos + $this->getBarWidth() - 1,
             $this->_bartallheight,
             $black
         );
 
-        $xpos += 2 * $this->_barwidth;
+        $xpos += 2 * $this->getBarWidth();
 
         // Draw $text contents
         for ($idx = 0, $all = strlen($text); $idx < $all; $idx++) {
@@ -152,25 +157,25 @@ class Image_Barcode2_postnet implements Image_Barcode2_Driver
                     $elementheight = 0;
                 }
 
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     $elementheight,
-                    $xpos + $this->_barwidth - 1,
+                    $xpos + $this->getBarWidth() - 1,
                     $this->_bartallheight,
                     $black
                 );
 
-                $xpos += 2 * $this->_barwidth;
+                $xpos += 2 * $this->getBarWidth();
             }
         }
 
         // Draws the trailer
-        imagefilledrectangle(
+        $this->writer->imagefilledrectangle(
             $img, 
             $xpos, 
             0, 
-            $xpos + $this->_barwidth - 1, 
+            $xpos + $this->getBarWidth() - 1, 
             $this->_bartallheight,
             $black
         );

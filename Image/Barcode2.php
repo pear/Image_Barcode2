@@ -23,7 +23,8 @@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
-require_once 'PEAR.php';
+require_once 'Image/Barcode2/Writer.php';
+require_once 'Image/Barcode2/Driver.php';
 
 /**
  * Image_Barcode2 class
@@ -79,14 +80,14 @@ class Image_Barcode2
      * @param integer $width          The image width
      *
      * @return image The corresponding gd image object;
-     *               PEAR_Error on failure
-     *
+     *               
+     * @throws InvalidArgumentException
      * @access public
      *
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode2 0.3
      */
-    public function draw($text, 
+    public static function draw($text, 
         $type = Image_Barcode2::BARCODE_INT25,
         $imgtype = Image_Barcode2::IMAGE_PNG, 
         $bSendToBrowser = true,
@@ -95,35 +96,35 @@ class Image_Barcode2
     ) {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
-            return PEAR::raiseError('Invalid barcode type ' . $type);
+            throw new InvalidArgumentException('Invalid barcode type ' . $type);
         }
+
         if (!include_once 'Image/Barcode2/' . $type . '.php') {
-            return PEAR::raiseError($type . ' barcode is not supported');
+            throw new InvalidArgumentException($type . ' barcode is not supported');
         }
 
         $classname = 'Image_Barcode2_' . $type;
 
-        if (!in_array('draw', get_class_methods($classname))) {
-            return PEAR::raiseError(
-                "Unable to find draw method in '$classname' class"
+        $writer = new Image_Barcode2_Writer();
+
+        $obj = new $classname($writer);
+
+        if (!$obj instanceof Image_Barcode2_Driver) {
+            throw new InvalidArgumentException(
+                "'$classname' does not implement Image_Barcode2_Driver"
             );
         }
 
-        $obj = new $classname();
-
-        if (isset($obj->_barcodeheight)) {
-            $obj->_barcodeheight = $height;
+        if (!$obj instanceof Image_Barcode2_DualWidth) {
+            $obj->setBarWidth($width);
         }
 
-        if (isset($obj->_barwidth)) {
-            $obj->_barwidth = $width;
+        if (!$obj instanceof Image_Barcode2_DualHeight) {
+            $obj->setBarcodeHeight($height);
         }
+
 
         $img = $obj->draw($text);
-
-        if (@PEAR::isError($img)) {
-            return $img;
-        }
 
         if ($bSendToBrowser) {
             // Send image to browser

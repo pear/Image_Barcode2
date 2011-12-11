@@ -43,6 +43,7 @@
  */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
 
 /**
  * Code128
@@ -55,13 +56,22 @@ require_once 'Image/Barcode2/Driver.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
-class Image_Barcode2_code128 implements Image_Barcode2_Driver
+class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
-    var $_barcodeheight = 60;
     var $_font = 2;
-    var $_barwidth = 1;
     var $_code;
 
+    /**
+     * Class constructor
+     *
+     * @param Image_Barcode2_Writer $writer Library to use.
+     */
+    public function __construct(Image_Barcode2_Writer $writer) 
+    {
+        parent::__construct($writer);
+        $this->setBarcodeHeight(60);
+        $this->setBarWidth(1);
+    }
 
     /**
      * Draws a Code128 image barcode
@@ -141,24 +151,24 @@ class Image_Barcode2_code128 implements Image_Barcode2_Driver
 
         for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
-            $barcodewidth += ($nval * $this->_barwidth);
+            $barcodewidth += ($nval * $this->getBarWidth());
         }
 
-        $barcodelongheight = (int) (imagefontheight($this->_font) / 2) 
-            + $this->_barcodeheight;
+        $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2)
+            + $this->getBarcodeHeight();
 
 
         // Then, we create the image, allocate the colors, and fill
         // the image with a nice, white background, ready for printing
         // our black bars and the text.
 
-        $img = imagecreate(
+        $img = $this->writer->imagecreate(
             $barcodewidth,
-            $barcodelongheight + imagefontheight($this->_font) + 1
+            $barcodelongheight + $this->writer->imagefontheight($this->_font) + 1
         );
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
-        imagefill($img, 0, 0, $white);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
+        $this->writer->imagefill($img, 0, 0, $white);
 
 
         //------------------------------------------------------//
@@ -167,11 +177,11 @@ class Image_Barcode2_code128 implements Image_Barcode2_Driver
 
 
         // First, print the image, centered across the bottom.
-        imagestring(
+        $this->writer->imagestring(
             $img,
             $this->_font,
-            $barcodewidth / 2 - strlen($text) / 2 * (imagefontwidth($this->_font)),
-            $this->_barcodeheight + imagefontheight($this->_font) / 2,
+            $barcodewidth / 2 - strlen($text) / 2 * ($this->writer->imagefontwidth($this->_font)),
+            $this->getBarcodeHeight() + $this->writer->imagefontheight($this->_font) / 2,
             $text,
             $black
         );
@@ -186,10 +196,10 @@ class Image_Barcode2_code128 implements Image_Barcode2_Driver
         $bar = 1;
         for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
-            $width = $nval * $this->_barwidth;
+            $width = $nval * $this->getBarWidth();
 
             if ($bar == 1) {
-                imagefilledrectangle(
+                $this->writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 
@@ -209,13 +219,16 @@ class Image_Barcode2_code128 implements Image_Barcode2_Driver
     }
 
 
+
     /**
      * In the Image_Barcode2_code128 constructor, we initialize
      * the $code array, containing the bar and space pattern
      * for the Code128 B character set.
      */
-    public function __construct()
+    public function __construct(Image_Barcode2_Writer $writer)
     {
+        __parent::construct($writer);
+
         $this->_code[0] = "212222";  // " "
         $this->_code[1] = "222122";  // "!"
         $this->_code[2] = "222221";  // "{QUOTE}"
@@ -320,7 +333,6 @@ class Image_Barcode2_code128 implements Image_Barcode2_Driver
         $this->_code[101] = "311141"; // 101
         $this->_code[102] = "411131"; // 102
     }
-
 
     /**
      * Get the Code128 code for a character

@@ -25,6 +25,8 @@
  */
 
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Common.php';
+require_once 'Image/Barcode2/DualWidth.php';
 
 /**
  * Image_Barcode2_Code39 class
@@ -40,29 +42,8 @@ require_once 'Image/Barcode2/Driver.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  * @since     Image_Barcode2 0.5
  */
-class Image_Barcode2_Code39 implements Image_Barcode2_Driver
+class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
 {
-    /**
-     * Barcode height
-     *
-     * @var integer
-     */
-    var $_barcodeheight = 50;
-
-    /**
-     * Bar thin width
-     *
-     * @var integer
-     */
-    var $_barthinwidth = 1;
-
-    /**
-     * Bar thick width
-     *
-     * @var integer
-     */
-    var $_barthickwidth = 3;
-
     /**
      * Font size
      *
@@ -122,45 +103,31 @@ class Image_Barcode2_Code39 implements Image_Barcode2_Driver
     );
 
     /**
-     * Constructor
+     * Class constructor
      *
-     * @param string $text   A text that should be in the image barcode
-     * @param int    $wThin  Width of the thin lines on the barcode
-     * @param int    $wThick Width of the thick lines on the barcode
-     *
-     * @author Ryan Briones <ryanbriones@webxdesign.org>
-     *
+     * @param Image_Barcode2_Writer $writer Library to use.
      */
-    public function __construct($text = '', $wThin = 0, $wThick = 0)
+    public function __construct(Image_Barcode2_Writer $writer) 
     {
-        // Check $text for invalid characters
-        if ($this->_checkInvalid($text)) {
-            return false;
-        }
-
-        $this->text = $text;
-        if ($wThin > 0 ) {
-            $this->_barthinwidth = $wThin;
-        }
-        if ($wThick > 0 ) {
-            $this->_barthickwidth = $wThick;
-        }
-
-        return true;
+        parent::__construct($writer);
+        $this->setBarcodeHeight(50);
+        $this->setBarWidthThin(1);
+        $this->setBarWidthThick(3);
     }
 
    /**
     * Make an image resource using the GD image library
     *
+    * @param    string $text        A text that should be in the image barcode
     * @return   resource           The Barcode Image (TM)
     *
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
     *
     */
-    private function _plot()
+    private function _plot($text)
     {
         // add start and stop * characters
-        $final_text = '*' . $this->text . '*';
+        $final_text = '*' . $text . '*';
 
         $barcode = '';
         foreach (str_split($final_text) as $character) {
@@ -170,16 +137,16 @@ class Image_Barcode2_Code39 implements Image_Barcode2_Driver
         $barcode_len = strlen($barcode);
 
         // Create GD image object
-        $img = imagecreate($barcode_len, $this->_barcodeheight);
+        $img = $this->writer->imagecreate($barcode_len, $this->getBarcodeHeight());
 
         // Allocate black and white colors to the image
-        $black = imagecolorallocate($img, 0, 0, 0);
-        $white = imagecolorallocate($img, 255, 255, 255);
-        $font_height = imagefontheight($this->_font_size);
-        $font_width = imagefontwidth($this->_font_size);
+        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
+        $font_height = $this->writer->imagefontheight($this->_font_size);
+        $font_width = $this->writer->imagefontwidth($this->_font_size);
 
         // fill background with white color
-        imagefill($img, 0, 0, $white);
+        $this->writer->imagefill($img, 0, 0, $white);
 
         // Initialize X position
         $xpos = 0;
@@ -187,21 +154,21 @@ class Image_Barcode2_Code39 implements Image_Barcode2_Driver
         // draw barcode bars to image
         foreach (str_split($barcode) as $character_code) {
             if ($character_code == 0) {
-                imageline(
+                $this->writer->imageline(
                     $img, 
                     $xpos, 
                     0, 
                     $xpos, 
-                    $this->_barcodeheight - $font_height - 1, 
+                    $this->getBarcodeHeight() - $font_height - 1, 
                     $white
                 );
             } else {
-                imageline(
+                $this->writer->imageline(
                     $img, 
                     $xpos, 
                     0, 
                     $xpos, 
-                    $this->_barcodeheight - $font_height - 1, 
+                    $this->getBarcodeHeight() - $font_height - 1, 
                     $black
                 );
             }
@@ -210,12 +177,12 @@ class Image_Barcode2_Code39 implements Image_Barcode2_Driver
         }
 
         // draw text under barcode
-        imagestring(
+        $this->writer->imagestring(
             $img,
             $this->_font_size,
-            ($barcode_len - $font_width * strlen($this->text))/2,
-            $this->_barcodeheight - $font_height,
-            $this->text,
+            ($barcode_len - $font_width * strlen($this->text)) / 2,
+            $this->getBarcodeHeight() - $font_height,
+            $text,
             $black
         );
 
@@ -241,8 +208,7 @@ class Image_Barcode2_Code39 implements Image_Barcode2_Driver
             return 'Invalid text';
         }
 
-        $this->text = $text;
-        return $this->_plot();
+        return $this->_plot($text);
     }
 
 
@@ -267,9 +233,9 @@ class Image_Barcode2_Code39 implements Image_Barcode2_Driver
         // if $bit is 1, line is wide; if $bit is 0 line is thin
         foreach (str_split($code) as $bit) {
             if ($bit == 1) {
-                $result .= str_repeat($color, $this->_barthickwidth);
+                $result .= str_repeat($color, $this->getBarWidthThick());
             } else {
-                $result .= str_repeat($color, $this->_barthinwidth);
+                $result .= str_repeat($color, $this->getBarWidthThin());
             }
 
             $color = ($color == 0) ? 1 : 0;
