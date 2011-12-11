@@ -14,13 +14,13 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Josef "Jeff" Sipek <jeffpc@optonline.net>
- * @copyright  2005 Josef "Jeff" Sipek
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Josef "Jeff" Sipek <jeffpc@optonline.net>
+ * @copyright 2005 Josef "Jeff" Sipek
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
  /*
@@ -42,13 +42,13 @@
  *
  * Package which provides a method to create PostNet barcode using GD library.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Josef "Jeff" Sipek <jeffpc@optonline.net>
- * @copyright  2005 Josef "Jeff" Sipek
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Josef "Jeff" Sipek <jeffpc@optonline.net>
+ * @copyright 2005 Josef "Jeff" Sipek
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 class Image_Barcode2_postnet
 {
@@ -93,7 +93,7 @@ class Image_Barcode2_postnet
     /**
      * Draws a PostNet image barcode
      *
-     * @param  string $text     A text that should be in the image barcode
+     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -112,7 +112,8 @@ class Image_Barcode2_postnet
         }
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * 2 * 5 * $this->_barwidth + $this->_barwidth * 3;
+        $barcodewidth = (strlen($text)) * 2 * 5 * $this->_barwidth
+            + $this->_barwidth * 3;
 
         // Create the image
         $img = imagecreate($barcodewidth, $this->_bartallheight);
@@ -128,7 +129,15 @@ class Image_Barcode2_postnet
         $xpos = 0;
 
         // Draws the leader
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
+        imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->_barwidth - 1,
+            $this->_bartallheight,
+            $black
+        );
+
         $xpos += 2 * $this->_barwidth;
 
         // Draw $text contents
@@ -136,14 +145,34 @@ class Image_Barcode2_postnet
             $char  = substr($text, $idx, 1);
 
             for ($baridx = 0; $baridx < 5; $baridx++) {
-                $elementheight = (substr($this->_coding_map[$char], $baridx, 1)) ?  0 : $this->_barshortheight;
-                imagefilledrectangle($img, $xpos, $elementheight, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
+                $elementheight = $this->_barshortheight;
+
+                if (substr($this->_coding_map[$char], $baridx, 1)) {
+                    $elementheight = 0;
+                }
+
+                imagefilledrectangle(
+                    $img, 
+                    $xpos, 
+                    $elementheight,
+                    $xpos + $this->_barwidth - 1,
+                    $this->_bartallheight,
+                    $black
+                );
+
                 $xpos += 2 * $this->_barwidth;
             }
         }
 
         // Draws the trailer
-        imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_bartallheight, $black);
+        imagefilledrectangle(
+            $img, 
+            $xpos, 
+            0, 
+            $xpos + $this->_barwidth - 1, 
+            $this->_bartallheight,
+            $black
+        );
 
         return $img;
     }

@@ -15,13 +15,13 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Ryan Briones <ryanbriones@webxdesign.org>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Image_Barcode2
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Ryan Briones <ryanbriones@webxdesign.org>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 
@@ -30,14 +30,14 @@
  *
  * Package which provides a method to create Code39 using GD library.
  *
- * @category   Image
- * @package    Image_Barcode2
- * @author     Ryan Briones <ryanbriones@webxdesign.org>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Image_Barcode2
- * @since      Image_Barcode2 0.5
+ * @category  Image
+ * @package   Image_Barcode2
+ * @author    Ryan Briones <ryanbriones@webxdesign.org>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Image_Barcode2
+ * @since     Image_Barcode2 0.5
  */
 class Image_Barcode2_Code39
 {
