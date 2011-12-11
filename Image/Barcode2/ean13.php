@@ -152,7 +152,7 @@ class Image_Barcode2_ean13
             + 3 * $this->_barwidth  // left
             + 5 * $this->_barwidth  // center
             + 3 * $this->_barwidth // right
-            + imagefontwidth($this->_font)+1
+            + imagefontwidth($this->_font) + 1
             ;
 
         $barcodelongheight = (int) (imagefontheight($this->_font) / 2) + $this->_barcodeheight;
@@ -195,7 +195,7 @@ class Image_Barcode2_ean13
         for ($idx = 1; $idx < 7; $idx ++) {
             $value = substr($text, $idx, 1);
             imagestring ($img, $this->_font, $xpos + 1, $this->_barcodeheight, $value, $black);
-            foreach ($this->_number_set[$value][$set_array[$idx-1]] as $bar) {
+            foreach ($this->_number_set[$value][$set_array[$idx - 1]] as $bar) {
                 if ($bar) {
                     imagefilledrectangle($img, $xpos, 0, $xpos + $this->_barwidth - 1, $this->_barcodeheight, $black);
                 }
