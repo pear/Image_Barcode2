@@ -58,7 +58,6 @@ require_once 'Image/Barcode2/Common.php';
 
 class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
-    var $_font = 2;
     var $_code;
 
     /**
@@ -70,7 +69,7 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
     {
         parent::__construct($writer);
         $this->setBarcodeHeight(60);
-        $this->setBarWidth(1);
+        $this->setBarcodeWidth(1);
 
         $this->_code[0] = "212222";  // " "
         $this->_code[1] = "222122";  // "!"
@@ -212,15 +211,13 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
         // pattern and add it to the end of the $allbars string.
         // In addition, we continually add the character's value
         // to the checksum
-        $bars = '';
         for ($i = 0, $all = strlen($text); $i < $all; ++$i) {
             $char = $text[$i];
             $val = $this->_getCharNumber($char);
 
             $checksum += ($val * ($i + 1));
 
-            $bars = $this->_getCharCode($char);
-            $allbars = $allbars . $bars;
+            $allbars .= $this->_getCharCode($char);
         }
 
 
@@ -255,10 +252,10 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
 
         for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
-            $barcodewidth += ($nval * $this->getBarWidth());
+            $barcodewidth += ($nval * $this->getBarcodeWidth());
         }
 
-        $barcodelongheight = (int)($this->writer->imagefontheight($this->_font) / 2)
+        $barcodelongheight = (int)($this->getWriter()->imagefontheight($this->getFontSize()) / 2)
             + $this->getBarcodeHeight();
 
 
@@ -266,13 +263,13 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
         // the image with a nice, white background, ready for printing
         // our black bars and the text.
 
-        $img = $this->writer->imagecreate(
+        $img = $this->getWriter()->imagecreate(
             $barcodewidth,
-            $barcodelongheight + $this->writer->imagefontheight($this->_font) + 1
+            $barcodelongheight + $this->getWriter()->imagefontheight($this->getFontSize()) + 1
         );
-        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
-        $this->writer->imagefill($img, 0, 0, $white);
+        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
+        $this->getWriter()->imagefill($img, 0, 0, $white);
 
 
         //------------------------------------------------------//
@@ -281,11 +278,11 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
 
 
         // First, print the image, centered across the bottom.
-        $this->writer->imagestring(
+        $this->getWriter()->imagestring(
             $img,
-            $this->_font,
-            $barcodewidth / 2 - strlen($text) / 2 * ($this->writer->imagefontwidth($this->_font)),
-            $this->getBarcodeHeight() + $this->writer->imagefontheight($this->_font) / 2,
+            $this->getFontSize(),
+            $barcodewidth / 2 - strlen($text) / 2 * ($this->getWriter()->imagefontwidth($this->getFontSize())),
+            $this->getBarcodeHeight() + $this->getWriter()->imagefontheight($this->getFontSize()) / 2,
             $text,
             $black
         );
@@ -300,10 +297,10 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
         $bar = 1;
         for ($i = 0, $all = strlen($allbars); $i < $all; ++$i) {
             $nval = $allbars[$i];
-            $width = $nval * $this->getBarWidth();
+            $width = $nval * $this->getBarcodeWidth();
 
             if ($bar == 1) {
-                $this->writer->imagefilledrectangle(
+                $this->getWriter()->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 

@@ -2,14 +2,15 @@
 class Image_Barcode2_Common 
 {
     protected $_barcodeheight;
-    protected $_barwidth;
-    protected $_barthinwidth;
-    protected $_barthickwidth;
+    protected $_barcodewidth;
+    protected $_barcodethinwidth;
+    protected $_barcodethickwidth;
+    protected $_fontsize = 2;
 
     /**
      * @var Image_Barcode2_Writer
      */
-    protected $writer;
+    protected $_writer;
 
     /**
      * Class constructor
@@ -28,12 +29,22 @@ class Image_Barcode2_Common
      */
     public function setWriter(Image_Barcode2_Writer $writer) 
     {
-        $this->writer = $writer;
+        $this->_writer = $writer;
     }
     
     public function getWriter() 
     {
-        return $this->writer;
+        return $this->_writer;
+    }
+
+    public function setFontSize($size)
+    {
+        $this->_fontsize = $size;
+    }
+
+    public function getFontSize()
+    {
+        return $this->_fontsize;
     }
 
     public function setBarcodeHeight($height) 
@@ -41,38 +52,38 @@ class Image_Barcode2_Common
         $this->_barcodeheight = $height;
     }
 
-    public function setBarWidth($width) 
-    {
-        $this->_barwidth = $width;
-    }
-
-    public function setBarWidthThick($width) 
-    {
-        $this->_barthickwidth = $width;
-    }
-
-    public function setBarWidthThin($width) 
-    {
-        $this->_barthinwidth = $width;
-    }
-
-    public function getBarcodeHeight() 
+    public function getBarcodeHeight()
     {
         return $this->_barcodeheight;
     }
 
-    public function getBarWidth() 
+    public function setBarcodeWidth($width)
     {
-        return $this->_barwidth;
+        $this->_barcodewidth = $width;
     }
 
-    public function getBarWidthThin()
+    public function getBarcodeWidth()
     {
-        return $this->_barthinwidth;
+        return $this->_barcodewidth;
     }
 
-    public function getBarWidthThick()
+    public function setBarcodeWidthThick($width)
     {
-        return $this->_barthickwidth;
+        $this->_barcodethickwidth = $width;
+    }
+
+    public function getBarcodeWidthThick()
+    {
+        return $this->_barcodethickwidth;
+    }
+
+    public function setBarcodeWidthThin($width)
+    {
+        $this->_barcodethinwidth = $width;
+    }
+
+    public function getBarcodeWidthThin()
+    {
+        return $this->_barcodethinwidth;
     }
 }

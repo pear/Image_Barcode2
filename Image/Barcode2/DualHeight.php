@@ -1,3 +1,2 @@
 <?php
-interface Image_Barcode2_DualHeight {
-}
+interface Image_Barcode2_DualHeight {}

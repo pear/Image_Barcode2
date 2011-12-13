@@ -65,7 +65,7 @@ class Image_Barcode2
      *
      * @param string  $text           A text that should be in the image barcode
      * @param string  $type           The barcode type. Supported types:
-     *                                Code39 - Code 3 of 9
+     *                                code39 - Code 3 of 9
      *                                int25  - 2 Interleaved 5
      *                                ean13  - EAN 13
      *                                upca   - UPC-A
@@ -95,7 +95,7 @@ class Image_Barcode2
         $width = 1
     ) {
         //Make sure no bad files are included
-        if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $type)) {
             throw new InvalidArgumentException('Invalid barcode type ' . $type);
         }
 
@@ -116,7 +116,7 @@ class Image_Barcode2
         }
 
         if (!$obj instanceof Image_Barcode2_DualWidth) {
-            $obj->setBarWidth($width);
+            $obj->setBarcodeWidth($width);
         }
 
         if (!$obj instanceof Image_Barcode2_DualHeight) {

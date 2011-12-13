@@ -69,8 +69,8 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
     {
         parent::__construct($writer);
         $this->setBarcodeHeight(50);
-        $this->setBarWidthThin(1);
-        $this->setBarWidthThick(3);
+        $this->setBarcodeWidthThin(1);
+        $this->setBarcodeWidthThick(3);
     }
 
     /**
@@ -99,28 +99,28 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
 
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) 
-            * (3 * $this->getBarWidthThin() + 2 * $this->getBarWidthThick())
+            * (3 * $this->getBarcodeWidthThin() + 2 * $this->getBarcodeWidthThick())
             + (strlen($text))
             * 2.5
-            + (7 * $this->getBarWidthThin() + $this->getBarWidthThick()) + 3;
+            + (7 * $this->getBarcodeWidthThin() + $this->getBarcodeWidthThick()) + 3;
 
         // Create the image
-        $img = $this->writer->imagecreate($barcodewidth, $this->getBarcodeHeight());
+        $img = $this->getWriter()->imagecreate($barcodewidth, $this->getBarcodeHeight());
 
         // Alocate the black and white colors
-        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
+        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        $this->writer->imagefill($img, 0, 0, $white);
+        $this->getWriter()->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the leader
         for ($i = 0; $i < 2; $i++) {
-            $elementwidth = $this->getBarWidthThin();
-            $this->writer->imagefilledrectangle(
+            $elementwidth = $this->getBarcodeWidthThin();
+            $this->getWriter()->imagefilledrectangle(
                 $img,
                 $xpos,
                 0,
@@ -129,7 +129,7 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
                 $black
             );
             $xpos += $elementwidth;
-            $xpos += $this->getBarWidthThin();
+            $xpos += $this->getBarcodeWidthThin();
             $xpos ++;
         }
 
@@ -145,12 +145,12 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
             for ($baridx = 0; $baridx < 5; $baridx++) {
 
                 // Draws odd char corresponding bar (black)
-                $elementwidth = $this->getBarWidthThin();
+                $elementwidth = $this->getBarcodeWidthThin();
                 if (substr($this->_coding_map[$oddchar], $baridx, 1)) {
-                    $elementwidth = $this->getBarWidthThick();
+                    $elementwidth = $this->getBarcodeWidthThick();
                 }
 
-                $this->writer->imagefilledrectangle(
+                $this->getWriter()->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 
@@ -162,9 +162,9 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
                 $xpos += $elementwidth;
 
                 // Left enought space to draw even char (white)
-                $elementwidth = $this->getBarWidthThin();
+                $elementwidth = $this->getBarcodeWidthThin();
                 if (substr($this->_coding_map[$evenchar], $baridx, 1)) {
-                    $elementwidth = $this->getBarWidthThick();
+                    $elementwidth = $this->getBarcodeWidthThick();
                 }
 
                 $xpos += $elementwidth; 
@@ -174,8 +174,8 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
 
 
         // Draws the trailer
-        $elementwidth = $this->getBarWidthThick();
-        $this->writer->imagefilledrectangle(
+        $elementwidth = $this->getBarcodeWidthThick();
+        $this->getWriter()->imagefilledrectangle(
             $img, 
             $xpos, 
             0, 
@@ -184,10 +184,10 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
             $black
         );
         $xpos += $elementwidth;
-        $xpos += $this->getBarWidthThin();
+        $xpos += $this->getBarcodeWidthThin();
         $xpos ++;
-        $elementwidth = $this->getBarWidthThin();
-        $this->writer->imagefilledrectangle(
+        $elementwidth = $this->getBarcodeWidthThin();
+        $this->getWriter()->imagefilledrectangle(
             $img,
             $xpos,
             0, 

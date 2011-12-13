@@ -1,7 +1,6 @@
 <?php
 interface Image_Barcode2_Driver 
 {
-
     /**
      * Draws a barcode
      *

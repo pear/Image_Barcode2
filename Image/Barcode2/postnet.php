@@ -93,7 +93,7 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
     public function __construct(Image_Barcode2_Writer $writer) 
     {
         parent::__construct($writer);
-        $this->setBarWidth(2);
+        $this->setBarcodeWidth(2);
     }
 
     /**
@@ -118,37 +118,37 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
         }
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * 2 * 5 * $this->getBarWidth()
-            + $this->getBarWidth() * 3;
+        $barcodewidth = (strlen($text)) * 2 * 5 * $this->getBarcodeWidth()
+            + $this->getBarcodeWidth() * 3;
 
         // Create the image
-        $img = $this->writer->imagecreate($barcodewidth, $this->_bartallheight);
+        $img = $this->getWriter()->imagecreate($barcodewidth, $this->_bartallheight);
 
         // Alocate the black and white colors
-        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
+        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        $this->writer->imagefill($img, 0, 0, $white);
+        $this->getWriter()->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the leader
-        $this->writer->imagefilledrectangle(
+        $this->getWriter()->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->getBarWidth() - 1,
+            $xpos + $this->getBarcodeWidth() - 1,
             $this->_bartallheight,
             $black
         );
 
-        $xpos += 2 * $this->getBarWidth();
+        $xpos += 2 * $this->getBarcodeWidth();
 
         // Draw $text contents
         for ($idx = 0, $all = strlen($text); $idx < $all; $idx++) {
-            $char  = substr($text, $idx, 1);
+            $char = substr($text, $idx, 1);
 
             for ($baridx = 0; $baridx < 5; $baridx++) {
                 $elementheight = $this->_barshortheight;
@@ -157,25 +157,25 @@ class Image_Barcode2_postnet extends Image_Barcode2_Common implements Image_Barc
                     $elementheight = 0;
                 }
 
-                $this->writer->imagefilledrectangle(
+                $this->getWriter()->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     $elementheight,
-                    $xpos + $this->getBarWidth() - 1,
+                    $xpos + $this->getBarcodeWidth() - 1,
                     $this->_bartallheight,
                     $black
                 );
 
-                $xpos += 2 * $this->getBarWidth();
+                $xpos += 2 * $this->getBarcodeWidth();
             }
         }
 
         // Draws the trailer
-        $this->writer->imagefilledrectangle(
+        $this->getWriter()->imagefilledrectangle(
             $img, 
             $xpos, 
             0, 
-            $xpos + $this->getBarWidth() - 1, 
+            $xpos + $this->getBarcodeWidth() - 1,
             $this->_bartallheight,
             $black
         );
