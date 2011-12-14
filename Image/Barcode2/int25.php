@@ -26,6 +26,7 @@
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/DualWidth.php';
+require_once 'Image/Barcode2/Exception.php';
 
 /**
  * Image_Barcode2_int25 class
@@ -73,10 +74,23 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
         $this->setBarcodeWidthThick(3);
     }
 
+
+    /**
+     * Validate barcode
+     * 
+     * @throws Image_Barcode2_Exception
+     */
+    public function validate()
+    {
+        // Check barcode for invalid characters
+        if (!preg_match('/[0-9]/', $this->getBarcode())) {
+            throw new Image_Barcode2_Exception('Invalid barcode');
+        }
+    }
+
+
     /**
      * Draws a Interleaved 2 of 5 image barcode
-     *
-     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
@@ -85,14 +99,9 @@ class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcod
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
      * @since  Image_Barcode2 0.3
      */
-
-    public function draw($text)
+    public function draw()
     {
-        $text = trim($text);
-
-        if (!preg_match('/[0-9]/', $text)) {
-            return 'Invalid text';
-        }
+        $text = $this->getBarcode();
 
         // if odd $text lenght adds a '0' at string beginning
         $text = strlen($text) % 2 ? '0' . $text : $text;

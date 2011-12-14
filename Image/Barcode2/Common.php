@@ -11,6 +11,12 @@ class Image_Barcode2_Common
      * @var Image_Barcode2_Writer
      */
     protected $_writer;
+    
+    /**
+     * @var Barcode
+     */
+    protected $_barcode;
+
 
     /**
      * Class constructor
@@ -35,6 +41,19 @@ class Image_Barcode2_Common
     public function getWriter() 
     {
         return $this->_writer;
+    }
+
+    /**
+     * @param string barcode
+     */
+    public function setBarcode($barcode) 
+    {
+        $this->_barcode = trim($barcode);
+    }
+
+    public function getBarcode() 
+    {
+        return $this->_barcode;
     }
 
     public function setFontSize($size)

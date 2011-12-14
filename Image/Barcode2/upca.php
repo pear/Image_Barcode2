@@ -26,6 +26,7 @@
 
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
+require_once 'Image/Barcode2/Exception.php';
 
 /**
  * Image_Barcode2_upca class
@@ -109,24 +110,32 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
         $this->setBarcodeWidth(1);
     }
 
+
+    /**
+     * Validate barcode
+     * 
+     * @throws Image_Barcode2_Exception
+     */
+    public function validate()
+    {
+        // Check barcode for invalid characters
+        if (!preg_match('/[0-9]{12}/', $this->getBarcode())) {
+            throw new Image_Barcode2_Exception('Invalid barcode');
+        }
+    }
+
+
     /**
      * Draws a UPC-A image barcode
-     *
-     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
      * @author  Jeffrey K. Brown <jkb@darkfantastic.net>
      * @author  Didier Fournout <didier.fournout@nyc.fr>
      */
-    public function draw($text)
+    public function draw()
     {
-        $text = trim($text);
-
-        if (!preg_match('/[0-9]{12}/', $text)) {
-            return 'Invalid text';
-        }
-
+        $text = $this->getBarcode();
 
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->getBarcodeWidth())

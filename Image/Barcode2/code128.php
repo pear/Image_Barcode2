@@ -44,6 +44,7 @@
 
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
+require_once 'Image/Barcode2/Exception.php';
 
 /**
  * Code128
@@ -58,7 +59,7 @@ require_once 'Image/Barcode2/Common.php';
 
 class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
-    var $_code;
+    var $_code = array();
 
     /**
      * Class constructor
@@ -176,10 +177,21 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
         $this->_code[102] = "411131"; // 102
     }
 
+
+    /**
+     * Validate barcode
+     * 
+     * @throws Image_Barcode2_Exception
+     */
+    public function validate()
+    {
+        //
+    }
+
+
     /**
      * Draws a Code128 image barcode
      *
-     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding interleaved 2 of 5 image barcode
      *
@@ -194,7 +206,7 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
      * the image along with the barcode text and display it to the beholder.
      *
      */
-    public function draw($text)
+    public function draw()
     {
         // We start with the Code128 Start Code character.  We
         // initialize checksum to 104, rather than calculate it.
@@ -203,10 +215,10 @@ class Image_Barcode2_code128 extends Image_Barcode2_Common implements Image_Barc
         $startcode = $this->_getStartCode();
         $checksum  = 104;
         $allbars   = $startcode;
-        $text      = trim($text);
+        $text      = $this->getBarcode();
 
 
-        // Next, we read the $text string that was passed to the
+        // Next, we read the barcode string that was passed to the
         // method and for each character, we determine the bar
         // pattern and add it to the end of the $allbars string.
         // In addition, we continually add the character's value

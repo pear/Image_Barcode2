@@ -25,6 +25,7 @@
 
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
+require_once 'Image/Barcode2/Exception.php';
 
 /**
  * Image_Barcode2_ean13 class
@@ -124,21 +125,35 @@ class Image_Barcode2_ean13 extends Image_Barcode2_Common implements Image_Barcod
         $this->setBarcodeWidth(1);
     }
 
+
+    /**
+     * Validate barcode
+     * 
+     * @throws Image_Barcode2_Exception
+     */
+    public function validate()
+    {
+        // Check barcode for invalid characters
+        if (!preg_match('/^[0-9]{13}$/', $this->getBarcode())) {
+            throw new Image_Barcode2_Exception('Invalid barcode');
+        }
+    }
+
+
     /**
      * Draws a EAN 13 image barcode
      *
-     * @param string $text A text that should be in the image barcode
      *
      * @return image            The corresponding Interleaved 2 of 5 image barcode
      *
      * @access public
      *
      * @author     Didier Fournout <didier.fournout@nyc.fr>
-     * @todo       Check if $text is number and len=13
-     *
      */
-    public function draw($text)
+    public function draw()
     {
+        $text = $this->getBarcode();
+
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->getBarcodeWidth())
             + 3 * $this->getBarcodeWidth()  // left

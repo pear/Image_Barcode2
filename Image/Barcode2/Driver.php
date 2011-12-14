@@ -4,10 +4,9 @@ interface Image_Barcode2_Driver
     /**
      * Draws a barcode
      *
-     * @param string $text A text that should be in the image barcode
      * @return image            The corresponding image barcode
      */
-    public function draw($text);
+    public function draw();
 
     /**
      * Set the image rendering library.
@@ -15,4 +14,18 @@ interface Image_Barcode2_Driver
      * @param Image_Barcode2_Writer $writer Library to use.
      */
     public function setWriter(Image_Barcode2_Writer $writer);
+
+    /**
+     * Set barcode
+     *
+     * @param string barcode
+     */
+    public function setBarcode($barcode);
+
+    /**
+     * Validate barcode
+     * 
+     * @throws Image_Barcode2_Exception
+     */
+    public function validate();
 }

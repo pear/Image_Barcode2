@@ -27,6 +27,7 @@
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/DualWidth.php';
+require_once 'Image/Barcode2/Exception.php';
 
 /**
  * Image_Barcode2_Code39 class
@@ -108,17 +109,32 @@ class Image_Barcode2_code39 extends Image_Barcode2_Common implements Image_Barco
         $this->setBarcodeWidthThick(3);
     }
 
+
+    /**
+     * Validate barcode
+     * 
+     * @throws Image_Barcode2_Exception
+     */
+    public function validate()
+    {
+        // Check barcode for invalid characters
+        if (preg_match("/[^0-9A-Z\-*+\$%\/. ]/", $this->getBarcode())) {
+            throw new Image_Barcode2_Exception('Invalid barcode');
+        }
+    }
+
+
    /**
     * Make an image resource using the GD image library
     *
-    * @param    string $text        A text that should be in the image barcode
     * @return   resource           The Barcode Image (TM)
     *
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
-    *
     */
-    private function _plot($text)
+    public function draw()
     {
+        $text = $this->getBarcode();
+
         // add start and stop * characters
         $final_text = '*' . $text . '*';
 
@@ -185,27 +201,6 @@ class Image_Barcode2_code39 extends Image_Barcode2_Common implements Image_Barco
 
 
     /**
-     * Send image to the browser; for Image_Barcode2 compatibility
-     *
-     * @param string $text Text to render
-     *
-     * @return   gd_image            GD image object
-     * @author   Ryan Briones <ryanbriones@webxdesign.org>
-     */
-    public function draw($text)
-    {
-        $text = trim($text);
-
-        // Check $text for invalid characters
-        if ($this->_checkInvalid($text)) {
-            return 'Invalid text';
-        }
-
-        return $this->_plot($text);
-    }
-
-
-    /**
      * _dumpCode is a PHP implementation of dumpCode from the Perl module
      * GD::Barcode::Code39. I royally screwed up when trying to do the thing
      * my own way the first time. This way works.
@@ -235,21 +230,6 @@ class Image_Barcode2_code39 extends Image_Barcode2_Common implements Image_Barco
         }
 
         return $result;
-    }
-
-
-    /**
-     * Check for invalid characters
-     *
-     * @param string $text text to be ckecked
-     *
-     * @return  bool            returns true when invalid characters have been found
-     * @author  Ryan Briones <ryanbriones@webxdesign.org>
-     *
-     */
-    private function _checkInvalid($text)
-    {
-        return preg_match("/[^0-9A-Z\-*+\$%\/. ]/", $text);
     }
 }
 
