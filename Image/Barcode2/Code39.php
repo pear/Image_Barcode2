@@ -27,6 +27,7 @@
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/DualWidth.php';
+require_once 'Image/Barcode2/Exception.php';
 
 /**
  * Image_Barcode2_Code39 class
@@ -42,15 +43,8 @@ require_once 'Image/Barcode2/DualWidth.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  * @since     Image_Barcode2 0.5
  */
-class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
+class Image_Barcode2_code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
 {
-    /**
-     * Font size
-     *
-     * @var integer
-     */
-    var $_font_size = 2;
-
     /**
      * Coding map
      * @var array
@@ -111,21 +105,36 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
     {
         parent::__construct($writer);
         $this->setBarcodeHeight(50);
-        $this->setBarWidthThin(1);
-        $this->setBarWidthThick(3);
+        $this->setBarcodeWidthThin(1);
+        $this->setBarcodeWidthThick(3);
     }
+
+
+    /**
+     * Validate barcode
+     * 
+     * @throws Image_Barcode2_Exception
+     */
+    public function validate()
+    {
+        // Check barcode for invalid characters
+        if (preg_match("/[^0-9A-Z\-*+\$%\/. ]/", $this->getBarcode())) {
+            throw new Image_Barcode2_Exception('Invalid barcode');
+        }
+    }
+
 
    /**
     * Make an image resource using the GD image library
     *
-    * @param    string $text        A text that should be in the image barcode
     * @return   resource           The Barcode Image (TM)
     *
     * @author   Ryan Briones <ryanbriones@webxdesign.org>
-    *
     */
-    private function _plot($text)
+    public function draw()
     {
+        $text = $this->getBarcode();
+
         // add start and stop * characters
         $final_text = '*' . $text . '*';
 
@@ -137,16 +146,16 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         $barcode_len = strlen($barcode);
 
         // Create GD image object
-        $img = $this->writer->imagecreate($barcode_len, $this->getBarcodeHeight());
+        $img = $this->getWriter()->imagecreate($barcode_len, $this->getBarcodeHeight());
 
         // Allocate black and white colors to the image
-        $black = $this->writer->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->writer->imagecolorallocate($img, 255, 255, 255);
-        $font_height = $this->writer->imagefontheight($this->_font_size);
-        $font_width = $this->writer->imagefontwidth($this->_font_size);
+        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
+        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
+        $font_height = $this->getWriter()->imagefontheight($this->getFontSize());
+        $font_width = $this->getWriter()->imagefontwidth($this->getFontSize());
 
         // fill background with white color
-        $this->writer->imagefill($img, 0, 0, $white);
+        $this->getWriter()->imagefill($img, 0, 0, $white);
 
         // Initialize X position
         $xpos = 0;
@@ -154,7 +163,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         // draw barcode bars to image
         foreach (str_split($barcode) as $character_code) {
             if ($character_code == 0) {
-                $this->writer->imageline(
+                $this->getWriter()->imageline(
                     $img, 
                     $xpos, 
                     0, 
@@ -163,7 +172,7 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
                     $white
                 );
             } else {
-                $this->writer->imageline(
+                $this->getWriter()->imageline(
                     $img, 
                     $xpos, 
                     0, 
@@ -177,9 +186,9 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         }
 
         // draw text under barcode
-        $this->writer->imagestring(
+        $this->getWriter()->imagestring(
             $img,
-            $this->_font_size,
+            $this->getFontSize(),
             ($barcode_len - $font_width * strlen($text)) / 2,
             $this->getBarcodeHeight() - $font_height,
             $text,
@@ -188,27 +197,6 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
 
 
         return $img;
-    }
-
-
-    /**
-     * Send image to the browser; for Image_Barcode2 compatibility
-     *
-     * @param string $text Text to render
-     *
-     * @return   gd_image            GD image object
-     * @author   Ryan Briones <ryanbriones@webxdesign.org>
-     */
-    public function draw($text)
-    {
-        $text = trim($text);
-
-        // Check $text for invalid characters
-        if ($this->_checkInvalid($text)) {
-            return 'Invalid text';
-        }
-
-        return $this->_plot($text);
     }
 
 
@@ -233,30 +221,15 @@ class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barco
         // if $bit is 1, line is wide; if $bit is 0 line is thin
         foreach (str_split($code) as $bit) {
             if ($bit == 1) {
-                $result .= str_repeat($color, $this->getBarWidthThick());
+                $result .= str_repeat($color, $this->getBarcodeWidthThick());
             } else {
-                $result .= str_repeat($color, $this->getBarWidthThin());
+                $result .= str_repeat($color, $this->getBarcodeWidthThin());
             }
 
             $color = ($color == 0) ? 1 : 0;
         }
 
         return $result;
-    }
-
-
-    /**
-     * Check for invalid characters
-     *
-     * @param string $text text to be ckecked
-     *
-     * @return  bool            returns true when invalid characters have been found
-     * @author  Ryan Briones <ryanbriones@webxdesign.org>
-     *
-     */
-    private function _checkInvalid($text)
-    {
-        return preg_match("/[^0-9A-Z\-*+\$%\/. ]/", $text);
     }
 }
 

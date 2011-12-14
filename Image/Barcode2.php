@@ -25,6 +25,7 @@
 
 require_once 'Image/Barcode2/Writer.php';
 require_once 'Image/Barcode2/Driver.php';
+require_once 'Image/Barcode2/Exception.php';
 
 /**
  * Image_Barcode2 class
@@ -65,7 +66,7 @@ class Image_Barcode2
      *
      * @param string  $text           A text that should be in the image barcode
      * @param string  $type           The barcode type. Supported types:
-     *                                Code39 - Code 3 of 9
+     *                                code39 - Code 3 of 9
      *                                int25  - 2 Interleaved 5
      *                                ean13  - EAN 13
      *                                upca   - UPC-A
@@ -81,7 +82,7 @@ class Image_Barcode2
      *
      * @return image The corresponding gd image object;
      *               
-     * @throws InvalidArgumentException
+     * @throws Image_Barcode2_Exception
      * @access public
      *
      * @author Marcelo Subtil Marcal <msmarcal@php.net>
@@ -95,36 +96,36 @@ class Image_Barcode2
         $width = 1
     ) {
         //Make sure no bad files are included
-        if (!preg_match('/^[a-zA-Z0-9_-]+$/', $type)) {
-            throw new InvalidArgumentException('Invalid barcode type ' . $type);
+        if (!preg_match('/^[a-zA-Z0-9]+$/', $type)) {
+            throw new Image_Barcode2_Exception('Invalid barcode type ' . $type);
         }
 
         if (!include_once 'Image/Barcode2/' . $type . '.php') {
-            throw new InvalidArgumentException($type . ' barcode is not supported');
+            throw new Image_Barcode2_Exception($type . ' barcode is not supported');
         }
 
         $classname = 'Image_Barcode2_' . $type;
 
-        $writer = new Image_Barcode2_Writer();
-
-        $obj = new $classname($writer);
+        $obj = new $classname(new Image_Barcode2_Writer());
 
         if (!$obj instanceof Image_Barcode2_Driver) {
-            throw new InvalidArgumentException(
+            throw new Image_Barcode2_Exception(
                 "'$classname' does not implement Image_Barcode2_Driver"
             );
         }
 
         if (!$obj instanceof Image_Barcode2_DualWidth) {
-            $obj->setBarWidth($width);
+            $obj->setBarcodeWidth($width);
         }
 
         if (!$obj instanceof Image_Barcode2_DualHeight) {
             $obj->setBarcodeHeight($height);
         }
 
+        $obj->setBarcode($text);
 
-        $img = $obj->draw($text);
+        $obj->validate();
+        $img = $obj->draw();
 
         if ($bSendToBrowser) {
             // Send image to browser
