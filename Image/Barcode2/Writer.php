@@ -6,8 +6,8 @@
  * @todo See if http://pear.php.net/package/Image_Canvas can be made
  *       to work well
  */
-class Image_Barcode2_Writer {
-    
+class Image_Barcode2_Writer
+{
     public function imagecreate($width, $height) {
         return imagecreate($width, $height);
     }
