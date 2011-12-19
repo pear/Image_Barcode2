@@ -14,8 +14,8 @@
   <email>msmarcal@php.net</email>
   <active>yes</active>
  </lead>
- <date>2011-12-12</date>
- <time>01:10:32</time>
+ <date>2011-12-19</date>
+ <time>22:31:26</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -26,8 +26,10 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-Introduce Adapter
+Add an adapater
 PHPCS
+Introduce accessors
+Increased use of Image_Barcode2_Exception
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -35,16 +37,21 @@ PHPCS
    <file baseinstalldir="Image" md5sum="c27a1c8b14ee9d792819abafbfa20c85" name="docs/Readme.txt" role="doc" />
    <file baseinstalldir="Image" md5sum="cf057300a5e9f34743d9e4ebe893de34" name="docs/examples/barcode_img.php" role="doc" />
    <file baseinstalldir="Image" md5sum="783855c825cbb516b3cf7aefa0b09d29" name="docs/examples/test-image-barcode.php" role="doc" />
-   <file baseinstalldir="/" md5sum="7e05588758ba7876a40d655a6770801c" name="Image/Barcode2.php" role="php" />
-   <file baseinstalldir="/" md5sum="cc479d3de3648a58f346c0762f6520e4" name="Image/Barcode2/Code39.php" role="php" />
-   <file baseinstalldir="/" md5sum="bd6e1a53798cc3fc47159640e071d2db" name="Image/Barcode2/code128.php" role="php" />
-   <file baseinstalldir="/" md5sum="1434f750505fd7a2644fbb2ad2a5314b" name="Image/Barcode2/ean8.php" role="php" />
-   <file baseinstalldir="/" md5sum="108a4b157cebbb46f937e48c8c340baa" name="Image/Barcode2/ean13.php" role="php" />
-   <file baseinstalldir="/" md5sum="c20ebce1af753b580a1253a284983f6c" name="Image/Barcode2/int25.php" role="php" />
-   <file baseinstalldir="/" md5sum="26855a370a6e6508658803fff14d726e" name="Image/Barcode2/postnet.php" role="php" />
-   <file baseinstalldir="/" md5sum="7988a1731f9dfb366853094c24fbd631" name="Image/Barcode2/upca.php" role="php" />
-   <file baseinstalldir="/" md5sum="12bcc4a117f675608748558a03f16a30" name="Image/Barcode2/Writer.php" role="php" />
-   <file baseinstalldir="/" md5sum="cf62c3815657593bab511762b1950377" name="tests/Image_Barcode2Test.php" role="test" />
+   <file baseinstalldir="/" md5sum="885439cfb2b6c827e9f4c4a383df8597" name="Image/Barcode2.php" role="php" />
+   <file baseinstalldir="/" md5sum="89654f3119841122696ff132ad92cae2" name="Image/Barcode2/Code39.php" role="php" />
+   <file baseinstalldir="/" md5sum="9cc8f239af7eee45716ff238ede5b712" name="Image/Barcode2/code128.php" role="php" />
+   <file baseinstalldir="/" md5sum="69e1a418050959618c7d364df14d95ab" name="Image/Barcode2/Common.php" role="php" />
+   <file baseinstalldir="/" md5sum="bf8dfa0df64121964cb1bb7dee0900a3" name="Image/Barcode2/Driver.php" role="php" />
+   <file baseinstalldir="/" md5sum="58e9d68c0520ac966142e72e11062cc7" name="Image/Barcode2/DualHeight.php" role="php" />
+   <file baseinstalldir="/" md5sum="fdacf46fd1110db6fdc0b9e691ecc657" name="Image/Barcode2/DualWidth.php" role="php" />
+   <file baseinstalldir="/" md5sum="ebe0ef629c040966428d67efa291947f" name="Image/Barcode2/ean8.php" role="php" />
+   <file baseinstalldir="/" md5sum="5cf91ce36ad21dd19f9dd642b474bb0a" name="Image/Barcode2/ean13.php" role="php" />
+   <file baseinstalldir="/" md5sum="a2573bce6b7186e048b50030f77e6b04" name="Image/Barcode2/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="082876cb32ed1657b039270d09e1a8f5" name="Image/Barcode2/int25.php" role="php" />
+   <file baseinstalldir="/" md5sum="628d498c68b423c97ad5a4d7eb95fc7c" name="Image/Barcode2/postnet.php" role="php" />
+   <file baseinstalldir="/" md5sum="86bc3a7e52667346cd1e6067e4d681d7" name="Image/Barcode2/upca.php" role="php" />
+   <file baseinstalldir="/" md5sum="22c5ced34bb66e0d0d73e76e3189c268" name="Image/Barcode2/Writer.php" role="php" />
+   <file baseinstalldir="/" md5sum="1abec4811830a7cbfcd357eaf2089964" name="tests/Image_Barcode2Test.php" role="test" />
    <file baseinstalldir="/" md5sum="4599d66d9092baec4286443e1a6d678e" name="build.xml" role="data" />
    <file baseinstalldir="/" md5sum="e9d89152910001df5be865aa37ab9733" name="phpunit.xml" role="data" />
    <file baseinstalldir="/" md5sum="fb2d18e736a93085849de2fa293203c6" name="README" role="data" />
@@ -185,11 +192,13 @@ Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-12-12</date>
+   <date>2011-12-19</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
-Introduce Adapter
+Add an adapater
 PHPCS
+Introduce accessors
+Increased use of Image_Barcode2_Exception
    </notes>
   </release>
  </changelog>
