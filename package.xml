@@ -14,8 +14,14 @@
   <email>msmarcal@php.net</email>
   <active>yes</active>
  </lead>
+ <lead>
+  <name>Daniel O&apos;Connor</name>
+  <user>doconnor</user>
+  <email>clockwerx@php.net</email>
+  <active>yes</active>
+ </lead>
  <date>2011-12-19</date>
- <time>22:31:26</time>
+ <time>22:39:40</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -189,8 +195,8 @@ Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>stable</release>
-    <api>stable</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2011-12-19</date>
    <license uri="http://www.php.net/license">PHP License</license>
