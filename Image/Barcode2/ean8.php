@@ -199,7 +199,7 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
                         $xpos,
                         0,
                         $xpos + $this->getBarcodeWidth() - 1,
-                        $barcodelongheight,
+                        $this->getBarcodeHeight(),
                         $black
                     );
                 }
@@ -258,7 +258,7 @@ class Image_Barcode2_ean8 extends Image_Barcode2_Common implements Image_Barcode
                         $xpos,
                         0,
                         $xpos + $this->getBarcodeWidth() - 1,
-                        $barcodelongheight,
+                        $this->getBarcodeHeight(),
                         $black
                     );
                 }

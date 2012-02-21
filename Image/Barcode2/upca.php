@@ -215,7 +215,8 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
                     $xpos,
                     0,
                     $xpos + $this->getBarcodeWidth() - 1,
-                    $barcodelongheight, $black
+                    $barcodelongheight,
+                    $black
                 );
             }
             $xpos += $this->getBarcodeWidth();
