@@ -13,7 +13,7 @@ class Image_Barcode2_Common
     protected $_writer;
     
     /**
-     * @var Barcode
+     * @var string barcode
      */
     protected $_barcode;
 
@@ -44,7 +44,7 @@ class Image_Barcode2_Common
     }
 
     /**
-     * @param string barcode
+     * @param string $barcode
      */
     public function setBarcode($barcode) 
     {

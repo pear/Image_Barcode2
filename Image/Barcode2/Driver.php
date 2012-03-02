@@ -18,7 +18,7 @@ interface Image_Barcode2_Driver
     /**
      * Set barcode
      *
-     * @param string barcode
+     * @param string $barcode
      */
     public function setBarcode($barcode);
 

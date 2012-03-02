@@ -241,7 +241,7 @@ class Image_Barcode2_ean13 extends Image_Barcode2_Common implements Image_Barcod
                         $xpos,
                         0,
                         $xpos + $this->getBarcodeWidth() - 1,
-                        $barcodelongheight, 
+                        $this->getBarcodeHeight(),
                         $black
                     );
                 }
@@ -258,7 +258,7 @@ class Image_Barcode2_ean13 extends Image_Barcode2_Common implements Image_Barcod
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $barcodelongheight, 
+            $barcodelongheight,
             $black
         );
         $xpos += $this->getBarcodeWidth();
@@ -270,7 +270,7 @@ class Image_Barcode2_ean13 extends Image_Barcode2_Common implements Image_Barcod
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $barcodelongheight, 
+            $barcodelongheight,
             $black
         );
         $xpos += $this->getBarcodeWidth();
@@ -298,7 +298,7 @@ class Image_Barcode2_ean13 extends Image_Barcode2_Common implements Image_Barcod
                         $xpos,
                         0,
                         $xpos + $this->getBarcodeWidth() - 1,
-                        $barcodelongheight, 
+                        $this->getBarcodeHeight(),
                         $black
                     );
                 }
