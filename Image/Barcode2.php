@@ -100,11 +100,11 @@ class Image_Barcode2
             throw new Image_Barcode2_Exception('Invalid barcode type ' . $type);
         }
 
-        if (!include_once 'Image/Barcode2/' . $type . '.php') {
+        if (!include_once 'Image/Barcode2/' . ucfirst($type) . '.php') {
             throw new Image_Barcode2_Exception($type . ' barcode is not supported');
         }
 
-        $classname = 'Image_Barcode2_' . $type;
+        $classname = 'Image_Barcode2_' . ucfirst($type);
 
         $obj = new $classname(new Image_Barcode2_Writer());
 
