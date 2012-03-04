@@ -119,7 +119,7 @@ class Image_Barcode2_Upca extends Image_Barcode2_Common implements Image_Barcode
     public function validate()
     {
         // Check barcode for invalid characters
-        if (!preg_match('/[0-9]{12}/', $this->getBarcode())) {
+        if (!preg_match('/^[0-9]{12}$/', $this->getBarcode())) {
             throw new Image_Barcode2_Exception('Invalid barcode');
         }
     }
