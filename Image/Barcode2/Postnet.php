@@ -38,6 +38,7 @@
 
 require_once 'Image/Barcode2/Driver.php';
 require_once 'Image/Barcode2/Common.php';
+require_once 'Image/Barcode2/DualHeight.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
@@ -106,7 +107,7 @@ class Image_Barcode2_Postnet extends Image_Barcode2_Common implements Image_Barc
     public function validate()
     {
         // Check barcode for invalid characters
-        if (!preg_match('/^[0-9]$/', $this->getBarcode())) {
+        if (!preg_match('/^[0-9]+$/', $this->getBarcode())) {
             throw new Image_Barcode2_Exception('Invalid barcode');
         }
     }
