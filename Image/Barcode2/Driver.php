@@ -1,5 +1,5 @@
 <?php
-interface Image_Barcode2_Driver 
+interface Image_Barcode2_Driver
 {
     /**
      * Draws a barcode
@@ -18,7 +18,7 @@ interface Image_Barcode2_Driver
     /**
      * Set barcode
      *
-     * @param string $barcode
+     * @param string $barcode barcode
      */
     public function setBarcode($barcode);
 
