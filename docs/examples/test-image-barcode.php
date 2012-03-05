@@ -69,8 +69,8 @@
 <div class="test">
 <h2>UPC-A (png):</h2>
 <img
- src="barcode_img.php?num=12345678912&type=upca&imgtype=png"
- alt="PNG: 12345678912" title="PNG: 12345678912"/>
+ src="barcode_img.php?num=123456789123&type=upca&imgtype=png"
+ alt="PNG: 123456789123" title="PNG: 123456789123"/>
 </div>
 
 <div class="test">
