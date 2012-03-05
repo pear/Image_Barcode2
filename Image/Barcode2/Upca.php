@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_upca class
+ * Image_Barcode2_Upca class
  *
  * Renders UPC-A barcodes
  *
@@ -29,11 +29,11 @@ require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
- * Image_Barcode2_upca class
+ * Image_Barcode2_Upca class
  *
  * Package which provides a method to create UPC-A barcode using GD library.
  *
- * Slightly Modified ean13.php to get upca.php I needed a way to print
+ * Slightly Modified Ean13.php to get Upca.php I needed a way to print
  * UPC-A bar codes on a PHP page.  The Image_Barcode2 class seemed like
  * the best way to do it, so I modified ean13 to print in the UPC-A format.
  * Checked the bar code tables against some documentation below (no errors)
@@ -49,7 +49,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_Upca extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
      * Number set
@@ -119,7 +119,7 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
     public function validate()
     {
         // Check barcode for invalid characters
-        if (!preg_match('/[0-9]{12}/', $this->getBarcode())) {
+        if (!preg_match('/^[0-9]{12}$/', $this->getBarcode())) {
             throw new Image_Barcode2_Exception('Invalid barcode');
         }
     }

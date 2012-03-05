@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_int25 class
+ * Image_Barcode2_Int25 class
  *
  * Renders Interleaved 2 of 5 barcodes
  *
@@ -42,7 +42,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_int25 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
+class Image_Barcode2_Int25 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
 {
     /**
      * Coding map
