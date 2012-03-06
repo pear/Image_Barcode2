@@ -1,5 +1,5 @@
 <?php
-class Image_Barcode2_Common 
+class Image_Barcode2_Common
 {
     protected $_barcodeheight;
     protected $_barcodewidth;
@@ -13,7 +13,7 @@ class Image_Barcode2_Common
     protected $_writer;
     
     /**
-     * @var Barcode
+     * @var string barcode
      */
     protected $_barcode;
 
@@ -37,20 +37,32 @@ class Image_Barcode2_Common
     {
         $this->_writer = $writer;
     }
-    
+
+    /**
+     * Get the image rendering library.
+     *
+     * @return Image_Barcode2_Writer
+     */
     public function getWriter() 
     {
         return $this->_writer;
     }
 
     /**
-     * @param string barcode
+     * Set the barcode
+     *
+     * @param string $barcode
      */
     public function setBarcode($barcode) 
     {
         $this->_barcode = trim($barcode);
     }
 
+    /**
+     * Get the barcode
+     *
+     * @return string
+     */
     public function getBarcode() 
     {
         return $this->_barcode;

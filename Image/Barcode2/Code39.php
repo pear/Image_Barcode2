@@ -43,7 +43,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  * @since     Image_Barcode2 0.5
  */
-class Image_Barcode2_code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
+class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
 {
     /**
      * Coding map
@@ -127,9 +127,9 @@ class Image_Barcode2_code39 extends Image_Barcode2_Common implements Image_Barco
    /**
     * Make an image resource using the GD image library
     *
-    * @return   resource           The Barcode Image (TM)
+    * @return resource           The Barcode Image (TM)
     *
-    * @author   Ryan Briones <ryanbriones@webxdesign.org>
+    * @author Ryan Briones <ryanbriones@webxdesign.org>
     */
     public function draw()
     {
@@ -207,11 +207,9 @@ class Image_Barcode2_code39 extends Image_Barcode2_Common implements Image_Barco
      *
      * @param string $code Code39 barcode code
      *
-     * @return  string $result      barcode line code
-     * @access  private
-     * @author   Ryan Briones <ryanbriones@webxdesign.org>
-     *
-     *
+     * @return string $result      barcode line code
+     * @access private
+     * @author Ryan Briones <ryanbriones@webxdesign.org>
      */
     private function _dumpCode($code)
     {

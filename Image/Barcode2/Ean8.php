@@ -2,9 +2,9 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_upca class
+ * Image_Barcode2_Ean8 class
  *
- * Renders UPC-A barcodes
+ * Renders EAN 8 barcodes
  *
  * PHP versions 5
  *
@@ -16,11 +16,11 @@
  *
  * @category  Image
  * @package   Image_Barcode2
- * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author    Tobias Frost <tobi@coldtobi.de>
  * @author    Didier Fournout <didier.fournout@nyc.fr>
  * @copyright 2005 The PHP Group
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version   CVS: $Id$
+ * @version   CVS: $Id: 
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
@@ -29,27 +29,20 @@ require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
- * Image_Barcode2_upca class
+ * Image_Barcode2_ean8 class
  *
- * Package which provides a method to create UPC-A barcode using GD library.
- *
- * Slightly Modified ean13.php to get upca.php I needed a way to print
- * UPC-A bar codes on a PHP page.  The Image_Barcode2 class seemed like
- * the best way to do it, so I modified ean13 to print in the UPC-A format.
- * Checked the bar code tables against some documentation below (no errors)
- * and validated the changes with my trusty cue-cat.
- * http://www.indiana.edu/~atmat/units/barcodes/bar_t4.htm
+ * Package which provides a method to create EAN 13 barcode using GD library.
  *
  * @category  Image
  * @package   Image_Barcode2
- * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
+ * @author    Tobias Frost <tobi@coldtobi.de>
  * @author    Didier Fournout <didier.fournout@nyc.fr>
  * @copyright 2005 The PHP Group
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_Ean8 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
      * Number set
@@ -57,44 +50,44 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
      */
     var $_number_set = array(
            '0' => array(
-                    'L' => array(0,0,0,1,1,0,1),
-                    'R' => array(1,1,1,0,0,1,0)
+                    'A' => array(0,0,0,1,1,0,1),
+                    'C' => array(1,1,1,0,0,1,0)
                         ),
            '1' => array(
-                    'L' => array(0,0,1,1,0,0,1),
-                    'R' => array(1,1,0,0,1,1,0)
+                    'A' => array(0,0,1,1,0,0,1),
+                    'C' => array(1,1,0,0,1,1,0)
                         ),
            '2' => array(
-                    'L' => array(0,0,1,0,0,1,1),
-                    'R' => array(1,1,0,1,1,0,0)
+                    'A' => array(0,0,1,0,0,1,1),
+                    'C' => array(1,1,0,1,1,0,0)
                         ),
            '3' => array(
-                    'L' => array(0,1,1,1,1,0,1),
-                    'R' => array(1,0,0,0,0,1,0)
+                    'A' => array(0,1,1,1,1,0,1),
+                    'C' => array(1,0,0,0,0,1,0)
                         ),
            '4' => array(
-                    'L' => array(0,1,0,0,0,1,1),
-                    'R' => array(1,0,1,1,1,0,0)
+                    'A' => array(0,1,0,0,0,1,1),
+                    'C' => array(1,0,1,1,1,0,0)
                         ),
            '5' => array(
-                    'L' => array(0,1,1,0,0,0,1),
-                    'R' => array(1,0,0,1,1,1,0)
+                    'A' => array(0,1,1,0,0,0,1),
+                    'C' => array(1,0,0,1,1,1,0)
                         ),
            '6' => array(
-                    'L' => array(0,1,0,1,1,1,1),
-                    'R' => array(1,0,1,0,0,0,0)
+                    'A' => array(0,1,0,1,1,1,1),
+                    'C' => array(1,0,1,0,0,0,0)
                         ),
            '7' => array(
-                    'L' => array(0,1,1,1,0,1,1),
-                    'R' => array(1,0,0,0,1,0,0)
+                    'A' => array(0,1,1,1,0,1,1),
+                    'C' => array(1,0,0,0,1,0,0)
                         ),
            '8' => array(
-                    'L' => array(0,1,1,0,1,1,1),
-                    'R' => array(1,0,0,1,0,0,0)
+                    'A' => array(0,1,1,0,1,1,1),
+                    'C' => array(1,0,0,1,0,0,0)
                         ),
            '9' => array(
-                    'L' => array(0,0,0,1,0,1,1),
-                    'R' => array(1,1,1,0,1,0,0)
+                    'A' => array(0,0,0,1,0,1,1),
+                    'C' => array(1,1,1,0,1,0,0)
                         )
         );
 
@@ -119,19 +112,21 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
     public function validate()
     {
         // Check barcode for invalid characters
-        if (!preg_match('/[0-9]{12}/', $this->getBarcode())) {
+        if (!preg_match('/^[0-9]{8}$/', $this->getBarcode())) {
             throw new Image_Barcode2_Exception('Invalid barcode');
         }
     }
 
 
     /**
-     * Draws a UPC-A image barcode
+     * Draws a EAN 8 image barcode
      *
-     * @return image            The corresponding Interleaved 2 of 5 image barcode
+     * @return image            The corresponding EAN8 image barcode
      *
-     * @author  Jeffrey K. Brown <jkb@darkfantastic.net>
-     * @author  Didier Fournout <didier.fournout@nyc.fr>
+     * @access public
+     *
+     * @author     Tobias Frost tobi@coldtobi.de
+     * 			   based on the EAN13 code by Didier Fournout <didier.fournout@nyc.fr>
      */
     public function draw()
     {
@@ -139,16 +134,13 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
 
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->getBarcodeWidth())
-            + 3 // left
-            + 5 // center
-            + 3 // right
-            + $this->getWriter()->imagefontwidth($this->getFontSize()) + 1
-            + $this->getWriter()->imagefontwidth($this->getFontSize()) + 1 // check digit padding
+            + 3 * $this->getBarcodeWidth() // left
+            + 5 * $this->getBarcodeWidth() // center
+            + 3 * $this->getBarcodeWidth() // right
             ;
 
-
         $barcodelongheight = (int)($this->getWriter()->imagefontheight($this->getFontSize()) / 2)
-            + $this->getBarcodeHeight();
+             + $this->getBarcodeHeight();
 
         // Create the image
         $img = $this->getWriter()->imagecreate(
@@ -163,23 +155,8 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
         // Fill image with white color
         $this->getWriter()->imagefill($img, 0, 0, $white);
 
-        // get the first digit which is the key for creating the first 6 bars
-        $key = substr($text, 0, 1);
-
         // Initiate x position
         $xpos = 0;
-
-        // print first digit
-        $this->getWriter()->imagestring(
-            $img,
-            $this->getFontSize(),
-            $xpos,
-            $this->getBarcodeHeight(),
-            $key,
-            $black
-        );
-        $xpos = $this->getWriter()->imagefontwidth($this->getFontSize()) + 1;
-
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
@@ -191,6 +168,57 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
             $barcodelongheight,
             $black
         );
+        $xpos += $this->getBarcodeWidth();
+        // space
+        $xpos += $this->getBarcodeWidth();
+        // bar
+        $this->getWriter()->imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->getBarcodeWidth() - 1,
+            $barcodelongheight,
+            $black
+        );
+        $xpos += $this->getBarcodeWidth();
+
+        for ($idx = 0; $idx < 4; $idx ++) {
+            $value = substr($text, $idx, 1);
+            $this->getWriter()->imagestring(
+                $img,
+                $this->getFontSize(),
+                $xpos + 1,
+                $this->getBarcodeHeight(),
+                $value,
+                $black
+            );
+            foreach ($this->_number_set[$value]['A'] as $bar) {
+                if ($bar) {
+                    $this->getWriter()->imagefilledrectangle(
+                        $img,
+                        $xpos,
+                        0,
+                        $xpos + $this->getBarcodeWidth() - 1,
+                        $this->getBarcodeHeight(),
+                        $black
+                    );
+                }
+                $xpos += $this->getBarcodeWidth();
+            }
+        }
+
+        // Draws the center pattern (space-bar-space-bar-space)
+        // space
+        $xpos += $this->getBarcodeWidth();
+        // bar
+        $this->getWriter()->imagefilledrectangle(
+            $img,
+            $xpos,
+            0,
+            $xpos + $this->getBarcodeWidth() - 1,
+            $barcodelongheight,
+            $black
+        );
 
         $xpos += $this->getBarcodeWidth();
         // space
@@ -206,83 +234,14 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
         );
 
         $xpos += $this->getBarcodeWidth();
-
-
-        foreach ($this->_number_set[$key]['L'] as $bar) { 
-            if ($bar) {
-                $this->getWriter()->imagefilledrectangle(
-                    $img,
-                    $xpos,
-                    0,
-                    $xpos + $this->getBarcodeWidth() - 1,
-                    $barcodelongheight, $black
-                );
-            }
-            $xpos += $this->getBarcodeWidth();
-        }
-
-
-
-        // Draw left $text contents
-        for ($idx = 1; $idx < 6; $idx ++) {
-            $value = substr($text, $idx, 1);
-            $this->getWriter()->imagestring(
-                $img,
-                $this->getFontSize(),
-                $xpos + 1,
-                $this->getBarcodeHeight(),
-                $value, 
-                $black
-            );
-
-            foreach ($this->_number_set[$value]['L'] as $bar) { 
-                if ($bar) {
-                    $this->getWriter()->imagefilledrectangle(
-                        $img,
-                        $xpos,
-                        0,
-                        $xpos + $this->getBarcodeWidth() - 1,
-                        $this->getBarcodeHeight(),
-                        $black
-                    );
-                }
-                $xpos += $this->getBarcodeWidth();
-            }
-        }
-
-
-        // Draws the center pattern (space-bar-space-bar-space)
-        // space
-        $xpos += $this->getBarcodeWidth();
-        // bar
-        $this->getWriter()->imagefilledrectangle(
-            $img,
-            $xpos,
-            0,
-            $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
-            $black
-        );
-        $xpos += $this->getBarcodeWidth();
-        // space
-        $xpos += $this->getBarcodeWidth();
-        // bar
-        $this->getWriter()->imagefilledrectangle(
-            $img,
-            $xpos,
-            0,
-            $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
-            $black
-        );
-        $xpos += $this->getBarcodeWidth();
         // space
         $xpos += $this->getBarcodeWidth();
 
 
         // Draw right $text contents
-        for ($idx = 6; $idx < 11; $idx ++) {
+        for ($idx = 4; $idx < 8; $idx ++) {
             $value = substr($text, $idx, 1);
+
             $this->getWriter()->imagestring(
                 $img,
                 $this->getFontSize(),
@@ -291,7 +250,8 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
                 $value,
                 $black
             );
-            foreach ($this->_number_set[$value]['R'] as $bar) {
+
+            foreach ($this->_number_set[$value]['C'] as $bar) {
                 if ($bar) {
                     $this->getWriter()->imagefilledrectangle(
                         $img,
@@ -306,26 +266,6 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
             }
         }
 
-
-
-        $value = substr($text, 11, 1);
-        foreach ($this->_number_set[$value]['R'] as $bar) {
-            if ($bar) {
-                $this->getWriter()->imagefilledrectangle(
-                    $img,
-                    $xpos,
-                    0,
-                    $xpos + $this->getBarcodeWidth() - 1,
-                    $this->getBarcodeHeight(),
-                    $black
-                );
-
-            }
-            $xpos += $this->getBarcodeWidth();
-        }
-
-
-
         // Draws the right guard pattern (bar-space-bar)
         // bar
         $this->getWriter()->imagefilledrectangle(
@@ -333,10 +273,9 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
+            $barcodelongheight,
             $black
         );
-
         $xpos += $this->getBarcodeWidth();
         // space
         $xpos += $this->getBarcodeWidth();
@@ -346,25 +285,12 @@ class Image_Barcode2_upca extends Image_Barcode2_Common implements Image_Barcode
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
-            $black
-        );
-
-        $xpos += $this->getBarcodeWidth();
-
-
-        // Print Check Digit
-        $this->getWriter()->imagestring(
-            $img,
-            $this->getFontSize(),
-            $xpos + 1,
-            $this->getBarcodeHeight(),
-            $value,
+            $barcodelongheight,
             $black
         );
 
         return $img;
-    }
+    } // function create
 
 } // class
 
