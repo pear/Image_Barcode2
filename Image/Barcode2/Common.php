@@ -51,7 +51,7 @@ class Image_Barcode2_Common
     /**
      * Set the barcode
      *
-     * @param string $barcode
+     * @param string $barcode barcode
      */
     public function setBarcode($barcode) 
     {

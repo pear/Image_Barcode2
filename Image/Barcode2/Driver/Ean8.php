@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_Ean8 class
+ * Image_Barcode2_Driver_Ean8 class
  *
  * Renders EAN 8 barcodes
  *
@@ -29,9 +29,9 @@ require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
- * Image_Barcode2_ean8 class
+ * EAN 8
  *
- * Package which provides a method to create EAN 13 barcode using GD library.
+ * Package which provides a method to create EAN 8 barcode using GD library.
  *
  * @category  Image
  * @package   Image_Barcode2
@@ -42,7 +42,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_Ean8 extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
      * Number set
@@ -121,7 +121,7 @@ class Image_Barcode2_Ean8 extends Image_Barcode2_Common implements Image_Barcode
     /**
      * Draws a EAN 8 image barcode
      *
-     * @return image            The corresponding EAN8 image barcode
+     * @return resource            The corresponding EAN8 image barcode
      *
      * @access public
      *

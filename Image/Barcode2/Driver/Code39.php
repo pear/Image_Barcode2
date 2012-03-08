@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_Code39 class
+ * Image_Barcode2_Driver_Code39 class
  *
  * Image_Barcode2_Code39 creates Code 3 of 9 ( Code39 ) barcode images. It's
  * implementation borrows heavily for the perl module GD::Barcode::Code39
@@ -30,9 +30,9 @@ require_once 'Image/Barcode2/DualWidth.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
- * Image_Barcode2_Code39 class
+ * Code 3 of 9
  *
- * Package which provides a method to create Code39 using GD library.
+ * Package which provides a method to create Code 3 of 9 using GD library.
  *
  * @category  Image
  * @package   Image_Barcode2
@@ -43,7 +43,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  * @since     Image_Barcode2 0.5
  */
-class Image_Barcode2_Code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
+class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualWidth
 {
     /**
      * Coding map

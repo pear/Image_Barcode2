@@ -4,7 +4,7 @@ interface Image_Barcode2_Driver
     /**
      * Draws a barcode
      *
-     * @return image            The corresponding image barcode
+     * @return resource            The corresponding image barcode
      */
     public function draw();
 
