@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_Upca class
+ * Image_Barcode2_Driver_Upca class
  *
  * Renders UPC-A barcodes
  *
@@ -29,7 +29,7 @@ require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
- * Image_Barcode2_Upca class
+ * UPC-A
  *
  * Package which provides a method to create UPC-A barcode using GD library.
  *
@@ -49,7 +49,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_Upca extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
      * Number set
@@ -128,7 +128,7 @@ class Image_Barcode2_Upca extends Image_Barcode2_Common implements Image_Barcode
     /**
      * Draws a UPC-A image barcode
      *
-     * @return image            The corresponding Interleaved 2 of 5 image barcode
+     * @return resource            The corresponding UPC-A image barcode
      *
      * @author  Jeffrey K. Brown <jkb@darkfantastic.net>
      * @author  Didier Fournout <didier.fournout@nyc.fr>

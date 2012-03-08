@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_Postnet class
+ * Image_Barcode2_Driver_Postnet class
  *
  * Renders PostNet barcodes
  *
@@ -42,7 +42,7 @@ require_once 'Image/Barcode2/DualHeight.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
- * Image_Barcode2_Postnet class
+ * PostNet
  *
  * Package which provides a method to create PostNet barcode using GD library.
  *
@@ -54,7 +54,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_Postnet extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualHeight
+class Image_Barcode2_Driver_Postnet extends Image_Barcode2_Common implements Image_Barcode2_Driver, Image_Barcode2_DualHeight
 {
     /**
      * Bar short height
@@ -116,14 +116,13 @@ class Image_Barcode2_Postnet extends Image_Barcode2_Common implements Image_Barc
     /**
      * Draws a PostNet image barcode
      *
-     * @return image            The corresponding Interleaved 2 of 5 image barcode
+     * @return resource            The corresponding PostNet image barcode
      *
      * @access public
      *
      * @author Josef "Jeff" Sipek <jeffpc@optonline.net>
      * @since  Image_Barcode2 0.3
      */
-
     public function draw()
     {
         $text = $this->getBarcode();
