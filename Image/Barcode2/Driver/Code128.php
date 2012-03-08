@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_Code128 class
+ * Image_Barcode2_Driver_Code128 class
  *
  * Renders Code128 barcodes
  * Code128 is a high density encoding for alphanumeric strings.
@@ -57,7 +57,7 @@ require_once 'Image/Barcode2/Exception.php';
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
-class Image_Barcode2_Code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     var $_code = array();
 
@@ -193,7 +193,7 @@ class Image_Barcode2_Code128 extends Image_Barcode2_Common implements Image_Barc
      * Draws a Code128 image barcode
      *
      *
-     * @return image            The corresponding interleaved 2 of 5 image barcode
+     * @return resource            The corresponding Code128 image barcode
      *
      * @access public
      *
@@ -204,7 +204,6 @@ class Image_Barcode2_Code128 extends Image_Barcode2_Common implements Image_Barc
      * the input string and convert it to a string of barcode widths.
      * Then, we size and allocate the image.  Finally, we print the bars to
      * the image along with the barcode text and display it to the beholder.
-     *
      */
     public function draw()
     {

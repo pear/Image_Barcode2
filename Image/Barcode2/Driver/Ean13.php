@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 
 /**
- * Image_Barcode2_Ean13 class
+ * Image_Barcode2_Driver_Ean13 class
  *
  * Renders EAN 13 barcodes
  *
@@ -15,12 +15,12 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category  Image
- * @package   Image_Barcode
+ * @package   Image_Barcode2
  * @author    Didier Fournout <didier.fournout@nyc.fr>
  * @copyright 2005 The PHP Group
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Image_Barcode
+ * @link      http://pear.php.net/package/Image_Barcode2
  */
 
 require_once 'Image/Barcode2/Driver.php';
@@ -28,7 +28,7 @@ require_once 'Image/Barcode2/Common.php';
 require_once 'Image/Barcode2/Exception.php';
 
 /**
- * Image_Barcode2_ean13 class
+ * EAN 13
  *
  * Package which provides a method to create EAN 13 barcode using GD library.
  *
@@ -38,10 +38,10 @@ require_once 'Image/Barcode2/Exception.php';
  * @copyright 2005 The PHP Group
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version   Release: @package_version@
- * @link      http://pear.php.net/package/Image_Barcode
+ * @link      http://pear.php.net/package/Image_Barcode2
  * @since     Image_Barcode2 0.4
  */
-class Image_Barcode2_Ean13 extends Image_Barcode2_Common implements Image_Barcode2_Driver
+class Image_Barcode2_Driver_Ean13 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
      * Number set
@@ -144,7 +144,7 @@ class Image_Barcode2_Ean13 extends Image_Barcode2_Common implements Image_Barcod
      * Draws a EAN 13 image barcode
      *
      *
-     * @return image            The corresponding Interleaved 2 of 5 image barcode
+     * @return resource            The corresponding EAN13 image barcode
      *
      * @access public
      *

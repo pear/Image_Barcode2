@@ -80,7 +80,7 @@ class Image_Barcode2
      * @param integer $height         The image height
      * @param integer $width          The image width
      *
-     * @return image The corresponding gd image object;
+     * @return resource The corresponding gd image resource
      *               
      * @throws Image_Barcode2_Exception
      * @access public
@@ -100,11 +100,11 @@ class Image_Barcode2
             throw new Image_Barcode2_Exception('Invalid barcode type ' . $type);
         }
 
-        if (!include_once 'Image/Barcode2/' . ucfirst($type) . '.php') {
+        if (!include_once 'Image/Barcode2/Driver/' . ucfirst($type) . '.php') {
             throw new Image_Barcode2_Exception($type . ' barcode is not supported');
         }
 
-        $classname = 'Image_Barcode2_' . ucfirst($type);
+        $classname = 'Image_Barcode2_Driver_' . ucfirst($type);
 
         $obj = new $classname(new Image_Barcode2_Writer());
 
