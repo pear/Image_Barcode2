@@ -143,7 +143,6 @@ class Image_Barcode2_Driver_Ean13 extends Image_Barcode2_Common implements Image
     /**
      * Draws a EAN 13 image barcode
      *
-     *
      * @return resource            The corresponding EAN13 image barcode
      *
      * @access public

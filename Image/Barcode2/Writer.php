@@ -1,10 +1,9 @@
 <?php
 /**
- * An adapter for the non oo image writing code. Just used to
- * create a seam for phpunit
+ * An adapter for the non oo image writing code.
+ * Just used to create a seam for phpunit
  *
- * @todo See if http://pear.php.net/package/Image_Canvas can be made
- *       to work well
+ * @todo See if http://pear.php.net/package/Image_Canvas can be made to work well
  */
 class Image_Barcode2_Writer
 {
