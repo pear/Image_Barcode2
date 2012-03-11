@@ -44,19 +44,19 @@ Increased use of Image_Barcode2_Exception
    <file baseinstalldir="Image" md5sum="d274880933d54b873c9589087766c124" name="docs/examples/barcode_img.php" role="doc" />
    <file baseinstalldir="Image" md5sum="07ecde340ef052307a4f61252f585039" name="docs/examples/test-image-barcode.php" role="doc" />
    <file baseinstalldir="/" md5sum="e33b63ca7daf12daa2f33450e637bab6" name="Image/Barcode2.php" role="php" />
-   <file baseinstalldir="/" md5sum="4baeb7e65f2c3faa2e23633156af5811" name="Image/Barcode2/Driver/Code39.php" role="php" />
-   <file baseinstalldir="/" md5sum="c9579704cdadf6c16a12118bbabb0362" name="Image/Barcode2/Driver/Code128.php" role="php" />
-   <file baseinstalldir="/" md5sum="e719499234f736e5029a5e7d67b70996" name="Image/Barcode2/Common.php" role="php" />
+   <file baseinstalldir="/" md5sum="0022756c248c0ffbf00446a7f6238883" name="Image/Barcode2/Driver/Code39.php" role="php" />
+   <file baseinstalldir="/" md5sum="c5c827828e98c9eaa718722961a09dbb" name="Image/Barcode2/Driver/Code128.php" role="php" />
+   <file baseinstalldir="/" md5sum="4f18a6cd6cbbe43bf9000b329cac5fcd" name="Image/Barcode2/Common.php" role="php" />
    <file baseinstalldir="/" md5sum="88c995d09b02a874534b5bcaa444b1c3" name="Image/Barcode2/Driver.php" role="php" />
-   <file baseinstalldir="/" md5sum="58e9d68c0520ac966142e72e11062cc7" name="Image/Barcode2/DualHeight.php" role="php" />
+   <file baseinstalldir="/" md5sum="694d3a375582c41e7a5584a7ec55bb7d" name="Image/Barcode2/DualHeight.php" role="php" />
    <file baseinstalldir="/" md5sum="fdacf46fd1110db6fdc0b9e691ecc657" name="Image/Barcode2/DualWidth.php" role="php" />
    <file baseinstalldir="/" md5sum="3b8b67864d9c2517ea0e5d9a0782f8f0" name="Image/Barcode2/Driver/Ean8.php" role="php" />
-   <file baseinstalldir="/" md5sum="46c3346b7abbcbb94276a38e4fa51da5" name="Image/Barcode2/Driver/Ean13.php" role="php" />
-   <file baseinstalldir="/" md5sum="a2573bce6b7186e048b50030f77e6b04" name="Image/Barcode2/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="6a56a9ada834ce5bd85ba4aa617c44c4" name="Image/Barcode2/Driver/Ean13.php" role="php" />
+   <file baseinstalldir="/" md5sum="2313be0e81f66f9434705221acf27b0f" name="Image/Barcode2/Exception.php" role="php" />
    <file baseinstalldir="/" md5sum="a6ebc5a274d671b2721a431e3275a654" name="Image/Barcode2/Driver/Int25.php" role="php" />
    <file baseinstalldir="/" md5sum="8ed1789ad0e51f25eaef7afeb06a64c5" name="Image/Barcode2/Driver/Postnet.php" role="php" />
    <file baseinstalldir="/" md5sum="05d72da9584ea6d054a0fe77525e4700" name="Image/Barcode2/Driver/Upca.php" role="php" />
-   <file baseinstalldir="/" md5sum="d490c6a2cd3e2daf4c2dc8ed21b2358e" name="Image/Barcode2/Writer.php" role="php" />
+   <file baseinstalldir="/" md5sum="8f211598bb63537e22467a553285af70" name="Image/Barcode2/Writer.php" role="php" />
    <file baseinstalldir="/" md5sum="1abec4811830a7cbfcd357eaf2089964" name="tests/Image_Barcode2Test.php" role="test" />
    <file baseinstalldir="/" md5sum="4599d66d9092baec4286443e1a6d678e" name="build.xml" role="data" />
    <file baseinstalldir="/" md5sum="e9d89152910001df5be865aa37ab9733" name="phpunit.xml" role="data" />
@@ -170,7 +170,7 @@ to use the class properly.
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
 QA release
-Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
+Bug #13794     Some numbers produce malformed &quot;UPC A&quot; barcodes
    </notes>
   </release>
   <release>
@@ -186,7 +186,7 @@ Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>
 QA release
-Bug #13794 	Some numbers produce malformed &quot;UPC A&quot; barcodes
+Bug #13794     Some numbers produce malformed &quot;UPC A&quot; barcodes
    </notes>
   </release>
   <release>
