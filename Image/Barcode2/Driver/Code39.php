@@ -124,13 +124,13 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
     }
 
 
-   /**
-    * Make an image resource using the GD image library
-    *
-    * @return resource           The Barcode Image (TM)
-    *
-    * @author Ryan Briones <ryanbriones@webxdesign.org>
-    */
+    /**
+     * Make an image resource using the GD image library
+     *
+     * @return resource           The Barcode Image (TM)
+     *
+     * @author Ryan Briones <ryanbriones@webxdesign.org>
+     */
     public function draw()
     {
         $text = $this->getBarcode();

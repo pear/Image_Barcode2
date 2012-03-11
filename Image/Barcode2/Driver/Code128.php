@@ -192,7 +192,6 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
     /**
      * Draws a Code128 image barcode
      *
-     *
      * @return resource            The corresponding Code128 image barcode
      *
      * @access public
