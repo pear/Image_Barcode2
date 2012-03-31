@@ -38,7 +38,6 @@
  * @author    Jeffrey K. Brown <jkb@darkfantastic.net>
  * @copyright 2005 The PHP Group
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version   CVS: $Id$
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
@@ -59,7 +58,115 @@ require_once 'Image/Barcode2/Exception.php';
 
 class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
-    var $_code = array();
+    /**
+     * Coding map
+     * @var array
+     */
+    private $_codingmap = array(
+        0 => '212222',  // " "
+        1 => '222122',  // "!"
+        2 => '222221',  // "{QUOTE}"
+        3 => '121223',  // "#"
+        4 => '121322',  // "$"
+        5 => '131222',  // "%"
+        6 => '122213',  // "&"
+        7 => '122312',  // "'"
+        8 => '132212',  // "("
+        9 => '221213',  // ")"
+        10 => '221312', // "*"
+        11 => '231212', // "+"
+        12 => '112232', // ","
+        13 => '122132', // "-"
+        14 => '122231', // "."
+        15 => '113222', // "/"
+        16 => '123122', // "0"
+        17 => '123221', // "1"
+        18 => '223211', // "2"
+        19 => '221132', // "3"
+        20 => '221231', // "4"
+        21 => '213212', // "5"
+        22 => '223112', // "6"
+        23 => '312131', // "7"
+        24 => '311222', // "8"
+        25 => '321122', // "9"
+        26 => '321221', // ":"
+        27 => '312212', // ";"
+        28 => '322112', // "<"
+        29 => '322211', // "="
+        30 => '212123', // ">"
+        31 => '212321', // "?"
+        32 => '232121', // "@"
+        33 => '111323', // "A"
+        34 => '131123', // "B"
+        35 => '131321', // "C"
+        36 => '112313', // "D"
+        37 => '132113', // "E"
+        38 => '132311', // "F"
+        39 => '211313', // "G"
+        40 => '231113', // "H"
+        41 => '231311', // "I"
+        42 => '112133', // "J"
+        43 => '112331', // "K"
+        44 => '132131', // "L"
+        45 => '113123', // "M"
+        46 => '113321', // "N"
+        47 => '133121', // "O"
+        48 => '313121', // "P"
+        49 => '211331', // "Q"
+        50 => '231131', // "R"
+        51 => '213113', // "S"
+        52 => '213311', // "T"
+        53 => '213131', // "U"
+        54 => '311123', // "V"
+        55 => '311321', // "W"
+        56 => '331121', // "X"
+        57 => '312113', // "Y"
+        58 => '312311', // "Z"
+        59 => '332111', // "["
+        60 => '314111', // "\"
+        61 => '221411', // "]"
+        62 => '431111', // "^"
+        63 => '111224', // "_"
+        64 => '111422', // "`"
+        65 => '121124', // "a"
+        66 => '121421', // "b"
+        67 => '141122', // "c"
+        68 => '141221', // "d"
+        69 => '112214', // "e"
+        70 => '112412', // "f"
+        71 => '122114', // "g"
+        72 => '122411', // "h"
+        73 => '142112', // "i"
+        74 => '142211', // "j"
+        75 => '241211', // "k"
+        76 => '221114', // "l"
+        77 => '413111', // "m"
+        78 => '241112', // "n"
+        79 => '134111', // "o"
+        80 => '111242', // "p"
+        81 => '121142', // "q"
+        82 => '121241', // "r"
+        83 => '114212', // "s"
+        84 => '124112', // "t"
+        85 => '124211', // "u"
+        86 => '411212', // "v"
+        87 => '421112', // "w"
+        88 => '421211', // "x"
+        89 => '212141', // "y"
+        90 => '214121', // "z"
+        91 => '412121', // "{"
+        92 => '111143', // "|"
+        93 => '111341', // "}"
+        94 => '131141', // "~"
+        95 => '114113', // 95
+        96 => '114311', // 96
+        97 => '411113', // 97
+        98 => '411311', // 98
+        99 => '113141', // 99
+        100 => '114131', // 100
+        101 => '311141', // 101
+        102 => '411131', // 102
+    );
 
     /**
      * Class constructor
@@ -71,116 +178,13 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
         parent::__construct($writer);
         $this->setBarcodeHeight(60);
         $this->setBarcodeWidth(1);
-
-        $this->_code[0] = "212222";  // " "
-        $this->_code[1] = "222122";  // "!"
-        $this->_code[2] = "222221";  // "{QUOTE}"
-        $this->_code[3] = "121223";  // "#"
-        $this->_code[4] = "121322";  // "$"
-        $this->_code[5] = "131222";  // "%"
-        $this->_code[6] = "122213";  // "&"
-        $this->_code[7] = "122312";  // "'"
-        $this->_code[8] = "132212";  // "("
-        $this->_code[9] = "221213";  // ")"
-        $this->_code[10] = "221312"; // "*"
-        $this->_code[11] = "231212"; // "+"
-        $this->_code[12] = "112232"; // ","
-        $this->_code[13] = "122132"; // "-"
-        $this->_code[14] = "122231"; // "."
-        $this->_code[15] = "113222"; // "/"
-        $this->_code[16] = "123122"; // "0"
-        $this->_code[17] = "123221"; // "1"
-        $this->_code[18] = "223211"; // "2"
-        $this->_code[19] = "221132"; // "3"
-        $this->_code[20] = "221231"; // "4"
-        $this->_code[21] = "213212"; // "5"
-        $this->_code[22] = "223112"; // "6"
-        $this->_code[23] = "312131"; // "7"
-        $this->_code[24] = "311222"; // "8"
-        $this->_code[25] = "321122"; // "9"
-        $this->_code[26] = "321221"; // ":"
-        $this->_code[27] = "312212"; // ";"
-        $this->_code[28] = "322112"; // "<"
-        $this->_code[29] = "322211"; // "="
-        $this->_code[30] = "212123"; // ">"
-        $this->_code[31] = "212321"; // "?"
-        $this->_code[32] = "232121"; // "@"
-        $this->_code[33] = "111323"; // "A"
-        $this->_code[34] = "131123"; // "B"
-        $this->_code[35] = "131321"; // "C"
-        $this->_code[36] = "112313"; // "D"
-        $this->_code[37] = "132113"; // "E"
-        $this->_code[38] = "132311"; // "F"
-        $this->_code[39] = "211313"; // "G"
-        $this->_code[40] = "231113"; // "H"
-        $this->_code[41] = "231311"; // "I"
-        $this->_code[42] = "112133"; // "J"
-        $this->_code[43] = "112331"; // "K"
-        $this->_code[44] = "132131"; // "L"
-        $this->_code[45] = "113123"; // "M"
-        $this->_code[46] = "113321"; // "N"
-        $this->_code[47] = "133121"; // "O"
-        $this->_code[48] = "313121"; // "P"
-        $this->_code[49] = "211331"; // "Q"
-        $this->_code[50] = "231131"; // "R"
-        $this->_code[51] = "213113"; // "S"
-        $this->_code[52] = "213311"; // "T"
-        $this->_code[53] = "213131"; // "U"
-        $this->_code[54] = "311123"; // "V"
-        $this->_code[55] = "311321"; // "W"
-        $this->_code[56] = "331121"; // "X"
-        $this->_code[57] = "312113"; // "Y"
-        $this->_code[58] = "312311"; // "Z"
-        $this->_code[59] = "332111"; // "["
-        $this->_code[60] = "314111"; // "\"
-        $this->_code[61] = "221411"; // "]"
-        $this->_code[62] = "431111"; // "^"
-        $this->_code[63] = "111224"; // "_"
-        $this->_code[64] = "111422"; // "`"
-        $this->_code[65] = "121124"; // "a"
-        $this->_code[66] = "121421"; // "b"
-        $this->_code[67] = "141122"; // "c"
-        $this->_code[68] = "141221"; // "d"
-        $this->_code[69] = "112214"; // "e"
-        $this->_code[70] = "112412"; // "f"
-        $this->_code[71] = "122114"; // "g"
-        $this->_code[72] = "122411"; // "h"
-        $this->_code[73] = "142112"; // "i"
-        $this->_code[74] = "142211"; // "j"
-        $this->_code[75] = "241211"; // "k"
-        $this->_code[76] = "221114"; // "l"
-        $this->_code[77] = "413111"; // "m"
-        $this->_code[78] = "241112"; // "n"
-        $this->_code[79] = "134111"; // "o"
-        $this->_code[80] = "111242"; // "p"
-        $this->_code[81] = "121142"; // "q"
-        $this->_code[82] = "121241"; // "r"
-        $this->_code[83] = "114212"; // "s"
-        $this->_code[84] = "124112"; // "t"
-        $this->_code[85] = "124211"; // "u"
-        $this->_code[86] = "411212"; // "v"
-        $this->_code[87] = "421112"; // "w"
-        $this->_code[88] = "421211"; // "x"
-        $this->_code[89] = "212141"; // "y"
-        $this->_code[90] = "214121"; // "z"
-        $this->_code[91] = "412121"; // "{"
-        $this->_code[92] = "111143"; // "|"
-        $this->_code[93] = "111341"; // "}"
-        $this->_code[94] = "131141"; // "~"
-        $this->_code[95] = "114113"; // 95
-        $this->_code[96] = "114311"; // 96
-        $this->_code[97] = "411113"; // 97
-        $this->_code[98] = "411311"; // 98
-        $this->_code[99] = "113141"; // 99
-        $this->_code[100] = "114131"; // 100
-        $this->_code[101] = "311141"; // 101
-        $this->_code[102] = "411131"; // 102
     }
 
 
     /**
      * Validate barcode
-     * 
+     *
+     * @return void
      * @throws Image_Barcode2_Exception
      */
     public function validate()
@@ -214,6 +218,8 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
         $checksum  = 104;
         $allbars   = $startcode;
         $text      = $this->getBarcode();
+        $writer    = $this->getWriter();
+        $fontsize  = $this->getFontSize();
 
 
         // Next, we read the barcode string that was passed to the
@@ -265,7 +271,7 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
             $barcodewidth += ($nval * $this->getBarcodeWidth());
         }
 
-        $barcodelongheight = (int)($this->getWriter()->imagefontheight($this->getFontSize()) / 2)
+        $barcodelongheight = (int)($writer->imagefontheight($fontsize) / 2)
             + $this->getBarcodeHeight();
 
 
@@ -273,13 +279,13 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
         // the image with a nice, white background, ready for printing
         // our black bars and the text.
 
-        $img = $this->getWriter()->imagecreate(
+        $img = $writer->imagecreate(
             $barcodewidth,
-            $barcodelongheight + $this->getWriter()->imagefontheight($this->getFontSize()) + 1
+            $barcodelongheight + $writer->imagefontheight($fontsize) + 1
         );
-        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
-        $this->getWriter()->imagefill($img, 0, 0, $white);
+        $black = $writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $writer->imagecolorallocate($img, 255, 255, 255);
+        $writer->imagefill($img, 0, 0, $white);
 
 
         //------------------------------------------------------//
@@ -288,11 +294,11 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
 
 
         // First, print the image, centered across the bottom.
-        $this->getWriter()->imagestring(
+        $writer->imagestring(
             $img,
-            $this->getFontSize(),
-            $barcodewidth / 2 - strlen($text) / 2 * ($this->getWriter()->imagefontwidth($this->getFontSize())),
-            $this->getBarcodeHeight() + $this->getWriter()->imagefontheight($this->getFontSize()) / 2,
+            $fontsize,
+            $barcodewidth / 2 - strlen($text) / 2 * ($writer->imagefontwidth($fontsize)),
+            $this->getBarcodeHeight() + $writer->imagefontheight($fontsize) / 2,
             $text,
             $black
         );
@@ -310,7 +316,7 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
             $width = $nval * $this->getBarcodeWidth();
 
             if ($bar == 1) {
-                $this->getWriter()->imagefilledrectangle(
+                $writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     0, 
@@ -339,7 +345,7 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
      */
     private function _getCharCode($char)
     {
-        return $this->_code[ord($char) - 32];
+        return $this->_codingmap[ord($char) - 32];
     }
 
 
@@ -374,7 +380,7 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
      */
     private function _getNumCode($index)
     {
-        return $this->_code[$index];
+        return $this->_codingmap[$index];
     }
 
 
