@@ -20,7 +20,6 @@
  * @author    Didier Fournout <didier.fournout@nyc.fr>
  * @copyright 2005 The PHP Group
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version   CVS: $Id: 
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
@@ -45,51 +44,51 @@ require_once 'Image/Barcode2/Exception.php';
 class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_Barcode2_Driver
 {
     /**
-     * Number set
+     * Coding map
      * @var array
      */
-    var $_number_set = array(
-           '0' => array(
-                    'A' => array(0,0,0,1,1,0,1),
-                    'C' => array(1,1,1,0,0,1,0)
-                        ),
-           '1' => array(
-                    'A' => array(0,0,1,1,0,0,1),
-                    'C' => array(1,1,0,0,1,1,0)
-                        ),
-           '2' => array(
-                    'A' => array(0,0,1,0,0,1,1),
-                    'C' => array(1,1,0,1,1,0,0)
-                        ),
-           '3' => array(
-                    'A' => array(0,1,1,1,1,0,1),
-                    'C' => array(1,0,0,0,0,1,0)
-                        ),
-           '4' => array(
-                    'A' => array(0,1,0,0,0,1,1),
-                    'C' => array(1,0,1,1,1,0,0)
-                        ),
-           '5' => array(
-                    'A' => array(0,1,1,0,0,0,1),
-                    'C' => array(1,0,0,1,1,1,0)
-                        ),
-           '6' => array(
-                    'A' => array(0,1,0,1,1,1,1),
-                    'C' => array(1,0,1,0,0,0,0)
-                        ),
-           '7' => array(
-                    'A' => array(0,1,1,1,0,1,1),
-                    'C' => array(1,0,0,0,1,0,0)
-                        ),
-           '8' => array(
-                    'A' => array(0,1,1,0,1,1,1),
-                    'C' => array(1,0,0,1,0,0,0)
-                        ),
-           '9' => array(
-                    'A' => array(0,0,0,1,0,1,1),
-                    'C' => array(1,1,1,0,1,0,0)
-                        )
-        );
+    private $_codingmap = array(
+        '0' => array(
+            'A' => array(0,0,0,1,1,0,1),
+            'C' => array(1,1,1,0,0,1,0)
+        ),
+        '1' => array(
+            'A' => array(0,0,1,1,0,0,1),
+            'C' => array(1,1,0,0,1,1,0)
+        ),
+        '2' => array(
+            'A' => array(0,0,1,0,0,1,1),
+            'C' => array(1,1,0,1,1,0,0)
+        ),
+        '3' => array(
+            'A' => array(0,1,1,1,1,0,1),
+            'C' => array(1,0,0,0,0,1,0)
+        ),
+        '4' => array(
+            'A' => array(0,1,0,0,0,1,1),
+            'C' => array(1,0,1,1,1,0,0)
+        ),
+        '5' => array(
+            'A' => array(0,1,1,0,0,0,1),
+            'C' => array(1,0,0,1,1,1,0)
+        ),
+        '6' => array(
+            'A' => array(0,1,0,1,1,1,1),
+            'C' => array(1,0,1,0,0,0,0)
+        ),
+        '7' => array(
+            'A' => array(0,1,1,1,0,1,1),
+            'C' => array(1,0,0,0,1,0,0)
+        ),
+        '8' => array(
+            'A' => array(0,1,1,0,1,1,1),
+            'C' => array(1,0,0,1,0,0,0)
+        ),
+        '9' => array(
+            'A' => array(0,0,0,1,0,1,1),
+            'C' => array(1,1,1,0,1,0,0)
+        )
+    );
 
     /**
      * Class constructor
@@ -106,7 +105,8 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
 
     /**
      * Validate barcode
-     * 
+     *
+     * @return void
      * @throws Image_Barcode2_Exception
      */
     public function validate()
@@ -130,7 +130,9 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
      */
     public function draw()
     {
-        $text = $this->getBarcode();
+        $text     = $this->getBarcode();
+        $writer   = $this->getWriter();
+        $fontsize = $this->getFontSize();
 
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->getBarcodeWidth())
@@ -139,28 +141,28 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
             + 3 * $this->getBarcodeWidth() // right
             ;
 
-        $barcodelongheight = (int)($this->getWriter()->imagefontheight($this->getFontSize()) / 2)
+        $barcodelongheight = (int)($writer->imagefontheight($fontsize) / 2)
              + $this->getBarcodeHeight();
 
         // Create the image
-        $img = $this->getWriter()->imagecreate(
+        $img = $writer->imagecreate(
             $barcodewidth,
-            $barcodelongheight + $this->getWriter()->imagefontheight($this->getFontSize()) + 1
+            $barcodelongheight + $writer->imagefontheight($fontsize) + 1
         );
 
         // Alocate the black and white colors
-        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
+        $black = $writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        $this->getWriter()->imagefill($img, 0, 0, $white);
+        $writer->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -172,7 +174,7 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
         // space
         $xpos += $this->getBarcodeWidth();
         // bar
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -184,17 +186,17 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
 
         for ($idx = 0; $idx < 4; $idx ++) {
             $value = substr($text, $idx, 1);
-            $this->getWriter()->imagestring(
+            $writer->imagestring(
                 $img,
-                $this->getFontSize(),
+                $fontsize,
                 $xpos + 1,
                 $this->getBarcodeHeight(),
                 $value,
                 $black
             );
-            foreach ($this->_number_set[$value]['A'] as $bar) {
+            foreach ($this->_codingmap[$value]['A'] as $bar) {
                 if ($bar) {
-                    $this->getWriter()->imagefilledrectangle(
+                    $writer->imagefilledrectangle(
                         $img,
                         $xpos,
                         0,
@@ -211,7 +213,7 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
         // space
         $xpos += $this->getBarcodeWidth();
         // bar
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -224,7 +226,7 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
         // space
         $xpos += $this->getBarcodeWidth();
         // bar
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -242,18 +244,18 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
         for ($idx = 4; $idx < 8; $idx ++) {
             $value = substr($text, $idx, 1);
 
-            $this->getWriter()->imagestring(
+            $writer->imagestring(
                 $img,
-                $this->getFontSize(),
+                $fontsize,
                 $xpos + 1,
                 $this->getBarcodeHeight(),
                 $value,
                 $black
             );
 
-            foreach ($this->_number_set[$value]['C'] as $bar) {
+            foreach ($this->_codingmap[$value]['C'] as $bar) {
                 if ($bar) {
-                    $this->getWriter()->imagefilledrectangle(
+                    $writer->imagefilledrectangle(
                         $img,
                         $xpos,
                         0,
@@ -268,7 +270,7 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
 
         // Draws the right guard pattern (bar-space-bar)
         // bar
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -280,7 +282,7 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
         // space
         $xpos += $this->getBarcodeWidth();
         // bar
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
