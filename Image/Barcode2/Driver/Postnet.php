@@ -19,7 +19,6 @@
  * @author    Josef "Jeff" Sipek <jeffpc@optonline.net>
  * @copyright 2005 Josef "Jeff" Sipek
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version   CVS: $Id$
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
@@ -61,31 +60,31 @@ class Image_Barcode2_Driver_Postnet extends Image_Barcode2_Common implements Ima
      *
      * @var integer
      */
-    var $_barshortheight = 7;
+    private $_barshortheight = 7;
 
     /**
      * Bar tall height
      *
      * @var integer
      */
-    var $_bartallheight = 15;
+    private $_bartallheight = 15;
 
     /**
      * Coding map
      * @var array
      */
-    var $_coding_map = array(
-           '0' => '11000',
-           '1' => '00011',
-           '2' => '00101',
-           '3' => '00110',
-           '4' => '01001',
-           '5' => '01010',
-           '6' => '01100',
-           '7' => '10001',
-           '8' => '10010',
-           '9' => '10100'
-        );
+    private $_codingmap = array(
+        '0' => '11000',
+        '1' => '00011',
+        '2' => '00101',
+        '3' => '00110',
+        '4' => '01001',
+        '5' => '01010',
+        '6' => '01100',
+        '7' => '10001',
+        '8' => '10010',
+        '9' => '10100'
+    );
 
     /**
      * Class constructor
@@ -101,7 +100,8 @@ class Image_Barcode2_Driver_Postnet extends Image_Barcode2_Common implements Ima
 
     /**
      * Validate barcode
-     * 
+     *
+     * @return void
      * @throws Image_Barcode2_Exception
      */
     public function validate()
@@ -125,27 +125,28 @@ class Image_Barcode2_Driver_Postnet extends Image_Barcode2_Common implements Ima
      */
     public function draw()
     {
-        $text = $this->getBarcode();
+        $text   = $this->getBarcode();
+        $writer = $this->getWriter();
 
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * 2 * 5 * $this->getBarcodeWidth()
             + $this->getBarcodeWidth() * 3;
 
         // Create the image
-        $img = $this->getWriter()->imagecreate($barcodewidth, $this->_bartallheight);
+        $img = $writer->imagecreate($barcodewidth, $this->_bartallheight);
 
         // Alocate the black and white colors
-        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
+        $black = $writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $writer->imagecolorallocate($img, 255, 255, 255);
 
         // Fill image with white color
-        $this->getWriter()->imagefill($img, 0, 0, $white);
+        $writer->imagefill($img, 0, 0, $white);
 
         // Initiate x position
         $xpos = 0;
 
         // Draws the leader
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
@@ -163,11 +164,11 @@ class Image_Barcode2_Driver_Postnet extends Image_Barcode2_Common implements Ima
             for ($baridx = 0; $baridx < 5; $baridx++) {
                 $elementheight = $this->_barshortheight;
 
-                if (substr($this->_coding_map[$char], $baridx, 1)) {
+                if (substr($this->_codingmap[$char], $baridx, 1)) {
                     $elementheight = 0;
                 }
 
-                $this->getWriter()->imagefilledrectangle(
+                $writer->imagefilledrectangle(
                     $img, 
                     $xpos, 
                     $elementheight,
@@ -181,7 +182,7 @@ class Image_Barcode2_Driver_Postnet extends Image_Barcode2_Common implements Ima
         }
 
         // Draws the trailer
-        $this->getWriter()->imagefilledrectangle(
+        $writer->imagefilledrectangle(
             $img, 
             $xpos, 
             0, 

@@ -4,8 +4,8 @@
 /**
  * Image_Barcode2_Driver_Code39 class
  *
- * Image_Barcode2_Code39 creates Code 3 of 9 ( Code39 ) barcode images. It's
- * implementation borrows heavily for the perl module GD::Barcode::Code39
+ * Image_Barcode2_Code39 creates Code 3 of 9 ( Code39 ) barcode images.
+ * It's implementation borrows heavily for the perl module GD::Barcode::Code39
  *
  * PHP versions 5
  *
@@ -20,7 +20,6 @@
  * @author    Ryan Briones <ryanbriones@webxdesign.org>
  * @copyright 2005 The PHP Group
  * @license   http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version   CVS: $Id$
  * @link      http://pear.php.net/package/Image_Barcode2
  */
 
@@ -49,7 +48,7 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
      * Coding map
      * @var array
      */
-    var $_coding_map = array(
+    private $_codingmap = array(
         '0' => '000110100',
         '1' => '100100001',
         '2' => '001100001',
@@ -112,7 +111,8 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
 
     /**
      * Validate barcode
-     * 
+     *
+     * @return void
      * @throws Image_Barcode2_Exception
      */
     public function validate()
@@ -133,29 +133,31 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
      */
     public function draw()
     {
-        $text = $this->getBarcode();
+        $text     = $this->getBarcode();
+        $writer   = $this->getWriter();
+        $fontsize = $this->getFontSize();
 
         // add start and stop * characters
         $final_text = '*' . $text . '*';
 
         $barcode = '';
         foreach (str_split($final_text) as $character) {
-            $barcode .= $this->_dumpCode($this->_coding_map[$character] . '0');
+            $barcode .= $this->_dumpCode($this->_codingmap[$character] . '0');
         }
 
         $barcode_len = strlen($barcode);
 
         // Create GD image object
-        $img = $this->getWriter()->imagecreate($barcode_len, $this->getBarcodeHeight());
+        $img = $writer->imagecreate($barcode_len, $this->getBarcodeHeight());
 
         // Allocate black and white colors to the image
-        $black = $this->getWriter()->imagecolorallocate($img, 0, 0, 0);
-        $white = $this->getWriter()->imagecolorallocate($img, 255, 255, 255);
-        $font_height = $this->getWriter()->imagefontheight($this->getFontSize());
-        $font_width = $this->getWriter()->imagefontwidth($this->getFontSize());
+        $black = $writer->imagecolorallocate($img, 0, 0, 0);
+        $white = $writer->imagecolorallocate($img, 255, 255, 255);
+        $font_height = $writer->imagefontheight($fontsize);
+        $font_width = $writer->imagefontwidth($fontsize);
 
         // fill background with white color
-        $this->getWriter()->imagefill($img, 0, 0, $white);
+        $writer->imagefill($img, 0, 0, $white);
 
         // Initialize X position
         $xpos = 0;
@@ -163,7 +165,7 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
         // draw barcode bars to image
         foreach (str_split($barcode) as $character_code) {
             if ($character_code == 0) {
-                $this->getWriter()->imageline(
+                $writer->imageline(
                     $img, 
                     $xpos, 
                     0, 
@@ -172,7 +174,7 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
                     $white
                 );
             } else {
-                $this->getWriter()->imageline(
+                $writer->imageline(
                     $img, 
                     $xpos, 
                     0, 
@@ -186,9 +188,9 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
         }
 
         // draw text under barcode
-        $this->getWriter()->imagestring(
+        $writer->imagestring(
             $img,
-            $this->getFontSize(),
+            $fontsize,
             ($barcode_len - $font_width * strlen($text)) / 2,
             $this->getBarcodeHeight() - $font_height,
             $text,
