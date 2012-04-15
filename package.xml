@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Image_Barcode2</name>
  <channel>pear.php.net</channel>
  <summary>Barcode generation</summary>
@@ -20,22 +20,29 @@
   <email>clockwerx@php.net</email>
   <active>yes</active>
  </lead>
- <date>2012-03-06</date>
- <time>23:00:12</time>
+ <lead>
+  <name>Pavel Dyakonov</name>
+  <user>gemorroj</user>
+  <email>gemorroj@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-04-15</date>
+ <time>12:20:11</time>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>0.2.1</release>
+  <api>0.2.1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-Add an adapater
+Fixes on rendering PostNet, EAN 8 and EAN 13 barcodes.
+Renamed package files. This fixes Code39 on *nix platforms.
+Updated barcode validators.
+Updated examples.
 PHPCS
-Introduce accessors
-Increased use of Image_Barcode2_Exception
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -44,19 +51,19 @@ Increased use of Image_Barcode2_Exception
    <file baseinstalldir="Image" md5sum="d274880933d54b873c9589087766c124" name="docs/examples/barcode_img.php" role="doc" />
    <file baseinstalldir="Image" md5sum="07ecde340ef052307a4f61252f585039" name="docs/examples/test-image-barcode.php" role="doc" />
    <file baseinstalldir="/" md5sum="66707cecf52f7839bf6a0d780c8499ab" name="Image/Barcode2.php" role="php" />
-   <file baseinstalldir="/" md5sum="ce01e0001fcf24eed57c902478bd1ed6" name="Image/Barcode2/Driver/Code39.php" role="php" />
-   <file baseinstalldir="/" md5sum="d9b81de99ba7c84e3e8646e94e18d98e" name="Image/Barcode2/Driver/Code128.php" role="php" />
    <file baseinstalldir="/" md5sum="76ba5c2b93622d89bb14624505b80d35" name="Image/Barcode2/Common.php" role="php" />
    <file baseinstalldir="/" md5sum="7edeac1655f949e31222e5dbe035e8a6" name="Image/Barcode2/Driver.php" role="php" />
    <file baseinstalldir="/" md5sum="fe4788592cfbc7fb0280d6beb1d2b2b9" name="Image/Barcode2/DualHeight.php" role="php" />
    <file baseinstalldir="/" md5sum="cd06591f1e8ade75a8999c44ad57db90" name="Image/Barcode2/DualWidth.php" role="php" />
+   <file baseinstalldir="/" md5sum="a245e697341d4d3c0cce3593e075bb13" name="Image/Barcode2/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="169de39ec13dc21f7e485c9ece549851" name="Image/Barcode2/Writer.php" role="php" />
+   <file baseinstalldir="/" md5sum="ce01e0001fcf24eed57c902478bd1ed6" name="Image/Barcode2/Driver/Code39.php" role="php" />
+   <file baseinstalldir="/" md5sum="d9b81de99ba7c84e3e8646e94e18d98e" name="Image/Barcode2/Driver/Code128.php" role="php" />
    <file baseinstalldir="/" md5sum="b82de5e188d541c2eb2ad5eb727e6689" name="Image/Barcode2/Driver/Ean8.php" role="php" />
    <file baseinstalldir="/" md5sum="3c8da9bf73fe44b9a42173b08324ecf1" name="Image/Barcode2/Driver/Ean13.php" role="php" />
-   <file baseinstalldir="/" md5sum="a245e697341d4d3c0cce3593e075bb13" name="Image/Barcode2/Exception.php" role="php" />
    <file baseinstalldir="/" md5sum="a0299f8a550ba514e0f9cd9167921059" name="Image/Barcode2/Driver/Int25.php" role="php" />
    <file baseinstalldir="/" md5sum="c77080bc52fa5d6c710295669216cceb" name="Image/Barcode2/Driver/Postnet.php" role="php" />
    <file baseinstalldir="/" md5sum="9c9c8ec18931bc0350fab0892e7621ad" name="Image/Barcode2/Driver/Upca.php" role="php" />
-   <file baseinstalldir="/" md5sum="169de39ec13dc21f7e485c9ece549851" name="Image/Barcode2/Writer.php" role="php" />
    <file baseinstalldir="/" md5sum="1abec4811830a7cbfcd357eaf2089964" name="tests/Image_Barcode2Test.php" role="test" />
    <file baseinstalldir="/" md5sum="4599d66d9092baec4286443e1a6d678e" name="build.xml" role="data" />
    <file baseinstalldir="/" md5sum="e9d89152910001df5be865aa37ab9733" name="phpunit.xml" role="data" />
@@ -66,21 +73,15 @@ Increased use of Image_Barcode2_Exception
  <dependencies>
   <required>
    <php>
-    <min>5.0.0</min>
+    <min>5.0.1</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.5.6</min>
    </pearinstaller>
    <extension>
     <name>gd</name>
    </extension>
   </required>
-  <optional>
-   <package>
-    <name>PHP_Compat</name>
-    <channel>pear.php.net</channel>
-   </package>
-  </optional>
  </dependencies>
  <phprelease />
  <changelog>
@@ -205,6 +206,25 @@ Add an adapater
 PHPCS
 Introduce accessors
 Increased use of Image_Barcode2_Exception
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2012-04-15</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Fixes on rendering PostNet, EAN 8 and EAN 13 barcodes.
+Renamed package files. This fixes Code39 on *nix platforms.
+Updated barcode validators.
+Updated examples.
+PHPCS
    </notes>
   </release>
  </changelog>
