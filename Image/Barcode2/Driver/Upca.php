@@ -263,7 +263,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
+            $barcodelongheight,
             $black
         );
         $xpos += $this->getBarcodeWidth();
@@ -275,7 +275,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
+            $barcodelongheight,
             $black
         );
         $xpos += $this->getBarcodeWidth();
@@ -319,7 +319,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                     $xpos,
                     0,
                     $xpos + $this->getBarcodeWidth() - 1,
-                    $this->getBarcodeHeight(),
+                    $barcodelongheight,
                     $black
                 );
 
@@ -336,7 +336,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
+            $barcodelongheight,
             $black
         );
 
@@ -349,7 +349,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
             $xpos,
             0,
             $xpos + $this->getBarcodeWidth() - 1,
-            $this->getBarcodeHeight(),
+            $barcodelongheight,
             $black
         );
 
