@@ -51,7 +51,7 @@ class Image_Barcode2_Driver_Upce extends Image_Barcode2_Common implements Image_
      * Coding map
      * @var array
      */
-    var $_paritypattern = array(
+    private $_paritypattern = array(
         '0' => array(1,1,1,0,0,0),
         '1' => array(1,1,0,1,0,0),
         '2' => array(1,1,0,0,1,0),
@@ -64,7 +64,7 @@ class Image_Barcode2_Driver_Upce extends Image_Barcode2_Common implements Image_
         '9' => array(1,0,0,1,0,1)
     );
         
-    var $_codingmap = array(
+    private $_codingmap = array(
         '0' => array(
             'O' => array(0,0,0,1,1,0,1),
             'E' => array(0,1,0,0,1,1,1)
