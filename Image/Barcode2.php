@@ -55,7 +55,7 @@ class Image_Barcode2
     const BARCODE_INT25     = 'int25';
     const BARCODE_EAN13     = 'ean13';
     const BARCODE_UPCA      = 'upca';
-	const BARCODE_UPCE      = 'upce';
+    const BARCODE_UPCE      = 'upce';
     const BARCODE_CODE128   = 'code128';
     const BARCODE_EAN8      = 'ean8';
     const BARCODE_POSTNET   = 'postnet';
@@ -70,7 +70,7 @@ class Image_Barcode2
      *                                int25  - 2 Interleaved 5
      *                                ean13  - EAN 13
      *                                upca   - UPC-A
-	 *                                upce   - UPC-E
+     *                                upce   - UPC-E
      *                                code128
      *                                ean8
      *                                postnet

@@ -54,7 +54,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
      * Coding map
      * @var array
      */
-    var $_codingmap = array(
+    private $_codingmap = array(
         '0' => array(
             'L' => array(0,0,0,1,1,0,1),
             'R' => array(1,1,1,0,0,1,0)
