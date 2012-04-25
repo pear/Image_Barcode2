@@ -83,4 +83,16 @@
 <div class="test">
 <h2>Code128 (png):</h2>
 <img
- src="bar
+ src="barcode_img.php?num=barcode&type=code128&imgtype=png"
+ alt="PNG: barcode" title="PNG: barcode"/>
+</div>
+
+<div class="test">
+<h2>PostNet (png):</h2>
+<img
+ src="barcode_img.php?num=202609900&type=postnet&imgtype=png"
+ alt="PNG: 202609900" title="PNG: 202609900"/>
+</div>
+
+</body>
+</html>
