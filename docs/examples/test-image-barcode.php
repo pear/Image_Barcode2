@@ -69,23 +69,18 @@
 <div class="test">
 <h2>UPC-A (png):</h2>
 <img
- src="barcode_img.php?num=123456789123&type=upca&imgtype=png"
- alt="PNG: 123456789123" title="PNG: 123456789123"/>
+ src="barcode_img.php?num=123456789128&type=upca&imgtype=png"
+ alt="PNG: 123456789128" title="PNG: 123456789128"/>
+</div>
+
+<div class="test">
+<h2>UPC-E (png):</h2>
+<img
+ src="barcode_img.php?num=01507113&type=upce&imgtype=png"
+ alt="PNG: 12345678" title="PNG: 12345678"/>
 </div>
 
 <div class="test">
 <h2>Code128 (png):</h2>
 <img
- src="barcode_img.php?num=barcode&type=code128&imgtype=png"
- alt="PNG: barcode" title="PNG: barcode"/>
-</div>
-
-<div class="test">
-<h2>PostNet (png):</h2>
-<img
- src="barcode_img.php?num=202609900&type=postnet&imgtype=png"
- alt="PNG: 202609900" title="PNG: 202609900"/>
-</div>
-
-</body>
-</html>
+ src="bar
