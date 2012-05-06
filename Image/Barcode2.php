@@ -60,6 +60,14 @@ class Image_Barcode2
     const BARCODE_EAN8      = 'ean8';
     const BARCODE_POSTNET   = 'postnet';
 
+    /**
+     * Rotation type
+     */
+    const ROTATE_NONE    = '0';
+    const ROTATE_RIGHT    = '90';
+    const ROTATE_UTURN    = '180';
+    const ROTATE_LEFT    = '270';
+
 
     /**
      * Draws a image barcode
@@ -80,6 +88,8 @@ class Image_Barcode2
      *                                 browser, or be returned.
      * @param integer $height         The image height
      * @param integer $width          The image width
+     * @param boolean $showText       The text should be placed under barcode
+     * @param integer $rotation       The rotation angle
      *
      * @return resource The corresponding gd image resource
      *               
@@ -94,7 +104,9 @@ class Image_Barcode2
         $imgtype = Image_Barcode2::IMAGE_PNG, 
         $bSendToBrowser = true,
         $height = 60,
-        $width = 1
+        $width = 1,
+        $showText = true,
+        $rotation = Image_Barcode2::ROTATE_NONE
     ) {
         //Make sure no bad files are included
         if (!preg_match('/^[a-zA-Z0-9]+$/', $type)) {
@@ -124,9 +136,15 @@ class Image_Barcode2
         }
 
         $obj->setBarcode($text);
+        $obj->setShowText($showText);
 
         $obj->validate();
         $img = $obj->draw();
+
+        // Rotate image on demand
+        if ($rotation !== self::ROTATE_NONE) {
+            $img = imagerotate($img, $rotation, 0);
+        }
 
         if ($bSendToBrowser) {
             // Send image to browser

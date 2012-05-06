@@ -178,14 +178,16 @@ class Image_Barcode2_Driver_Upce extends Image_Barcode2_Common implements Image_
         $xpos = 0;
         
         // print first digit
-        $writer->imagestring(
-            $img,
-            $fontsize,
-            $xpos,
-            $this->getBarcodeHeight(),
-            $key,
-            $black
-        );
+        if ($this->showText) {
+            $writer->imagestring(
+                $img,
+                $fontsize,
+                $xpos,
+                $this->getBarcodeHeight(),
+                $key,
+                $black
+            );
+        }
         $xpos = $writer->imagefontwidth($fontsize) + 1;
         
         
@@ -220,15 +222,18 @@ class Image_Barcode2_Driver_Upce extends Image_Barcode2_Common implements Image_
         $checkdigit = substr($text, 7, 1);
         for ($idx = 1; $idx < 7; $idx ++) {
             $value = substr($text, $idx, 1);
-            $writer->imagestring(
-                $img,
-                $fontsize,
-                $xpos + 1,
-                $this->getBarcodeHeight(),
-                $value, 
-                $black
-            );
-            
+
+            if ($this->showText) {
+                $writer->imagestring(
+                    $img,
+                    $fontsize,
+                    $xpos + 1,
+                    $this->getBarcodeHeight(),
+                    $value, 
+                    $black
+                );
+            }
+
             if ($this->_paritypattern[$checkdigit][$idx-1] == 1) {
                 foreach ($this->_codingmap[$value]['E'] as $bar) {
                     if ($bar) {
@@ -304,14 +309,16 @@ class Image_Barcode2_Driver_Upce extends Image_Barcode2_Common implements Image_
         
         
         // Print Check Digit
-        $writer->imagestring(
-            $img,
-            $fontsize,
-            $xpos + 1,
-            $this->getBarcodeHeight(),
-            $checkdigit,
-            $black
-        );
+        if ($this->showText) {
+            $writer->imagestring(
+                $img,
+                $fontsize,
+                $xpos + 1,
+                $this->getBarcodeHeight(),
+                $checkdigit,
+                $black
+            );
+        }
         
         return $img;
     }

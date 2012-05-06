@@ -188,14 +188,16 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
         }
 
         // draw text under barcode
-        $writer->imagestring(
-            $img,
-            $fontsize,
-            ($barcode_len - $font_width * strlen($text)) / 2,
-            $this->getBarcodeHeight() - $font_height,
-            $text,
-            $black
-        );
+        if ($this->showText) {
+            $writer->imagestring(
+                $img,
+                $fontsize,
+                ($barcode_len - $font_width * strlen($text)) / 2,
+                $this->getBarcodeHeight() - $font_height,
+                $text,
+                $black
+            );
+        }
 
 
         return $img;

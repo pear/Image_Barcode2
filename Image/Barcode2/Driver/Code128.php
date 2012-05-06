@@ -294,14 +294,16 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
 
 
         // First, print the image, centered across the bottom.
-        $writer->imagestring(
-            $img,
-            $fontsize,
-            $barcodewidth / 2 - strlen($text) / 2 * ($writer->imagefontwidth($fontsize)),
-            $this->getBarcodeHeight() + $writer->imagefontheight($fontsize) / 2,
-            $text,
-            $black
-        );
+        if ($this->showText) {
+            $writer->imagestring(
+                $img,
+                $fontsize,
+                $barcodewidth / 2 - strlen($text) / 2 * ($writer->imagefontwidth($fontsize)),
+                $this->getBarcodeHeight() + $writer->imagefontheight($fontsize) / 2,
+                $text,
+                $black
+            );
+        }
 
         // We set $xpos to 10 so we start bar printing after 
         // position 10 to simulate the 10 pixel "Quiet Zone"
