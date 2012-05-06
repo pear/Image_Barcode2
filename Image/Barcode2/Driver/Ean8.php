@@ -186,14 +186,18 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
 
         for ($idx = 0; $idx < 4; $idx ++) {
             $value = substr($text, $idx, 1);
-            $writer->imagestring(
-                $img,
-                $fontsize,
-                $xpos + 1,
-                $this->getBarcodeHeight(),
-                $value,
-                $black
-            );
+
+            if ($this->showText) {
+                $writer->imagestring(
+                    $img,
+                    $fontsize,
+                    $xpos + 1,
+                    $this->getBarcodeHeight(),
+                    $value,
+                    $black
+                );
+            }
+
             foreach ($this->_codingmap[$value]['A'] as $bar) {
                 if ($bar) {
                     $writer->imagefilledrectangle(
@@ -244,14 +248,16 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
         for ($idx = 4; $idx < 8; $idx ++) {
             $value = substr($text, $idx, 1);
 
-            $writer->imagestring(
-                $img,
-                $fontsize,
-                $xpos + 1,
-                $this->getBarcodeHeight(),
-                $value,
-                $black
-            );
+            if ($this->showText) {
+                $writer->imagestring(
+                    $img,
+                    $fontsize,
+                    $xpos + 1,
+                    $this->getBarcodeHeight(),
+                    $value,
+                    $black
+                );
+            }
 
             foreach ($this->_codingmap[$value]['C'] as $bar) {
                 if ($bar) {

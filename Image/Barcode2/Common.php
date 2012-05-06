@@ -41,6 +41,7 @@ class Image_Barcode2_Common
     protected $barcodethinwidth;
     protected $barcodethickwidth;
     protected $fontsize = 2;
+    protected $showText;
 
     /**
      * @var Image_Barcode2_Writer
@@ -105,6 +106,28 @@ class Image_Barcode2_Common
     public function getBarcode() 
     {
         return $this->barcode;
+    }
+
+    /**
+     * Set if text will be placed under the barcode
+     *
+     * @param boolean $showText The text should be placed under barcode
+     *
+     * @return void
+     */
+    public function setShowText($showText) 
+    {
+        $this->showText = $showText;
+    }
+
+    /**
+     * Get if text will be placed under the barcode
+     *
+     * @return boolean
+     */
+    public function getShowText() 
+    {
+        return $this->showText;
     }
 
     public function setFontSize($size)
