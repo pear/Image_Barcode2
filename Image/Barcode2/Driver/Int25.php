@@ -210,5 +210,3 @@ class Image_Barcode2_Driver_Int25 extends Image_Barcode2_Common implements Image
     }
 
 } // class
-
-?>

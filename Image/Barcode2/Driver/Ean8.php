@@ -301,5 +301,3 @@ class Image_Barcode2_Driver_Ean8 extends Image_Barcode2_Common implements Image_
     } // function create
 
 } // class
-
-?>

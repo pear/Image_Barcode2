@@ -399,5 +399,3 @@ class Image_Barcode2_Driver_Code128 extends Image_Barcode2_Common implements Ima
     }
 
 } // class
-
-?>

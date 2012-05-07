@@ -345,5 +345,3 @@ class Image_Barcode2_Driver_Ean13 extends Image_Barcode2_Common implements Image
     } // function create
 
 } // class
-
-?>

@@ -381,5 +381,3 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
     }
 
 } // class
-
-?>
