@@ -172,14 +172,16 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
         $xpos = 0;
 
         // print first digit
-        $writer->imagestring(
-            $img,
-            $fontsize,
-            $xpos,
-            $this->getBarcodeHeight(),
-            $key,
-            $black
-        );
+        if ($this->showText) {
+            $writer->imagestring(
+                $img,
+                $fontsize,
+                $xpos,
+                $this->getBarcodeHeight(),
+                $key,
+                $black
+            );
+        }
         $xpos = $writer->imagefontwidth($fontsize) + 1;
 
 
@@ -229,14 +231,17 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
         // Draw left $text contents
         for ($idx = 1; $idx < 6; $idx ++) {
             $value = substr($text, $idx, 1);
-            $writer->imagestring(
-                $img,
-                $fontsize,
-                $xpos + 1,
-                $this->getBarcodeHeight(),
-                $value, 
-                $black
-            );
+
+            if ($this->showText) {
+                $writer->imagestring(
+                    $img,
+                    $fontsize,
+                    $xpos + 1,
+                    $this->getBarcodeHeight(),
+                    $value,
+                    $black
+                );
+            }
 
             foreach ($this->_codingmap[$value]['L'] as $bar) {
                 if ($bar) {
@@ -286,14 +291,18 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
         // Draw right $text contents
         for ($idx = 6; $idx < 11; $idx ++) {
             $value = substr($text, $idx, 1);
-            $writer->imagestring(
-                $img,
-                $fontsize,
-                $xpos + 1,
-                $this->getBarcodeHeight(),
-                $value,
-                $black
-            );
+
+            if ($this->showText) {
+                $writer->imagestring(
+                    $img,
+                    $fontsize,
+                    $xpos + 1,
+                    $this->getBarcodeHeight(),
+                    $value,
+                    $black
+                );
+            }
+
             foreach ($this->_codingmap[$value]['R'] as $bar) {
                 if ($bar) {
                     $writer->imagefilledrectangle(
@@ -357,14 +366,16 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
 
 
         // Print Check Digit
-        $writer->imagestring(
-            $img,
-            $fontsize,
-            $xpos + 1,
-            $this->getBarcodeHeight(),
-            $value,
-            $black
-        );
+        if ($this->showText) {
+            $writer->imagestring(
+                $img,
+                $fontsize,
+                $xpos + 1,
+                $this->getBarcodeHeight(),
+                $value,
+                $black
+            );
+        }
 
         return $img;
     }

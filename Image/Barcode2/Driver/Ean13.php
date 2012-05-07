@@ -190,16 +190,19 @@ class Image_Barcode2_Driver_Ean13 extends Image_Barcode2_Common implements Image
         $xpos = 0;
 
         // print first digit
-        $writer->imagestring(
-            $img,
-            $fontsize,
-            $xpos, 
-            $this->getBarcodeHeight(), 
-            $key, 
-            $black
-        );
+        if ($this->showText) {
+            $writer->imagestring(
+                $img,
+                $fontsize,
+                $xpos,
+                $this->getBarcodeHeight(),
+                $key,
+                $black
+            );
 
-        $xpos = $writer->imagefontwidth($fontsize) + 1;
+            $xpos = $writer->imagefontwidth($fontsize) + 1;
+        };
+
 
         // Draws the left guard pattern (bar-space-bar)
         // bar
@@ -230,14 +233,16 @@ class Image_Barcode2_Driver_Ean13 extends Image_Barcode2_Common implements Image
         for ($idx = 1; $idx < 7; $idx ++) {
             $value = substr($text, $idx, 1);
 
-            $writer->imagestring(
-                $img,
-                $fontsize,
-                $xpos + 1, 
-                $this->getBarcodeHeight(), 
-                $value, 
-                $black
-            );
+            if ($this->showText) {
+                $writer->imagestring(
+                    $img,
+                    $fontsize,
+                    $xpos + 1, 
+                    $this->getBarcodeHeight(), 
+                    $value, 
+                    $black
+                );
+            }
 
             foreach ($this->_codingmap[$value][$set_array[$idx - 1]] as $bar) {
                 if ($bar) {
@@ -287,14 +292,16 @@ class Image_Barcode2_Driver_Ean13 extends Image_Barcode2_Common implements Image
         for ($idx = 7; $idx < 13; $idx ++) {
             $value = substr($text, $idx, 1);
 
-            $writer->imagestring(
-                $img,
-                $fontsize,
-                $xpos + 1,
-                $this->getBarcodeHeight(),
-                $value,
-                $black
-            );
+            if ($this->showText) {
+                $writer->imagestring(
+                    $img,
+                    $fontsize,
+                    $xpos + 1,
+                    $this->getBarcodeHeight(),
+                    $value,
+                    $black
+                );
+            }
 
             foreach ($this->_codingmap[$value]['C'] as $bar) {
                 if ($bar) {
