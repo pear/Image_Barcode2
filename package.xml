@@ -49,21 +49,22 @@ PHPCS
    <file baseinstalldir="Image" md5sum="62714a47cbc3d35f483be34324197936" name="docs/ChangeLog" role="doc" />
    <file baseinstalldir="Image" md5sum="c27a1c8b14ee9d792819abafbfa20c85" name="docs/Readme.txt" role="doc" />
    <file baseinstalldir="Image" md5sum="d274880933d54b873c9589087766c124" name="docs/examples/barcode_img.php" role="doc" />
-   <file baseinstalldir="Image" md5sum="07ecde340ef052307a4f61252f585039" name="docs/examples/test-image-barcode.php" role="doc" />
-   <file baseinstalldir="/" md5sum="66707cecf52f7839bf6a0d780c8499ab" name="Image/Barcode2.php" role="php" />
-   <file baseinstalldir="/" md5sum="76ba5c2b93622d89bb14624505b80d35" name="Image/Barcode2/Common.php" role="php" />
+   <file baseinstalldir="Image" md5sum="47488962a6713fae1a56959dcd27d858" name="docs/examples/test-image-barcode.php" role="doc" />
+   <file baseinstalldir="/" md5sum="430d3cbb521f20c18db7fd55739539b5" name="Image/Barcode2.php" role="php" />
+   <file baseinstalldir="/" md5sum="1192b8a53c3e07de9768cb3fdf84cd1f" name="Image/Barcode2/Common.php" role="php" />
    <file baseinstalldir="/" md5sum="7edeac1655f949e31222e5dbe035e8a6" name="Image/Barcode2/Driver.php" role="php" />
    <file baseinstalldir="/" md5sum="fe4788592cfbc7fb0280d6beb1d2b2b9" name="Image/Barcode2/DualHeight.php" role="php" />
    <file baseinstalldir="/" md5sum="cd06591f1e8ade75a8999c44ad57db90" name="Image/Barcode2/DualWidth.php" role="php" />
    <file baseinstalldir="/" md5sum="a245e697341d4d3c0cce3593e075bb13" name="Image/Barcode2/Exception.php" role="php" />
    <file baseinstalldir="/" md5sum="169de39ec13dc21f7e485c9ece549851" name="Image/Barcode2/Writer.php" role="php" />
-   <file baseinstalldir="/" md5sum="ce01e0001fcf24eed57c902478bd1ed6" name="Image/Barcode2/Driver/Code39.php" role="php" />
-   <file baseinstalldir="/" md5sum="d9b81de99ba7c84e3e8646e94e18d98e" name="Image/Barcode2/Driver/Code128.php" role="php" />
-   <file baseinstalldir="/" md5sum="b82de5e188d541c2eb2ad5eb727e6689" name="Image/Barcode2/Driver/Ean8.php" role="php" />
-   <file baseinstalldir="/" md5sum="3c8da9bf73fe44b9a42173b08324ecf1" name="Image/Barcode2/Driver/Ean13.php" role="php" />
-   <file baseinstalldir="/" md5sum="a0299f8a550ba514e0f9cd9167921059" name="Image/Barcode2/Driver/Int25.php" role="php" />
-   <file baseinstalldir="/" md5sum="c77080bc52fa5d6c710295669216cceb" name="Image/Barcode2/Driver/Postnet.php" role="php" />
-   <file baseinstalldir="/" md5sum="9c9c8ec18931bc0350fab0892e7621ad" name="Image/Barcode2/Driver/Upca.php" role="php" />
+   <file baseinstalldir="/" md5sum="72063e89e31b2ad1b964e71ba26c496e" name="Image/Barcode2/Driver/Code39.php" role="php" />
+   <file baseinstalldir="/" md5sum="112fbd79e07dc22297f76c26fb31fccc" name="Image/Barcode2/Driver/Code128.php" role="php" />
+   <file baseinstalldir="/" md5sum="ab7ce83803ebbb0591dbed7d87e61fe6" name="Image/Barcode2/Driver/Ean8.php" role="php" />
+   <file baseinstalldir="/" md5sum="6bd8cf618ef67f23f7631c6a985939ee" name="Image/Barcode2/Driver/Ean13.php" role="php" />
+   <file baseinstalldir="/" md5sum="3733d8f9899474946149536cd80e6a3c" name="Image/Barcode2/Driver/Int25.php" role="php" />
+   <file baseinstalldir="/" md5sum="15b225cdf94e4b620b8dceec8770e6a8" name="Image/Barcode2/Driver/Postnet.php" role="php" />
+   <file baseinstalldir="/" md5sum="0202a6066ea3c5785f0b84a15e69d855" name="Image/Barcode2/Driver/Upca.php" role="php" />
+   <file baseinstalldir="/" md5sum="63f4db95ec6f7589b98f0c1cc1dd6cfa" name="Image/Barcode2/Driver/Upce.php" role="php" />
    <file baseinstalldir="/" md5sum="1abec4811830a7cbfcd357eaf2089964" name="tests/Image_Barcode2Test.php" role="test" />
    <file baseinstalldir="/" md5sum="4599d66d9092baec4286443e1a6d678e" name="build.xml" role="data" />
    <file baseinstalldir="/" md5sum="e9d89152910001df5be865aa37ab9733" name="phpunit.xml" role="data" />

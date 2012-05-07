@@ -44,9 +44,9 @@ class Image_Barcode2
     /**
      * Image type
      */
-    const IMAGE_PNG = 'png';
-    const IMAGE_GIF = 'gif';
-    const IMAGE_JPEG = 'jpg';
+    const IMAGE_PNG     = 'png';
+    const IMAGE_GIF     = 'gif';
+    const IMAGE_JPEG    = 'jpg';
 
     /**
      * Barcode type
@@ -63,10 +63,10 @@ class Image_Barcode2
     /**
      * Rotation type
      */
-    const ROTATE_NONE    = '0';
-    const ROTATE_RIGHT    = '90';
-    const ROTATE_UTURN    = '180';
-    const ROTATE_LEFT    = '270';
+    const ROTATE_NONE     = 0;
+    const ROTATE_RIGHT    = 90;
+    const ROTATE_UTURN    = 180;
+    const ROTATE_LEFT     = 270;
 
 
     /**

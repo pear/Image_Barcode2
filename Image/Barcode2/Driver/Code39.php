@@ -234,5 +234,3 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
         return $result;
     }
 }
-
-?>

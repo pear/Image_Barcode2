@@ -195,5 +195,3 @@ class Image_Barcode2_Driver_Postnet extends Image_Barcode2_Common implements Ima
     }
 
 } // class
-
-?>

@@ -324,5 +324,3 @@ class Image_Barcode2_Driver_Upce extends Image_Barcode2_Common implements Image_
     }
 
 } // class
-
-?>
