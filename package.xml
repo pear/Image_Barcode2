@@ -26,10 +26,10 @@
   <email>gemorroj@php.net</email>
   <active>yes</active>
  </lead>
- <date>2012-04-15</date>
- <time>12:20:11</time>
+ <date>2012-10-22</date>
+ <time>13:06:31</time>
  <version>
-  <release>0.2.1</release>
+  <release>0.2.2</release>
   <api>0.2.1</api>
  </version>
  <stability>
@@ -38,11 +38,9 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-Fixes on rendering PostNet, EAN 8 and EAN 13 barcodes.
-Renamed package files. This fixes Code39 on *nix platforms.
-Updated barcode validators.
-Updated examples.
-PHPCS
+Add showtext and rotation option
+Adding UPC-E image
+Bug #19390 UPC-A image is not quite right
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -226,6 +224,23 @@ Renamed package files. This fixes Code39 on *nix platforms.
 Updated barcode validators.
 Updated examples.
 PHPCS
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.2</release>
+    <api>0.2.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2012-10-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Add showtext and rotation option
+Adding UPC-E image
+Bug #19390 UPC-A image is not quite right
    </notes>
   </release>
  </changelog>
