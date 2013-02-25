@@ -38,11 +38,7 @@
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>
-Fixes on rendering PostNet, EAN 8 and EAN 13 barcodes.
-Renamed package files. This fixes Code39 on *nix platforms.
-Updated barcode validators.
-Updated examples.
-PHPCS
+Bug #19835 Fixed package
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
