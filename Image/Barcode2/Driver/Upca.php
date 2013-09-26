@@ -139,6 +139,12 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
         $writer   = $this->getWriter();
         $fontsize = $this->getFontSize();
 
+        $tmpW = $this->getBarcodeWidth();
+        $extraW = 0;
+        if ($tmpW > 1) {
+            $extraW = round(11 * ($tmpW - 1));
+        }
+
         // Calculate the barcode width
         $barcodewidth = (strlen($text)) * (7 * $this->getBarcodeWidth())
             + 3 // left
@@ -146,6 +152,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
             + 3 // right
             + $writer->imagefontwidth($fontsize) + 1
             + $writer->imagefontwidth($fontsize) + 1 // check digit padding
+            + $extraW
             ;
 
 
