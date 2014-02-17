@@ -18,7 +18,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Image_Barcode2": "./"
+            "Image": "./"
         }
     },
     "description": "A PHP5 revamp of the Image_Barcode package",
