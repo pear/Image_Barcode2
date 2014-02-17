@@ -1,0 +1,41 @@
+{
+    "authors": [
+        {
+            "email": "msmarcal@php.net",
+            "name": "Marcelo Subtil Marcal",
+            "role": "Lead"
+        },
+        {
+            "email": "clockwerx@php.net",
+            "name": "Daniel O'Connor",
+            "role": "Lead"
+        },
+        {
+            "email": "gemorroj@php.net",
+            "name": "Pavel Dyakonov",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Image_Barcode2": "./"
+        }
+    },
+    "description": "A PHP5 revamp of the Image_Barcode package",
+    "include-path": [
+        "./"
+    ],
+    "license": "PHP License",
+    "name": "pear/image_barcode2",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Image_Barcode2",
+        "source": "https://github.com/pear/Image_Barcode2"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
