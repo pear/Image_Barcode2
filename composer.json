@@ -32,9 +32,6 @@
         "source": "https://github.com/pear/Image_Barcode2"
     },
     "type": "library",
-    "require": {
-        "pear/pear_exception": "*"
-    },
     "require-dev": {
         "phpunit/phpunit": "*"
     }
