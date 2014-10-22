@@ -145,7 +145,7 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
 			$prefix = '';
 			if($character > 'a' && $character < 'z'){
 				$prefix+=$this->_codingmap['+'].'0';
-				$character = mb_strtoupper($character);
+				$character = strtoupper($character);
 			}
             $barcode .= $this->_dumpCode($prefix.$this->_codingmap[$character] . '0');
         }
