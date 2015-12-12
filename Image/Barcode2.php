@@ -72,24 +72,24 @@ class Image_Barcode2
     /**
      * Draws a image barcode
      *
-     * @param string  $text           A text that should be in the image barcode
-     * @param string  $type           The barcode type. Supported types:
-     *                                code39 - Code 3 of 9
-     *                                int25  - 2 Interleaved 5
-     *                                ean13  - EAN 13
-     *                                upca   - UPC-A
-     *                                upce   - UPC-E
-     *                                code128
-     *                                ean8
-     *                                postnet
-     * @param string  $imgtype        The image type that will be generated
-     *                                (gif, jpg, png)
-     * @param boolean $bSendToBrowser if the image shall be outputted to the
-     *                                 browser, or be returned.
-     * @param integer $height         The image height
-     * @param integer $width          The image width
-     * @param boolean $showText       The text should be placed under barcode
-     * @param integer $rotation       The rotation angle
+     * @param string  $text          A text that should be in the image barcode
+     * @param string  $type          The barcode type. Supported types:
+     *                               code39 - Code 3 of 9
+     *                               int25  - 2 Interleaved 5
+     *                               ean13  - EAN 13
+     *                               upca   - UPC-A
+     *                               upce   - UPC-E
+     *                               code128
+     *                               ean8
+     *                               postnet
+     * @param string  $imgType       The image type that will be generated
+     *                               (gif, jpg, png)
+     * @param boolean $sendToBrowser If the image shall be outputted to the
+     *                               browser, or be returned.
+     * @param integer $height        The image height
+     * @param integer $width         The image width
+     * @param boolean $showText      The text should be placed under barcode
+     * @param integer $rotation      The rotation angle
      *
      * @return resource The corresponding gd image resource
      *               
@@ -101,15 +101,15 @@ class Image_Barcode2
      */
     public static function draw($text, 
         $type = Image_Barcode2::BARCODE_INT25,
-        $imgtype = Image_Barcode2::IMAGE_PNG, 
-        $bSendToBrowser = true,
+        $imgType = Image_Barcode2::IMAGE_PNG,
+        $sendToBrowser = true,
         $height = 60,
         $width = 1,
         $showText = true,
         $rotation = Image_Barcode2::ROTATE_NONE
     ) {
         //Make sure no bad files are included
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $type)) {
+        if (!preg_match('/^[a-z0-9]+$/', $type)) {
             throw new Image_Barcode2_Exception('Invalid barcode type ' . $type);
         }
 
@@ -146,9 +146,9 @@ class Image_Barcode2
             $img = imagerotate($img, $rotation, 0);
         }
 
-        if ($bSendToBrowser) {
+        if ($sendToBrowser) {
             // Send image to browser
-            switch ($imgtype) {
+            switch ($imgType) {
             case self::IMAGE_GIF:
                 header('Content-type: image/gif');
                 imagegif($img);

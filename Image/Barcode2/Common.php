@@ -34,7 +34,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_Common
+abstract class Image_Barcode2_Common
 {
     protected $barcodeheight;
     protected $barcodewidth;
@@ -130,31 +130,67 @@ class Image_Barcode2_Common
         return $this->showText;
     }
 
+    /**
+     * Set font size
+     *
+     * @param int $size Size
+     *
+     * @return void
+     */
     public function setFontSize($size)
     {
         $this->fontsize = $size;
     }
 
+    /**
+     * Get font size
+     *
+     * @return int
+     */
     public function getFontSize()
     {
         return $this->fontsize;
     }
 
+    /**
+     * Set barcode height
+     *
+     * @param int $height Height
+     *
+     * @return void
+     */
     public function setBarcodeHeight($height) 
     {
         $this->barcodeheight = $height;
     }
 
+    /**
+     * Get barcode height
+     *
+     * @return int
+     */
     public function getBarcodeHeight()
     {
         return $this->barcodeheight;
     }
 
+    /**
+     * Set barcode width
+     *
+     * @param int $width Width
+     *
+     * @return void
+     */
     public function setBarcodeWidth($width)
     {
         $this->barcodewidth = $width;
     }
 
+    /**
+     * Get barcode width
+     *
+     * @return int
+     */
     public function getBarcodeWidth()
     {
         return $this->barcodewidth;

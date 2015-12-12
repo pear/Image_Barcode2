@@ -68,4 +68,13 @@ interface Image_Barcode2_Driver
      * @throws Image_Barcode2_Exception
      */
     public function validate();
+
+    /**
+     * Set if text will be placed under the barcode
+     *
+     * @param boolean $showText The text should be placed under barcode
+     *
+     * @return void
+     */
+    public function setShowText($showText);
 }

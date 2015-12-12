@@ -138,19 +138,27 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
         $text     = $this->getBarcode();
         $writer   = $this->getWriter();
         $fontsize = $this->getFontSize();
+        $width    = $this->getBarcodeWidth();
+        $height   = $this->getBarcodeHeight();
+
+        $extraW = 0;
+        if ($width > 1) {
+            $extraW = round(11 * ($width - 1));
+        }
 
         // Calculate the barcode width
-        $barcodewidth = (strlen($text)) * (7 * $this->getBarcodeWidth())
+        $barcodewidth = (strlen($text)) * (7 * $width)
             + 3 // left
             + 5 // center
             + 3 // right
             + $writer->imagefontwidth($fontsize) + 1
             + $writer->imagefontwidth($fontsize) + 1 // check digit padding
+            + $extraW
             ;
 
 
         $barcodelongheight = (int)($writer->imagefontheight($fontsize) / 2)
-            + $this->getBarcodeHeight();
+            + $height;
 
         // Create the image
         $img = $writer->imagecreate(
@@ -177,7 +185,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                 $img,
                 $fontsize,
                 $xpos,
-                $this->getBarcodeHeight(),
+                $height,
                 $key,
                 $black
             );
@@ -191,25 +199,25 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
             $img,
             $xpos,
             0,
-            $xpos + $this->getBarcodeWidth() - 1,
+            $xpos + $width - 1,
             $barcodelongheight,
             $black
         );
 
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // space
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // bar
         $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->getBarcodeWidth() - 1,
+            $xpos + $width - 1,
             $barcodelongheight,
             $black
         );
 
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
 
 
         foreach ($this->_codingmap[$key]['L'] as $bar) {
@@ -218,12 +226,12 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                     $img,
                     $xpos,
                     0,
-                    $xpos + $this->getBarcodeWidth() - 1,
+                    $xpos + $width - 1,
                     $barcodelongheight,
                     $black
                 );
             }
-            $xpos += $this->getBarcodeWidth();
+            $xpos += $width;
         }
 
 
@@ -237,7 +245,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                     $img,
                     $fontsize,
                     $xpos + 1,
-                    $this->getBarcodeHeight(),
+                    $height,
                     $value,
                     $black
                 );
@@ -249,43 +257,43 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                         $img,
                         $xpos,
                         0,
-                        $xpos + $this->getBarcodeWidth() - 1,
-                        $this->getBarcodeHeight(),
+                        $xpos + $width - 1,
+                        $height,
                         $black
                     );
                 }
-                $xpos += $this->getBarcodeWidth();
+                $xpos += $width;
             }
         }
 
 
         // Draws the center pattern (space-bar-space-bar-space)
         // space
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // bar
         $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->getBarcodeWidth() - 1,
+            $xpos + $width - 1,
             $barcodelongheight,
             $black
         );
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // space
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // bar
         $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->getBarcodeWidth() - 1,
+            $xpos + $width - 1,
             $barcodelongheight,
             $black
         );
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // space
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
 
 
         // Draw right $text contents
@@ -297,7 +305,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                     $img,
                     $fontsize,
                     $xpos + 1,
-                    $this->getBarcodeHeight(),
+                    $height,
                     $value,
                     $black
                 );
@@ -309,12 +317,12 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                         $img,
                         $xpos,
                         0,
-                        $xpos + $this->getBarcodeWidth() - 1,
-                        $this->getBarcodeHeight(),
+                        $xpos + $width - 1,
+                        $height,
                         $black
                     );
                 }
-                $xpos += $this->getBarcodeWidth();
+                $xpos += $width;
             }
         }
 
@@ -327,13 +335,13 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                     $img,
                     $xpos,
                     0,
-                    $xpos + $this->getBarcodeWidth() - 1,
+                    $xpos + $width - 1,
                     $barcodelongheight,
                     $black
                 );
 
             }
-            $xpos += $this->getBarcodeWidth();
+            $xpos += $width;
         }
 
 
@@ -344,25 +352,25 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
             $img,
             $xpos,
             0,
-            $xpos + $this->getBarcodeWidth() - 1,
+            $xpos + $width - 1,
             $barcodelongheight,
             $black
         );
 
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // space
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
         // bar
         $writer->imagefilledrectangle(
             $img,
             $xpos,
             0,
-            $xpos + $this->getBarcodeWidth() - 1,
+            $xpos + $width - 1,
             $barcodelongheight,
             $black
         );
 
-        $xpos += $this->getBarcodeWidth();
+        $xpos += $width;
 
 
         // Print Check Digit
@@ -371,7 +379,7 @@ class Image_Barcode2_Driver_Upca extends Image_Barcode2_Common implements Image_
                 $img,
                 $fontsize,
                 $xpos + 1,
-                $this->getBarcodeHeight(),
+                $height,
                 $value,
                 $black
             );
