@@ -118,7 +118,7 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
     public function validate()
     {
         // Check barcode for invalid characters
-        if (preg_match("/[^0-9A-Z\-*+\$%\/. ]/", $this->getBarcode())) {
+        if (preg_match("/[^0-9A-Za-z\-*+\$%\/. ]/", $this->getBarcode())) {
             throw new Image_Barcode2_Exception('Invalid barcode');
         }
     }
@@ -142,7 +142,12 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
 
         $barcode = '';
         foreach (str_split($final_text) as $character) {
-            $barcode .= $this->_dumpCode($this->_codingmap[$character] . '0');
+			$prefix = '';
+			if($character > 'a' && $character < 'z'){
+				$prefix+=$this->_codingmap['+'].'0';
+				$character = strtoupper($character);
+			}
+            $barcode .= $this->_dumpCode($prefix.$this->_codingmap[$character] . '0');
         }
 
         $barcode_len = strlen($barcode);
