@@ -143,11 +143,11 @@ class Image_Barcode2_Driver_Code39 extends Image_Barcode2_Common implements Imag
         $barcode = '';
         foreach (str_split($final_text) as $character) {
 			$prefix = '';
-			if($character > 'a' && $character < 'z'){
-				$prefix+=$this->_codingmap['+'].'0';
+			if ($character > 'a' && $character < 'z') {
+				$prefix += $this->_codingmap['+'] . '0';
 				$character = strtoupper($character);
 			}
-            $barcode .= $this->_dumpCode($prefix.$this->_codingmap[$character] . '0');
+            $barcode .= $this->_dumpCode($prefix . $this->_codingmap[$character] . '0');
         }
 
         $barcode_len = strlen($barcode);
