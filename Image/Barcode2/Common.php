@@ -34,7 +34,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Image_Barcode2
  */
-class Image_Barcode2_Common
+abstract class Image_Barcode2_Common
 {
     protected $barcodeheight;
     protected $barcodewidth;
