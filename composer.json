@@ -19,7 +19,10 @@
     "autoload": {
         "psr-0": {
             "Image": "./"
-        }
+        },
+        "classmap": [
+            "tests/Image_Barcode2Test.php"
+        ]
     },
     "description": "A PHP revamp of the Image_Barcode package",
     "include-path": [
